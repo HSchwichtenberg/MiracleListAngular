@@ -1,0 +1,11 @@
+<!--Unteraufgaben-->
+<div class="form-group">
+    <label for="tasknote">Teilaufgaben</label>
+    <input type="text" class="form-control" name="newSubTaskTitle" [(ngModel)]="newSubTaskTitle" (change)="createSubTask($event)" placeholder="neue Teilaufgabe...">
+    <div class="list-group">
+        <a *ngFor="let st of task.subTaskSet" class="list-group-item">
+            <input name="done{{st.taskID}}" type="checkbox" [(ngModel)]="st.done" [ngModelOptions]="{standalone: true}" (change)="changeTask()">
+            <span [style.text-decoration]="st.done ? 'line-through' : 'none'"> {{st.title }}</span>
+            <a (click)="removeSubTask(st)" class="close">&times;</a></a>
+    </div>
+</div>

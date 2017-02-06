@@ -1,0 +1,23 @@
+<div *ngIf="task">
+    <div class="row">
+        <span class="col-xs-6">
+     <h4 style="margin: 0px">Aufgabe</h4>    </span>
+        <span class="col-xs-6" style="text-align: right">
+    <button lass="btn btn-info" (click)="gotoEdit()" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs">Bearbeiten</span></button>
+        </span>
+    </div>
+
+    <h4 style="margin-bottom: 10px;margin-top:0px">{{task.title}}</h4>
+    <div> <b>Wichtigkeit:</b> {{task.importance | importance}}</div>
+
+    <div *ngIf="task.due" [ngClass]="{'text-danger': task.due>today, 'text-warning': task.due==today, 'text-success': task.due<today}">
+        <b>Fällig am:</b> {{task.due | amDateFormat: 'L'}}</div>
+    <div *ngIf="task.effort" style="margin-bottom: 15px;">
+        <b>Aufwand:</b> {{task.effort}}</div>
+
+    <SubTaskList [task]="task" (subTaskListChangedEvent)="reload($event)"></SubTaskList>
+    <div *ngIf="task.note">
+        <label>Notiz</label>
+        <div class="list-group-item" [innerHTML]="task.note | br"></div>
+    </div>
+</div>

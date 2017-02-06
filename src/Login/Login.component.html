@@ -1,0 +1,33 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Benutzeranmeldung</h2>
+    </div>
+    <div class="panel-body">
+
+        <div>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) zur Aufgabenverwaltung.</div>
+        <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
+        <div>Zur Benutzeranmeldung geben Sie eine beliebige Kombination aus Benutzername und Kennwort ein. Wenn es das Benutzerkonto noch nicht gibt, wird automatisch ein neues Benutzerkonto angelegt mit einigen Beispielaufgaben.
+        </div>
+        <br>
+        <form #loginForm="ngForm">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="name">Benutzername (Ihre E-Mail-Adresse)</label>
+                    <input name="name" [(ngModel)]="name" id="name" type="text" placeholder="Ihre E-Mail-Adresse" required class="form-control">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="password">Kennwort</label>
+                    <input name="password" [(ngModel)]="password" id="password" placeholder="Ihr Kennwort" required type="password" class="form-control">
+
+                </div>
+            </div>
+
+            <span class="text-danger">{{errorMsg}}</span>
+            <button (click)="login()" [disabled]="!loginForm.form.valid" class="btn btn-primary" type="submit" id="Anmelden" name="Anmelden">Anmelden</button>
+        </form>
+    </div>
+</div>

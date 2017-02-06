@@ -1,0 +1,52 @@
+<div *ngIf="task" class="col-xs-4" style="padding: 0">
+    <div style="margin:0px 25px 0px 0px">
+        <h4 style="margin: 0px">Aufgabe</h4>
+        <form #taskForm="ngForm">
+            <!--Schaltflächen-->
+            <button type="button" [disabled]="!taskForm.form.valid" (click)="submit(taskForm)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> <span class="hidden-xs">Speichern</span></button>
+            <button type="button" (click)="cancel()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> <span class="hidden-xs">Abbrechen</span></button>
+            <!--Titel-->
+            <div class="form-group">
+                <label for="tasktitle">Titel</label>
+                <input name="tasktitle" #tt #tasktitle="ngModel" type="text" [(ngModel)]="task.title " required class="form-control">
+            </div>
+            <!--Validatorausgabe Titel-->
+            <div [hidden]="tasktitle.valid || tasktitle.pristine" class="alert alert-danger ">
+                Der Titel darf nicht leer sein!
+            </div>
+
+            <div class="row">
+                <!--Wichtigkeit-->
+                <span class="col-xs-3">
+            <div class="form-group ">
+                <label for="taskimportance ">Wichtigkeit</label>
+                <select name="taskimportance" [(ngModel)]="task.importance" class="form-control">
+                 <option value="0">A</option>
+                 <option value="1">B</option>
+                 <option value="2">C</option>
+               </select>
+            </div>
+            </span>
+                <!--Aufwand-->
+                <span class="col-xs-3">
+                   <label for="taskeffort ">Aufwand</label>
+            <input name="taskeffort" type="number" [(ngModel)]="task.effort" class="form-control">
+            </span>
+                <!--Fälligkeit-->
+                <span class="col-xs-6">
+            <div class="form-group">
+                <label for="taskDue">Fällig am</label>
+                <datetime name="taskDue " [(ngModel)]="task.due" 
+                [datepicker]="{autoclose: true, format: 'dd. MM.yyyy'}" [timepicker]="false" >
+                </datetime>
+            </div></span></div>
+            <!--Unteraufgaben-->
+            <SubTaskList [task]="task " (subTaskListChangedEvent)="reload($event) "></SubTaskList>
+            <!--Notiz-->
+            <div class="form-group ">
+                <label for="tasknote ">Notiz</label>
+                <textarea name="tasknote " rows="5 " [(ngModel)]="task.note " class="form-control "></textarea>
+            </div>
+        </form>
+    </div>
+</div>

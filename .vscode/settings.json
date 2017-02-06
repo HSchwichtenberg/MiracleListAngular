@@ -1,0 +1,14 @@
+{
+    "tslint.enable": true,
+    "typescript.check.workspaceVersion": false,
+    "editor.tabSize": 1,
+    "editor.detectIndentation": true,
+    "editor.wordWrap": true,
+    "editor.tabCompletion": true,
+    "files.exclude": {
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/*.js.map": true,
+        "dist*": true
+    }
+
+}

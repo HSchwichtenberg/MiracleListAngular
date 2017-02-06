@@ -1,0 +1,6 @@
+{
+  "skipGit" : true,
+  "port" : 4400,
+  "liveReload" : true,
+  "checkForUpdates" : false
+}

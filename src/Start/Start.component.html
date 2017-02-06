@@ -1,0 +1,29 @@
+<div class="row" style="background: white; margin-bottom: 10px">
+
+    <span class="col-xs-5 col-lg-3">
+
+
+<img (click)="about()" src="/assets/MiracleListLogo.jpg">
+ </span>
+    <span class="col-xs-6 col-lg-8" style="vertical-align: center">
+<div style="margin-top: 3px;">Beispielanwendung</div>
+<div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
+<div *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</div>
+  </span>
+    <span class="col-xs-1">
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span style="font-size: 2.2em" class="glyphicon glyphicon-menu-hamburger icon-primary"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a (click)="about()">Über MiracleList</a></li>
+        <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
+        <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
+    </ul>
+    </li>
+    </ul>
+    </span>
+</div>
+<router-outlet></router-outlet>
