@@ -5,7 +5,7 @@ export class MiracleListClientPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
+  getHeadline() {
     return element(by.css('start h2')).getText();
   }
 }
