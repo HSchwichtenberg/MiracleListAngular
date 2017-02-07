@@ -29,17 +29,16 @@ export class AppComponent implements OnInit {
   private category: Category; // Aktuelle Kategorie
   private taskSet: Array<Task>;
   private task: Task; // Aktuelle Aufgabe
-  private newTaskTitle: string;
-  private newCategoryName: string;
-  private searchText: string;
+  private newCategoryName: string; // neue Kategorie
+  private newTaskTitle: string; // neue Aufgabe
+  private searchText: string; // Suchtext
   private categorySetWithTaskSet: Array<Category>; // Suchergebnisse
   private dueTaskSet: Array<Category>; // fällige Aufgaben
   private displayMode: DisplayMode;
 
   // weitere Attribute
   private today: Date = new Date();
-  //  private token: string;  // vorübergehende Anmeldelösung nur für Teil 1 und 2
-
+  //  private token: string;  // vorübergehende Anmeldelösung nur für Teil 1 und 2 des iX-Tutorials
 
   // ================ Konstruktor
   constructor(private miracleListProxy: MiracleListProxy,
@@ -49,7 +48,7 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute, // für Ansprung per Route
   ) {
     console.log("======= AppComponent:Constructor");
-    // vorübergehende Anmeldelösung nur für Teil 1 und 2
+    // vorübergehende Anmeldelösung nur für Teil 1 und 2 des iX-Tutorials
     // var li = new LoginInfo();
     // li.clientID = "Ihre erhaltene ClientID";
     // li.username = "Ihr E-Mail-Adresse";
