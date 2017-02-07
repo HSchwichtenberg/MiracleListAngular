@@ -10,6 +10,9 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 // MomentJS
 import * as moment from 'moment';
 
+// Versionsnummer auslesen
+var pckg = require('../../package.json');
+// 
 
 @Component({
  selector: 'Start',
@@ -18,7 +21,10 @@ import * as moment from 'moment';
 export class StartComponent implements OnInit {
 
  ngOnInit() { console.log("======= LoginComponent:ngOnInit");
-console.log(moment().localeData()); }
+    console.log("Anwendung: " + pckg.name);
+    console.log("Version: " + pckg.version +  " vom " + pckg.date);
+    console.log("Sprache: " + (<any>moment().localeData())._abbr); 
+}
 
  constructor(private miracleListProxy : MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, ) {
   overlay.defaultViewContainer = vcr;
@@ -41,7 +47,7 @@ console.log(moment().localeData()); }
    .body(`
             <h4>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) zur Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.4.2 vom 30.01.2017</div>
+            <div>Version: ${pckg.version} vom ${pckg.date}</div>
      
             <h5>Webadressen:</h5>
             <ul>
@@ -63,7 +69,8 @@ console.log(moment().localeData()); }
             </ul>
             
             <div>` + (this.isLoggedIn ? `<div>Angemelderter Benutzer: ${this.communicationService.username} (Token: ${this.communicationService.token})` : "") + `</div>` +
-   "<div>Spracheinstellungen: " + (<any>moment().localeData())._abbr + "/" + window.navigator.language + "</div>"
+//    "<div>Spracheinstellungen: " + (<any>moment().localeData())._abbr + "/" + window.navigator.language + "</div>"
+""
    )
    .open();
 
