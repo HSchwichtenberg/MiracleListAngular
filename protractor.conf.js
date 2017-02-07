@@ -10,7 +10,9 @@ exports.config = {
         './e2e/**/*.e2e-spec.ts'
     ],
     capabilities: {
-        'browserName': 'chrome'
+        'browserName': 'firefox' /*firefox' /*internet explorer' /*chrome */
+            /* Während Chrome und FireFox den Silenium WebDriver inzwischen direkt unterstützen, muss der Entwickler für Internet Explorer[https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver], Edge [https://www.microsoft.com/en-us/download/details.aspx?id=48212] und Opera [https://github.com/operasoftware/operachromiumdriver] vorher einen Treiber auf seinem System installieren.
+             */
     },
     directConnect: true,
     baseUrl: 'http://localhost:4400/',
