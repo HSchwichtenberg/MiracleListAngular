@@ -23,6 +23,9 @@
 </ul>
 
 --------------------------------------------------------
+Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit npm restore wiederherstellen!
+
+--------------------------------------------------------
 # Es folgt die Original-Readme-Datei von Angular-CLI
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.

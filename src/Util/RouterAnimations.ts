@@ -1,3 +1,5 @@
+// Quelle: https://embed.plnkr.co/PcRpcGK2duGw0HdaGaF5/?show=preview
+
 import {trigger, state, animate, style, transition} from '@angular/core';
 
 export function slideToLeft() {
