@@ -40,8 +40,8 @@
 
 
 
-    <!-- ### Spalte 2: Suchergebnisse (fallweise einblendet. tlw. Codeduplikat :-( ))-->
-    <div [ngClass]="{'col-xs-10': !task, 'col-xs-6': task}" *ngIf="categorySetWithTaskSet">
+    <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
+    <div [ngClass]="{'col-xs-9 col-lg-10': !task, 'col-xs-5 col-lg-6': task}" *ngIf="categorySetWithTaskSet">
         <h4 style="margin: 0px">Suchergebnisse in {{categorySetWithTaskSet.length}} Kategorien</h4>
 
         <div *ngFor="let c of categorySetWithTaskSet">
