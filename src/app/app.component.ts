@@ -130,18 +130,19 @@ export class AppComponent implements OnInit {
   // }
 
   selectCategory(c: Category) {
+    console.log("selectCategory",c);
     this.task = null;
     this.searchText = null;
+    this.displayMode = DisplayMode.TaskSet;
+    this.category = c;
+    this.categorySetWithTaskSet = null;
     this.communicationService.navigate(`/app)`); // Ansicht aufrufen
     this.showTaskSet(c);
   }
 
   async showTaskSet(c: Category) {
     console.log("TaskSet LADEN...");
-    this.categorySetWithTaskSet = null;
-    this.category = c;
     let x = await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).toPromise();
-    this.displayMode = DisplayMode.TaskSet;
     this.taskSet = x;
  console.log("TaskSet GELADEN", x)
   }

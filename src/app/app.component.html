@@ -8,13 +8,12 @@
  <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
          </a>
         <div class="list-group ">
-            <a *ngFor="let c of categorySet" (click)="selectCategory(c.categoryID)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
+            <a *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
    
           <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></a>
 
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="suche...">
-
 
             <!--<a (click)="selectCategory(0)" class="list-group-item"> 
                 Erledigte Aufgaben</a>-->
