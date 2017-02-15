@@ -2,7 +2,7 @@
 
  <h4>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) zur Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.4.3 vom 07.02.2017</div>
+            <div>Version: 0.5.0 vom 15.02.2017</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -20,10 +20,19 @@
                 <li>0.2: Benutzerverwaltung, Kategorien verwalten</li>
                 <li>0.3: Suchfunktion, fällige Aufgaben</li>
                 <li>0.4: Aufwand als Zusatzeigenschaft</li>
+                <li>0.5: Electron-Client</li>
 </ul>
 
 --------------------------------------------------------
+# Package Restore
+
 Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit npm restore wiederherstellen!
+
+--------------------------------------------------------
+
+# Hilfe zum Electron-Client
+
+Start mit npm run electron
 
 --------------------------------------------------------
 # Es folgt die Original-Readme-Datei von Angular-CLI

@@ -65,7 +65,8 @@ export class StartComponent implements OnInit {
                 <li>0.1: Basisversion mit Aufgaben anlegen und bearbeiten</li>
                 <li>0.2: Benutzerverwaltung, Kategorien verwalten</li>
                 <li>0.3: Suchfunktion, fällige Aufgaben</li>
-               <li>0.4: Aufwand zu einer Aufgabe erfassbar</li>
+                <li>0.4: Aufwand zu einer Aufgabe erfassbar</li>
+                <li>0.5: Electron-Client</li>
             </ul>
             
             <div>` + (this.isLoggedIn ? `<div>Angemelderter Benutzer: ${this.communicationService.username} (Token: ${this.communicationService.token})` : "") + `</div>` +
