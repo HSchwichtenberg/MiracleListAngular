@@ -16,6 +16,13 @@
         "tsconfig": "tsconfig.json",
         "prefix": "app",
         "mobile": false,
+        "scripts": [
+            "../node_modules/jQuery/dist/jQuery.js",
+            "./electron/jquery-fix.js",
+            "../node_modules/Bootstrap/dist/js/bootstrap.js",
+            "../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"
+
+        ],
         "styles": [
             "../node_modules/Bootstrap/dist/css/bootstrap.css",
             "../node_modules/Bootstrap/dist/css/bootstrap-theme.css",
@@ -23,12 +30,7 @@
             "../node_modules//@progress/kendo-theme-default/dist/all.css",
             "styles.css"
         ],
-        "scripts": [
-            "../node_modules/jQuery/dist/jQuery.js",
-            "../node_modules/Bootstrap/dist/js/bootstrap.js",
-            "../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"
 
-        ],
         "environments": {
             "source": "environments/environment.ts",
             "dev": "environments/environment.ts",
