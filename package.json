@@ -1,7 +1,7 @@
 {
     "name": "miracle-list-client",
-    "version": "0.4.3",
-    "date": "13.02.2017",
+    "version": "0.5.0",
+    "date": "15.02.2017",
     "license": "MIT",
     "angular-cli": {},
     "main": "electron-main.js",
@@ -67,6 +67,7 @@
         "protractor": "~4.0.13",
         "ts-node": "2.0.0",
         "tslint": "^4.0.2",
-        "typescript": "^2.1.5"
+        "typescript": "^2.1.5",
+        "electron": "^1.4.1"
     }
 }
