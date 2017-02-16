@@ -2,7 +2,7 @@
 
  <h4>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) zur Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.5.0 vom 15.02.2017</div>
+            <div>Version: 0.5.1 vom 16.02.2017</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -68,11 +68,3 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-
------------------
-
-# Bekannte Probleme
-
-Electron Package hat Problem, jQuery zu finden
-http://stackoverflow.com/a/37480521
