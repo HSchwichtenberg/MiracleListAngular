@@ -10,6 +10,7 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 // MomentJS
 import * as moment from 'moment';
 
+declare var electron: any;  
 // Versionsnummer auslesen
 var pckg = require('../../package.json');
 // 
@@ -72,12 +73,25 @@ export class StartComponent implements OnInit {
             <ul>
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + "(Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
-                <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser:" + window.navigator.language}</li>
+                <li>Electron-Version: ${this.getElectronVersion()}</li>
+                <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
    )
    .open();
 
  }
+ 
+isElectron() : boolean {
+
+var r = electron.remote;
+return true;
+// return ( (typeof r.process !== "undefined") && r.process.versions && ((<any>r.process.versions).electron !== undefined) )
+}
+ getElectronVersion() : string {
+// var r = require('electron').remote;
+// var r = electron.remote;
+  return (<any>electron.remote.getCurrentWindow()).version;
+}
 
  logout() {
   console.log("logout");
