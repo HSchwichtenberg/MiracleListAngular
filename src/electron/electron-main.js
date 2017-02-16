@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -8,7 +8,18 @@ let win
 
 function createWindow() {
     // Create the browser window. 
-    win = new BrowserWindow({ width: 800, height: 600, icon: path.join(__dirname, 'favicon.ico') })
+    console.log("Electron/Main:createWindow");
+    console.log("Path=" + __dirname);
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        icon: path.join(__dirname, 'favicon.ico'),
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+        }
+
+    })
 
     win.version = process.versions['electron'];
 
@@ -19,8 +30,29 @@ function createWindow() {
         slashes: true
     }))
 
+    // Menü setzen
+    const menuTemplate = [{
+        label: 'Hauptmenü',
+        submenu: [{
+            label: 'Über diese App',
+            click: () => {
+                console.log("Beispielanwendung (C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!");
+            }
+        }, {
+            label: 'Beenden',
+            click: () => {
+                app.quit();
+            }
+        }]
+
+
+    }];
+
+    const menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(menu);
+
     // Open the DevTools.
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -29,6 +61,8 @@ function createWindow() {
         // when you should delete the corresponding element.
         win = null
     })
+
+    console.log("Electron/Main:createWindow END");
 }
 
 // This method will be called when Electron has finished
@@ -49,6 +83,7 @@ app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
+        console.log("Electron/Main:activate");
         createWindow()
     }
 })
