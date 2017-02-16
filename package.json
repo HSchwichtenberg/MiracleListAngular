@@ -5,6 +5,7 @@
     "license": "MIT",
     "angular-cli": {},
     "main": "electron-main.js",
+
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -14,7 +15,11 @@
         "e2e": "protractor",
         "build-electron": "ng build --base-href . && copy src\\electron\\* dist",
         "electron": "npm run build-electron && electron dist",
-        "package-electron": "electron-packager dist MiracleList --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
+        "electron2": "copy src\\electron\\* dist && electron dist",
+        "electron3": "copy src\\electron\\* dist && npm run electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\"",
+        "electron4": "npm run build-electron && npm run electron-deploy",
+        "electron-deployall": "electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "electron-deploy": "electron-packager dist MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
     },
     "private": true,
     "dependencies": {
