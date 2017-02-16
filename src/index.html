@@ -20,7 +20,9 @@
         <start>Lade Miraclelist...</start>
 </body>
 <script>
-    var electron = require('electron');
+    if (typeof require !== "undefined") {
+        var electron = require('electron');
+    }
 </script>
 
 </html>
