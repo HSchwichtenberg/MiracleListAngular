@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
    this.communicationService.token = x.token;
    this.communicationService.username = this.name;
    this.communicationService.navigate("/app"); // Ansicht aufrufen
-   this.titleService.setTitle("MiracleListClient [Benutzer: ]" );
+   this.titleService.setTitle(`MiracleListClient [${this.name}]` );
   }
   })
  }
