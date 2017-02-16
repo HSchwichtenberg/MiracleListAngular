@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../Services/CommunicationService'
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
-
+import { Title }  from '@angular/platform-browser';
 @Component({
  selector: 'Login',
  templateUrl: './Login.component.html'
@@ -10,7 +10,7 @@ import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
 
 export class LoginComponent implements OnInit {
 
- constructor(private miracleListProxy : MiracleListProxy, private communicationService: CommunicationService)
+ constructor(private miracleListProxy : MiracleListProxy, private communicationService: CommunicationService, private titleService: Title)
  {   
   //  console.log("======= LoginComponent:constructor");
 
@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
    this.communicationService.token = x.token;
    this.communicationService.username = this.name;
    this.communicationService.navigate("/app"); // Ansicht aufrufen
+   this.titleService.setTitle("MiracleListClient [Benutzer: ]" );
   }
   })
  }

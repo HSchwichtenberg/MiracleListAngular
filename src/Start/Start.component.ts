@@ -60,7 +60,7 @@ export class StartComponent implements OnInit {
                 <li>Backend: .NET Core, C#, ASP.NET Core WebAPI, Entity Framework Core, SQL Azure, Azure Web App, Swagger</li>
                 <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, angular2-contextmenu, angular2-modal</li>
             </ul></h5>
-             <h5>Versionsgeschichte:</h5>
+            <h5>Versionsgeschichte:</h5>
             <ul>
                 <li>0.1: Basisversion mit Aufgaben anlegen und bearbeiten</li>
                 <li>0.2: Benutzerverwaltung, Kategorien verwalten</li>
@@ -68,10 +68,12 @@ export class StartComponent implements OnInit {
                 <li>0.4: Aufwand zu einer Aufgabe erfassbar</li>
                 <li>0.5: Electron-Client</li>
             </ul>
-            
-            <div>` + (this.isLoggedIn ? `<div>Angemelderter Benutzer: ${this.communicationService.username} (Token: ${this.communicationService.token})` : "") + `</div>` +
-//    "<div>Spracheinstellungen: " + (<any>moment().localeData())._abbr + "/" + window.navigator.language + "</div>"
-""
+            <h5>Systeminfo:</h5>
+            <ul>
+                <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + "(Token:" + this.communicationService.token + ")" : ""}</li>
+                <li>Browser: ${navigator.userAgent}</li>
+                <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser:" + window.navigator.language}</li>
+            </ul>`
    )
    .open();
 
