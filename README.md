@@ -35,7 +35,9 @@ Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese 
 
 # Hilfe zum Electron-Client
 
-Start mit npm run electron
+Übersetzen und Testen: `npm run electron`
+
+Pakete erstellen: `npm run electron-deployallprod`
 
 --------------------------------------------------------
 # Es folgt die Original-Readme-Datei von Angular-CLI
