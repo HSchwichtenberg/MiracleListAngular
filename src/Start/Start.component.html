@@ -1,15 +1,16 @@
 <div class="row" style="background: white; margin-bottom: 10px">
 
-    <span class="col-xs-5 col-lg-3">
+    <span class="col-xs-10 col-sm-5 col-lg-3">
 
 
 <img (click)="about()" src="./assets/MiracleListLogo.jpg">
  </span>
-    <span class="col-xs-6 col-lg-8" style="vertical-align: center">
-<div style="margin-top: 3px;">Beispielanwendung</div>
-<div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
-<div *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</div>
-  </span>
+
+    <span class="col-xs-6 col-lg-8 hidden-xs" style="vertical-align: center">
+    <div style="margin-top: 3px;">Beispielanwendung</div>
+    <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
+    <div *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</div>
+</span>
     <span class="col-xs-1">
 
 <ul class="nav navbar-nav navbar-right">
@@ -27,3 +28,11 @@
     </span>
 </div>
 <router-outlet></router-outlet>
+
+<div class="row">
+    <span class="col-xs-12 hidden-sm">
+    <div style="margin-top: 3px;">Beispielanwendung</div>
+    <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
+    <div *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</div>
+    </span>
+</div>

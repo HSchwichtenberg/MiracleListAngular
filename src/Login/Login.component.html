@@ -6,13 +6,13 @@
 
         <div>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) zur Aufgabenverwaltung.</div>
         <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-        <div>Zur Benutzeranmeldung geben Sie eine beliebige Kombination aus Benutzername und Kennwort ein. Wenn es das Benutzerkonto noch nicht gibt, wird automatisch ein neues Benutzerkonto angelegt mit einigen Beispielaufgaben.
+        <div>Zur Benutzeranmeldung geben Sie die Kombination aus Ihrer E-Mail-Adresse und einem beliebigen Kennwort ein. Wenn es das Benutzerkonto noch nicht gibt, wird automatisch ein neues Benutzerkonto angelegt mit einigen Beispielaufgaben.
         </div>
         <br>
         <form #loginForm="ngForm">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    <label for="name">Benutzername (Ihre E-Mail-Adresse)</label>
+                    <label for="name">E-Mail-Adresse</label>
                     <input name="name" [(ngModel)]="name" id="name" type="text" placeholder="Ihre E-Mail-Adresse" required class="form-control">
 
                 </div>
