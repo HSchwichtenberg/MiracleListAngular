@@ -75,7 +75,7 @@ export class StartComponent implements OnInit {
             </ul>
             <h5>Systeminfo:</h5>
             <ul>
-                <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + "(Token:" + this.communicationService.token + ")" : ""}</li>
+                <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
                 <li>Electron-Version: ${this.getElectronVersion()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
@@ -86,7 +86,7 @@ export class StartComponent implements OnInit {
     }
 
     getElectronVersion(): string {
-        if (!electron) return "n/a";
+        if (typeof electron == "undefined") return "";
         return (<any>electron.remote.getCurrentWindow()).version;
     }
 
