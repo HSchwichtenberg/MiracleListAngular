@@ -24,12 +24,13 @@
                 <li>0.3: Suchfunktion, fällige Aufgaben</li>
                 <li>0.4: Aufwand als Zusatzeigenschaft</li>
                 <li>0.5: Electron-Client</li>
+                <!--<li>0.6: Cordova-Client</li>-->
 </ul>
 
 --------------------------------------------------------
 # Package Restore
 
-Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit npm restore wiederherstellen!
+Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit `npm restore` wiederherstellen!
 
 --------------------------------------------------------
 
