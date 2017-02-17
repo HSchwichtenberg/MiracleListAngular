@@ -48,6 +48,10 @@ export class StartComponent implements OnInit {
             // .title('Über die Anwendung MiracleList')
             // .body('test').open();
 
+        });
+          electron.ipcRenderer.on('logout',  (event, data) => {
+            console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
+            this.logout();
             });
         }
     }

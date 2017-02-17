@@ -32,6 +32,11 @@ function createWindow() {
                         console.log("Sende nachricht ENDE");
                     }
                 },
+                { label: 'Abmelden',
+                    click: () => {
+                        contents.send('logout', { msg: '' });
+                    }
+                },
                 { label: 'Beenden',
                     click: () => {
                         electron_1.app.quit();

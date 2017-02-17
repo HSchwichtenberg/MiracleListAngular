@@ -54,6 +54,11 @@ function createWindow() {
                         // console.log(options.message);
                     }
                 },
+                 {  label: 'Abmelden',
+                    click: () => {
+                          contents.send('logout', { msg: '' });
+                    }
+                },
                 {  label: 'Beenden',
                     click: () => {
                         app.quit();
