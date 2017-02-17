@@ -131,6 +131,7 @@ export class AppComponent implements OnInit {
 
   selectCategory(c: Category) {
     console.log("selectCategory",c);
+
     this.task = null;
     this.searchText = null;
     this.displayMode = DisplayMode.TaskSet;
@@ -221,8 +222,12 @@ export class AppComponent implements OnInit {
         this.miracleListProxy.deleteCategory(this.communicationService.token, id).subscribe(
           x => {
             console.log("Kategorie GELÖSCHT", id)
-            this.showCategorySet();
+            this.displayMode = DisplayMode.TaskSet;
             this.task = null;
+            this.taskSet=null;
+            this.category = null;
+            this.showCategorySet();
+
             this.communicationService.navigate(`/app`); // Ansicht aufrufen
           });
       },
@@ -293,7 +298,4 @@ export class AppComponent implements OnInit {
       this.categorySetWithTaskSet = x;
     });
   }
-
-
-
 }
