@@ -11,7 +11,11 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 // MomentJS
 import * as moment from 'moment';
 
+// Importe für Elektron
+
+// import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var electron: any;
+
 // Versionsnummer auslesen
 var pckg = require('../../package.json');
 
@@ -19,6 +23,8 @@ var pckg = require('../../package.json');
     selector: 'Start',
     templateUrl: './Start.component.html'
 })
+
+
 export class StartComponent implements OnInit {
 
     ngOnInit() {
@@ -26,23 +32,39 @@ export class StartComponent implements OnInit {
         console.log("Anwendung: " + pckg.name);
         console.log("Version: " + pckg.version + " vom " + pckg.date);
         console.log("Sprache: " + (<any>moment().localeData())._abbr);
+        console.log("StartComponent:ngOnInit", typeof electron, this.getElectronVersion());
+
+        // Electron-Event
+   
+        if (typeof electron != "undefined") {
+            console.log("!!!! Registriere electron-Event-Handler...");
+            electron.ipcRenderer.on('about',  (event, data) => {
+            console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
+                // alert("Dialog funktioniert noch nicht!")
+            this.about();
+            // me.modal.alert()
+            // .size('lg')
+            // .showClose(true)
+            // .title('Über die Anwendung MiracleList')
+            // .body('test').open();
+
+            });
+        }
     }
 
     constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title) {
         overlay.defaultViewContainer = vcr;
-    }
+        console.log("StartComponent:ctor", typeof electron, this.getElectronVersion());
 
-    //  get username(): string {
-    //   return (this.communicationService.username)
-    //  }
+    }
 
     get isLoggedIn(): boolean {
         return (this.communicationService.username != null && this.communicationService.username != "")
     }
 
     about() {
-
-        this.modal.alert()
+        console.log(this.modal);
+       this.modal.alert()
             .size('lg')
             .showClose(true)
             .title('Über die Anwendung MiracleList')
@@ -87,7 +109,10 @@ export class StartComponent implements OnInit {
     }
 
     getElectronVersion(): string {
-       if (typeof electron == "undefined") return "n/a";
+        if (typeof electron == "undefined") return "n/a";
+
+
+
         return (<any>electron.remote.getCurrentWindow()).version;
     }
 
