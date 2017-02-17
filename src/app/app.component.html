@@ -1,6 +1,6 @@
 <div class="row">
     <!-- ### Spalte 1: Kategorien-->
-    <div class="col-xs-3 col-lg-2" *ngIf="categorySet">
+    <div class="col-xs-4 col-lg-2 WLPanel" *ngIf="categorySet">
         <h4 style="margin: 0px">{{categorySet.length+1}} Kategorien</h4>
         <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="neue Kategorie...">
 
@@ -20,7 +20,7 @@
         </div>
     </div>
     <!-- ### Spalte 2: Aufgaben-->
-    <div [ngClass]="{'col-xs-9 col-lg-10': !task, 'col-xs-5 col-lg-6': task}" *ngIf="taskSet">
+    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}" *ngIf="taskSet">
         <h4 style="margin: 0px">{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
         <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="neue Aufgabe...">
         <div class="list-group">
@@ -40,7 +40,7 @@
 
 
     <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
-    <div [ngClass]="{'col-xs-9 col-lg-10': !task, 'col-xs-5 col-lg-6': task}" *ngIf="categorySetWithTaskSet">
+    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}" *ngIf="categorySetWithTaskSet">
         <h4 style="margin: 0px">Suchergebnisse in {{categorySetWithTaskSet.length}} Kategorien</h4>
 
         <div *ngFor="let c of categorySetWithTaskSet">
@@ -80,7 +80,7 @@
     </context-menu>
 
     <!-- ### Spalte 3: Aufgabendetails-->
-    <div class="col-xs-4 col-lg-4" [hidden]="!task">
+    <div class="col-xs-4 col-lg-4 WLPanel" [hidden]="!task">
         <router-outlet name="column3">
             <!--View:
         <TaskView [task]="task"></TaskView>

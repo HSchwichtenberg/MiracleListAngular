@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-body
-{
-background: rgba(255, 221, 134, 1) !important;
+body {
+    background: rgba(255, 221, 134, 1) !important;
+}
+
+@media screen and (max-width: 767px) {
+    .WLPanel {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 }
