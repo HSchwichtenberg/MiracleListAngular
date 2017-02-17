@@ -641,12 +641,14 @@ export class LoginInfo {
     username?: string; 
     password?: string; 
     token?: string;
+    message?: string;
     constructor(data?: any) {
         if (data !== undefined) {
             this.clientID = data["clientID"] !== undefined ? data["clientID"] : null;
             this.username = data["username"] !== undefined ? data["username"] : null;
             this.password = data["password"] !== undefined ? data["password"] : null;
             this.token = data["token"] !== undefined ? data["token"] : null;
+             this.message = data["message"] !== undefined ? data["message"] : null;
         }
     }
 
@@ -660,6 +662,7 @@ export class LoginInfo {
         data["username"] = this.username !== undefined ? this.username : null;
         data["password"] = this.password !== undefined ? this.password : null;
         data["token"] = this.token !== undefined ? this.token : null;
+        data["message"] = this.message !== undefined ? this.message : null;
         return data; 
     }
 
