@@ -15,7 +15,7 @@ import * as moment from 'moment';
 
 // import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var electron: any;
-
+declare var Notification: any;
 // Versionsnummer auslesen
 var pckg = require('../../package.json');
 
@@ -52,6 +52,7 @@ export class StartComponent implements OnInit {
           electron.ipcRenderer.on('logout',  (event, data) => {
             console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
             this.logout();
+            
             });
         }
     }
@@ -122,10 +123,16 @@ export class StartComponent implements OnInit {
 
     logout() {
         console.log("logout");
-        this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => x);
-        this.communicationService.token = "";
-        this.communicationService.username = "";
-        this.titleService.setTitle("MiracleList");
-        this.communicationService.navigate(""); // Ansicht aufrufen
+        this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => {
+            this.communicationService.token = "";
+            this.communicationService.username = "";
+            this.titleService.setTitle("MiracleList");
+            this.communicationService.navigate(""); // Ansicht aufrufen
+            // HTML5 Notification API
+            let myNotification = new Notification('MiracleList', {
+                body: 'Sie wurden abgemeldet!'
+                })
+        });
+
     }
 }
