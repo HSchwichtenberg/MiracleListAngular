@@ -30,15 +30,15 @@ export class LoginComponent implements OnInit {
   console.log("LOGIN",this.name, this.password);
 
   var li = new LoginInfo();
-  li.clientID = "TODO: Ihre erhaltene ClientID";
+  li.clientID = "Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
   li.username = this.name;
   li.password = this.password;
   
   this.miracleListProxy.login(li).subscribe(x=> {
 
-  if (x == null) {
+  if (x == null || x.message) {
    console.log("login NICHT ERFOLGREICH",x);
-   this.errorMsg = 'Ungültige Anmeldung!';
+   this.errorMsg = x ? x.message : 'Ungültige Anmeldung!';
    this.communicationService.token = "";
   }
   else {
