@@ -86,7 +86,7 @@ export class StartComponent implements OnInit {
     }
 
     getElectronVersion(): string {
-        if (typeof electron == "undefined") return "";
+       if (typeof electron == "undefined") return "n/a";
         return (<any>electron.remote.getCurrentWindow()).version;
     }
 
