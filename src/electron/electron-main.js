@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, dialog, focusedWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -32,27 +32,120 @@ function createWindow() {
 
     // Menü setzen
     const menuTemplate = [{
-        label: 'Hauptmenü',
-        submenu: [{
-            label: 'Über diese App',
-            click: () => {
-                console.log("Beispielanwendung (C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!");
-            }
-        }, {
-            label: 'Beenden',
-            click: () => {
-                app.quit();
-            }
-        }]
+            label: 'Anwendung',
+            submenu: [{
+                    label: 'Über diese Anwendung',
+                    click: () => {
+                        const options = {
+                            type: 'info',
+                            title: 'Desktop-Variante der Beispielanwendung MiracleList',
+                            buttons: ['Ok'],
+                            message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!'
+                        }
+                        dialog.showMessageBox(options, function() {})
 
+                        console.log(options.message);
+                    }
+                },
+                {
+                    label: 'Beenden',
+                    click: () => {
+                        app.quit();
+                    }
+                }
+            ]
+        },
+        {
+            label: 'Edit',
+            submenu: [{
+                label: 'Undo',
+                accelerator: 'CmdOrCtrl+Z',
+                role: 'undo'
+            }, {
+                label: 'Redo',
+                accelerator: 'Shift+CmdOrCtrl+Z',
+                role: 'redo'
+            }, {
+                type: 'separator'
+            }, {
+                label: 'Cut',
+                accelerator: 'CmdOrCtrl+X',
+                role: 'cut'
+            }, {
+                label: 'Copy',
+                accelerator: 'CmdOrCtrl+C',
+                role: 'copy'
+            }, {
+                label: 'Paste',
+                accelerator: 'CmdOrCtrl+V',
+                role: 'paste'
+            }, {
+                label: 'Select All',
+                accelerator: 'CmdOrCtrl+A',
+                role: 'selectall'
+            }]
+        } // Ende Edit Menü
+        ,
+        {
+            label: 'View',
+            submenu: [
+                // {
+                // label: 'Reload',
+                // accelerator: 'CmdOrCtrl+R',
+                // click: function(item, focusedWindow) {
+                //     if (focusedWindow) {
+                //         // on reload, start fresh and close any old
+                //         // open secondary windows
+                //         if (focusedWindow.id === 1) {
+                //             BrowserWindow.getAllWindows().forEach(function(win) {
+                //                 if (win.id > 1) {
+                //                     win.close()
+                //                 }
+                //             })
+                //         }
+                //         focusedWindow.reload()
+                //     }
+                // }
+                // }, 
+                {
+                    label: 'Zwischem Vollbildmodus und normalen Modus wechseln. ',
+                    accelerator: (function() {
+                        if (process.platform === 'darwin') {
+                            return 'Ctrl+Command+F'
+                        } else {
+                            return 'F11'
+                        }
+                    })(),
+                    click: function(item, focusedWindow) {
+                        if (focusedWindow) {
+                            focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
+                        }
+                    }
+                }, {
+                    label: 'Developer Tools Ein-/Ausblenden',
+                    accelerator: (function() {
+                        if (process.platform === 'darwin') {
+                            return 'Alt+Command+I'
+                        } else {
+                            return 'Ctrl+Shift+I'
+                        }
+                    })(),
+                    click: function(item, focusedWindow) {
+                        if (focusedWindow) {
+                            focusedWindow.toggleDevTools()
+                        }
+                    }
+                }
+            ]
+        } // Ende View Menü
 
-    }];
+    ];
 
     const menu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(menu);
 
     // Open the DevTools.
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
