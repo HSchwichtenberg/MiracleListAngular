@@ -127,7 +127,7 @@ function createWindow() {
                         if (process.platform === 'darwin') {
                             return 'Alt+Command+I'
                         } else {
-                            return 'Ctrl+Shift+I'
+                            return 'F12'
                         }
                     })(),
                     click: function(item, focusedWindow) {
