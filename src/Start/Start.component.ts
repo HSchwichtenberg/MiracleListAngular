@@ -63,7 +63,7 @@ export class StartComponent implements OnInit {
             <h5>Eingesetzte Techniken:</h5>
             <ul>
                 <li>Backend: .NET Core, C#, ASP.NET Core WebAPI, Entity Framework Core, SQL Azure, Azure Web App, Swagger</li>
-                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, angular2-contextmenu, angular2-modal</li>
+                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, angular2-contextmenu, angular2-modal, Electron, Cordova</li>
             </ul></h5>
             <h5>Versionsgeschichte:</h5>
             <ul>
