@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 // Dienste
 import { MiracleListProxy } from '../Services/MiracleListProxy';
@@ -27,7 +28,7 @@ export class StartComponent implements OnInit {
         console.log("Sprache: " + (<any>moment().localeData())._abbr);
     }
 
-    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, ) {
+    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title) {
         overlay.defaultViewContainer = vcr;
     }
 
@@ -94,6 +95,8 @@ export class StartComponent implements OnInit {
         console.log("logout");
         this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => x);
         this.communicationService.token = "";
+        this.communicationService.username = "";
+        this.titleService.setTitle("MiracleList");
         this.communicationService.navigate(""); // Ansicht aufrufen
     }
 }
