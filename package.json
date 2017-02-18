@@ -12,14 +12,14 @@
         "test": "ng test",
         "pree2e": "webdriver-manager update --standalone false --gecko false",
         "e2e": "protractor",
-        "build-electron": "ng build --base-href . && copy \"src/electron/*\" \"dist\"",
+        "build-electron": "ng build --base-href . && \"node_modules/.bin/copy\" \"src/electron/*\" \"dist\"",
         "electron": "npm run build-electron && electron dist",
-        "electron2": "copy \"src/electron/*\" \"dist\" dist && electron dist",
-        "electron3": "copy \"src/electron/*\" \"dist\" && npm run electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\"",
+        "electron2": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" dist && electron dist",
+        "electron3": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" && npm run electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\"",
         "electron4": "npm run build-electron && npm run electron-deploy",
         "electron-deployall": "npm run build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
-        "electron-deployallprod": "ng build -prod --base-href . && copy s\"src/electron/*\" \"dist\" dist && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
-        "electron-deploy": "copy \"src/electron/*\" \"dist\" && electron-packager dist MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
+        "electron-deployallprod": "ng build -prod --base-href . && \"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" dist && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "electron-deploy": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" && electron-packager dist MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
     },
     "private": true,
     "dependencies": {
