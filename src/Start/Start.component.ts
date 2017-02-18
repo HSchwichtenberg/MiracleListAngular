@@ -125,7 +125,7 @@ export class StartComponent implements OnInit {
             console.log("logoff: OK!")
             this.communicationService.token = "";
             this.communicationService.username = "";
-            this.titleService.setTitle("MiracleList");
+            this.titleService.setTitle("MiracleListClient");
             this.communicationService.navigate(""); // Ansicht aufrufen
             // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
             // HTML5 Notification API
