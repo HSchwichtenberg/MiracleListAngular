@@ -1,5 +1,5 @@
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 // Dienste
 import { MiracleListProxy } from '../Services/MiracleListProxy';
 import { CommunicationService } from '../Services/CommunicationService'
@@ -27,6 +27,12 @@ var pckg = require('../../package.json');
 
 export class StartComponent implements OnInit {
 
+    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone) {
+        overlay.defaultViewContainer = vcr;
+        console.log("StartComponent:ctor", typeof electron, this.getElectronVersion());
+
+    }
+
     ngOnInit() {
         console.log("======= LoginComponent:ngOnInit");
         console.log("Anwendung: " + pckg.name);
@@ -35,33 +41,26 @@ export class StartComponent implements OnInit {
         console.log("StartComponent:ngOnInit", typeof electron, this.getElectronVersion());
 
         // Electron-Event
-   
-        if (typeof electron != "undefined") {
-            console.log("!!!! Registriere electron-Event-Handler...");
-            electron.ipcRenderer.on('about',  (event, data) => {
-            console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
-                // alert("Dialog funktioniert noch nicht!")
-            this.about();
-            // me.modal.alert()
-            // .size('lg')
-            // .showClose(true)
-            // .title('Über die Anwendung MiracleList')
-            // .body('test').open();
 
-        });
-          electron.ipcRenderer.on('logout',  (event, data) => {
-            console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
-            this.logout();
-            
+        if (typeof electron != "undefined") {
+            console.log("!!!! Registriere mehrere electron-Event-Handler...");
+            electron.ipcRenderer.on('about', (event, data) => {
+                this.zone.run(() => {  // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
+                    console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
+                    this.about();
+                });
+
+            });
+            electron.ipcRenderer.on('logout', (event, data) => {
+                this.zone.run(() => { // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
+                    console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
+                    this.logout();
+                });
             });
         }
     }
 
-    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title) {
-        overlay.defaultViewContainer = vcr;
-        console.log("StartComponent:ctor", typeof electron, this.getElectronVersion());
 
-    }
 
     get isLoggedIn(): boolean {
         return (this.communicationService.username != null && this.communicationService.username != "")
@@ -69,7 +68,7 @@ export class StartComponent implements OnInit {
 
     about() {
         console.log(this.modal);
-       this.modal.alert()
+        this.modal.alert()
             .size('lg')
             .showClose(true)
             .title('Über die Anwendung MiracleList')
@@ -110,7 +109,7 @@ export class StartComponent implements OnInit {
             </ul>`
             )
             .open();
-
+        // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
     }
 
     getElectronVersion(): string {
@@ -124,14 +123,16 @@ export class StartComponent implements OnInit {
     logout() {
         console.log("logout");
         this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => {
+            console.log("logoff: OK!")
             this.communicationService.token = "";
             this.communicationService.username = "";
             this.titleService.setTitle("MiracleList");
             this.communicationService.navigate(""); // Ansicht aufrufen
+            // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
             // HTML5 Notification API
             let myNotification = new Notification('MiracleList', {
                 body: 'Sie wurden abgemeldet!'
-                })
+            })
         });
 
     }
