@@ -40,8 +40,7 @@ export class StartComponent implements OnInit {
         console.log("Sprache: " + (<any>moment().localeData())._abbr);
         console.log("StartComponent:ngOnInit", typeof electron, this.getElectronVersion());
 
-        // Electron-Event
-
+        // Electron-IPC-Events behandeln
         if (typeof electron != "undefined") {
             console.log("!!!! Registriere mehrere electron-Event-Handler...");
             electron.ipcRenderer.on('about', (event, data) => {
