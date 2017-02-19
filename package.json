@@ -12,14 +12,25 @@
         "test": "ng test",
         "pree2e": "webdriver-manager update --standalone false --gecko false",
         "e2e": "protractor",
-        "build-electron": "ng build --base-href . && \"node_modules/.bin/copy\" \"src/electron/*\" \"dist\"",
-        "electron": "npm run build-electron && electron dist",
-        "electron2": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" dist && electron dist",
-        "electron3": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" && npm run electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\"",
-        "electron4": "npm run build-electron && npm run electron-deploy",
-        "electron-deployall": "npm run build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
-        "electron-deployallprod": "ng build -prod --base-href . && \"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" dist && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
-        "electron-deploy": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" && electron-packager dist MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
+
+        "//": "---------------------------- Skripte für Electron zum Entwickeln w = laufen auf windows m = laufen auf mac",
+        "w-copy-electron": "copy src\\electron\\* dist",
+        "m-copy-electron": "\"node_modules/.bin/copy\" \"src/electron/*\" \"dist\" dist",
+        "m-build-electron": "ng build --base-href . && npm run m-copy-electron",
+        "w-build-electron": "ng build --base-href . && npm run w-copy-electron",
+        "m-electron": "npm run m-build-electron && electron dist",
+        "w-electron": "npm run w-build-electron && electron dist",
+        "m-electron-ohnengbuild": "npm run m-copy-electron && electron dist",
+        "w-electron-ohnengbuild": "npm run w-copy-electron && electron dist",
+        "w-electron-deploy": "npm run w-copy-electron && electron-packager dist MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "w-electron-deploy-run": "npm run w-electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\"",
+
+        "///": "---------------------------- Skripte für Electron für Packaging w = laufen auf windows m = laufen auf mac",
+        "m-electron-deployall": "npm run m-build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "w-electron-deployall": "npm run w-build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+
+        "m-electron-deployallprod": "ng build -prod --base-href . && m-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "w-electron-deployallprod": "ng build -prod --base-href . && w-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
     },
     "private": true,
     "dependencies": {
@@ -84,5 +95,5 @@
         "ts-node": "2.0.0",
         "tslint": "^4.0.2",
         "typescript": "^2.1.5"
-  }
+    }
 }
