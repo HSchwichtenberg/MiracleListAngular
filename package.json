@@ -31,8 +31,8 @@
         "m-electron-deployall": "npm run m-build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
         "w-electron-deployall": "npm run w-build-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
 
-        "m-electron-deployallprod": "ng build -prod --base-href . && m-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
-        "w-electron-deployallprod": "ng build -prod --base-href . && w-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
+        "m-electron-deployallprod": "ng build -prod --base-href . && npm run m-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "w-electron-deployallprod": "ng build -prod --base-href . && npm run w-copy-electron && electron-packager dist MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar"
     },
     "private": true,
     "dependencies": {
