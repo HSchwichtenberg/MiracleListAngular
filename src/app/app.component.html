@@ -8,7 +8,7 @@
  <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
          </a>
         <div class="list-group ">
-            <a *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
+            <a *ngFor="let c of categorySet" (click)="" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
    
           <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></a>
@@ -21,10 +21,14 @@
     </div>
     <!-- ### Spalte 2: Aufgaben-->
     <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}" *ngIf="taskSet">
+        <!-- ---------- Überschrift-->
         <h4 style="margin: 0px">{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
+        <!-- ---------- neue Aufgaben eingeben-->
         <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="neue Aufgabe...">
+        <!-- ---------- Aufgabenliste ausgeben-->
         <div class="list-group">
             <div class="list-group">
+                <!-- ---------- eine Aufgabe im Block ausgeben-->
                 <a *ngFor="let t of taskSet" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'" [contextMenu]="taskMenu"
                     [contextMenuSubject]="t">
                     <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control WLcheckbox"> <b>{{ t.title }} </b>

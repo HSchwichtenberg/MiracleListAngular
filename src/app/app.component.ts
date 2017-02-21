@@ -111,13 +111,12 @@ export class AppComponent implements OnInit {
 
   async showCategorySet() {
     console.log('CategorySet LADEN...');
-    let r = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
-    this.categorySet = r;
+    this.categorySet = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
     if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
-    console.log('CategorySet GELADEN', r);
+    console.log('CategorySet GELADEN', this.categorySet);
     this.refreshData();
   }
- 
+
    // alt ohne await:
     showCategorySet_alt() {
     console.log('CategorySet LADEN...');
@@ -145,7 +144,16 @@ export class AppComponent implements OnInit {
     console.log("TaskSet LADEN...");
     let x = await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).toPromise();
     this.taskSet = x;
- console.log("TaskSet GELADEN", x)
+    console.log("TaskSet GELADEN", x);
+  }
+
+   async showTaskSet_alt(c: Category) {
+    console.log("TaskSet LADEN...");
+    await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x=> 
+    {
+      this.taskSet = x;
+      console.log("TaskSet GELADEN", x);
+    });
   }
 
   private getUndoneSubTaskSet(t: Task): Array<SubTask> {
@@ -285,7 +293,6 @@ export class AppComponent implements OnInit {
     }
     return count.toString();
   }
-
 
   search(showTask: boolean = false) {
     if (!this.searchText) return "";
