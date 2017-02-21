@@ -1,18 +1,18 @@
-import { app, BrowserWindow, Menu, dialog, ipcMain }  from "electron";
+import { app, BrowserWindow, Menu, dialog, ipcMain, Tray } from "electron";
 
 const path = require('path');
 const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win : Electron.BrowserWindow;
+let win: Electron.BrowserWindow;
 
 function createWindow() {
 
     // Create the electron browser window. 
     console.log("!!!Electron/Main:createWindow");
     console.log("Path=" + __dirname);
-   win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 900,
         height: 600,
         icon: path.join(__dirname, 'favicon.ico'),
@@ -34,121 +34,142 @@ function createWindow() {
 
     let contents = win.webContents;
 
-    // Menü setzen
-    const menuTemplate : any = [{
-            label: 'Anwendung',
-            submenu: [{
-                    label: 'Über diese Anwendung',
-                    click: () => {
 
-                        // const options = {
-                        //     type: 'info',
-                        //     title: 'Desktop-Variante der Beispielanwendung MiracleList',
-                        //     buttons: ['Ok'],
-                        //     message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!'
-                        // }
-                        // dialog.showMessageBox(options, function() {})
-                        console.log("Sende nachricht...");
-                        contents.send('about', { msg: 'nachricht' });
-                        console.log("Sende nachricht ENDE");
-                        // console.log(options.message);
-                    }
-                },
-                 {  label: 'Abmelden',
-                    click: () => {
-                          contents.send('logout', { msg: '' });
-                    }
-                },
-                {  label: 'Beenden',
-                    click: () => {
-                        app.quit();
-                    }
-                }
-            ]
+    // TODO: new Tray: https://github.com/electron/electron/blob/master/docs/api/tray.md
+    // TODO: Globaler Shortcut: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
+
+    // Tray setzen
+
+    let tray = null;
+
+    tray = new Tray(path.join(__dirname, 'favicon.ico'));
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Item1', type: 'radio' },
+        { label: 'Item2', type: 'radio' },
+        { label: 'Item3', type: 'radio', checked: true },
+        { label: 'Item4', type: 'radio' }
+    ])
+    tray.setToolTip('MiracleList');
+    tray.setContextMenu(contextMenu);
+
+
+    // Menü setzen
+    const menuTemplate: any = [{
+        label: 'Anwendung',
+        submenu: [{
+            label: 'Über diese Anwendung',
+            click: () => {
+
+                // const options = {
+                //     type: 'info',
+                //     title: 'Desktop-Variante der Beispielanwendung MiracleList',
+                //     buttons: ['Ok'],
+                //     message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!'
+                // }
+                // dialog.showMessageBox(options, function() {})
+                console.log("Sende nachricht...");
+                contents.send('about', { msg: 'nachricht' });
+                console.log("Sende nachricht ENDE");
+                // console.log(options.message);
+            }
         },
         {
-            label: 'Edit',
-            submenu: [{
-                label: 'Undo',
-                accelerator: 'CmdOrCtrl+Z',
-                role: 'undo'
-            }, {
-                label: 'Redo',
-                accelerator: 'Shift+CmdOrCtrl+Z',
-                role: 'redo'
-            }, {
-                type: 'separator'
-            }, {
-                label: 'Cut',
-                accelerator: 'CmdOrCtrl+X',
-                role: 'cut'
-            }, {
-                label: 'Copy',
-                accelerator: 'CmdOrCtrl+C',
-                role: 'copy'
-            }, {
-                label: 'Paste',
-                accelerator: 'CmdOrCtrl+V',
-                role: 'paste'
-            }, {
-                label: 'Select All',
-                accelerator: 'CmdOrCtrl+A',
-                role: 'selectall'
-            }]
-        } // Ende Edit Menü
-        ,
+            label: 'Abmelden',
+            click: () => {
+                contents.send('logout', { msg: '' });
+            }
+        },
         {
-            label: 'View',
-            submenu: [
-                // {
-                // label: 'Reload',
-                // accelerator: 'CmdOrCtrl+R',
-                // click: function(item, focusedWindow) {
-                //     if (focusedWindow) {
-                //         // on reload, start fresh and close any old
-                //         // open secondary windows
-                //         if (focusedWindow.id === 1) {
-                //             BrowserWindow.getAllWindows().forEach(function(win) {
-                //                 if (win.id > 1) {
-                //                     win.close()
-                //                 }
-                //             })
-                //         }
-                //         focusedWindow.reload()
-                //     }
-                // }
-                // }, 
-                {
-                    label: 'Zwischem Vollbildmodus und normalen Modus wechseln. ',
-                    accelerator: (function() {
-                        if (process.platform === 'darwin') {
-                            return 'Ctrl+Command+F';
-                        } else {
-                            return 'F11';
-                        }
-                    })(),
-                    click: function(item, focusedWindow) {
-                        if (focusedWindow) {
-                            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-                        }
+            label: 'Beenden',
+            click: () => {
+                app.quit();
+            }
+        }
+        ]
+    },
+    {
+        label: 'Bearbeiten',
+        submenu: [{
+            label: 'Undo',
+            accelerator: 'CmdOrCtrl+Z',
+            role: 'undo'
+        }, {
+            label: 'Redo',
+            accelerator: 'Shift+CmdOrCtrl+Z',
+            role: 'redo'
+        }, {
+            type: 'separator'
+        }, {
+            label: 'Cut',
+            accelerator: 'CmdOrCtrl+X',
+            role: 'cut'
+        }, {
+            label: 'Copy',
+            accelerator: 'CmdOrCtrl+C',
+            role: 'copy'
+        }, {
+            label: 'Paste',
+            accelerator: 'CmdOrCtrl+V',
+            role: 'paste'
+        }, {
+            label: 'Select All',
+            accelerator: 'CmdOrCtrl+A',
+            role: 'selectall'
+        }]
+    } // Ende Edit Menü
+        ,
+    {
+        label: 'Ansicht',
+        submenu: [
+            // {
+            // label: 'Reload',
+            // accelerator: 'CmdOrCtrl+R',
+            // click: function(item, focusedWindow) {
+            //     if (focusedWindow) {
+            //         // on reload, start fresh and close any old
+            //         // open secondary windows
+            //         if (focusedWindow.id === 1) {
+            //             BrowserWindow.getAllWindows().forEach(function(win) {
+            //                 if (win.id > 1) {
+            //                     win.close()
+            //                 }
+            //             })
+            //         }
+            //         focusedWindow.reload()
+            //     }
+            // }
+            // }, 
+            {
+                label: 'Zwischem Vollbildmodus und normalen Modus wechseln. ',
+                accelerator: (function () {
+                    if (process.platform === 'darwin') {
+                        return 'Ctrl+Command+F';
+                    } else {
+                        return 'F11';
                     }
-                }, {
-                    label: 'Developer Tools Ein-/Ausblenden',
-                    accelerator: (function() {
-                        if (process.platform === 'darwin') {
-                            return 'Alt+Command+I';
-                        } else {
-                            return 'F12';
-                        }
-                    })(),
-                    click: function(item, focusedWindow) {
-                        if (focusedWindow) {
-                            focusedWindow.toggleDevTools();
-                        }
+                })(),
+                click: function (item, focusedWindow) {
+                    if (focusedWindow) {
+                        focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
                     }
                 }
-            ]
-        } // Ende View Menü
+            }, {
+                label: 'Developer Tools Ein-/Ausblenden',
+                accelerator: (function () {
+                    if (process.platform === 'darwin') {
+                        return 'Alt+Command+I';
+                    } else {
+                        return 'F12';
+                    }
+                })(),
+                click: function (item, focusedWindow) {
+                    if (focusedWindow) {
+                        focusedWindow.toggleDevTools();
+                    }
+                }
+            }
+        ]
+    } // Ende View Menü
 
     ];
 
