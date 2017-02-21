@@ -50,7 +50,7 @@ export class StartComponent implements OnInit {
                 });
 
             });
-            ipcRenderer.on('logout', (event, data) => {
+            electron.ipcRenderer.on('logout', (event, data) => {
                 this.zone.run(() => { // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
                     console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
                     this.logout();
