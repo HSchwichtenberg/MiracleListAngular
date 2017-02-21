@@ -2,13 +2,13 @@ import { RoutingModule } from './../Util/RoutingModule';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MiracleListProxy } from '../Services/MiracleListProxy';
 import { Category, Task, SubTask, Importance, LoginInfo } from '../Services/MiracleListProxy';
-import { TaskEditComponent } from "../TaskEdit/TaskEdit.component"
+import { TaskEditComponent } from "../TaskEdit/TaskEdit.component";
 
 // RoutingModule
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 
 // Kommunikation
-import { CommunicationService } from "../Services/CommunicationService"
+import { CommunicationService } from "../Services/CommunicationService";
 
 // Dialog
 import { ViewContainerRef } from '@angular/core';
