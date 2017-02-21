@@ -7,8 +7,8 @@ function createWindow() {
     console.log("!!!Electron/Main:createWindow");
     console.log("Path=" + __dirname);
     win = new electron_1.BrowserWindow({
-        width: 1000,
-        height: 800,
+        width: 900,
+        height: 600,
         icon: path.join(__dirname, 'favicon.ico'),
         webPreferences: {
             nodeIntegration: true,

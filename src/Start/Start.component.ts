@@ -13,7 +13,7 @@ import * as moment from 'moment';
 
 // Importe für Elektron
 
-// import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
+import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var electron: any;
 declare var Notification: any;
 // Versionsnummer auslesen
@@ -43,14 +43,14 @@ export class StartComponent implements OnInit {
         // Electron-IPC-Events behandeln
         if (typeof electron != "undefined") {
             console.log("!!!! Registriere mehrere electron-Event-Handler...");
-            electron.ipcRenderer.on('about', (event, data) => {
+            ipcRenderer.on('about', (event, data) => {
                 this.zone.run(() => {  // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
                     console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
                     this.about();
                 });
 
             });
-            electron.ipcRenderer.on('logout', (event, data) => {
+            ipcRenderer.on('logout', (event, data) => {
                 this.zone.run(() => { // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
                     console.log("!!! Nachricht von MAIN-Prozess geht ein", this);
                     this.logout();
