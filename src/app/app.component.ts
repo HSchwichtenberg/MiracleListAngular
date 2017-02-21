@@ -113,25 +113,25 @@ export class AppComponent implements OnInit {
     console.log('CategorySet LADEN...');
     let r = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
     this.categorySet = r;
-    if (this.displayMode == DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
+    if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
     console.log('CategorySet GELADEN', r);
     this.refreshData();
   }
  
    // alt ohne await:
-  //   showCategorySet() {
-  //   this.miracleListProxy.categorySet(this.communicationService.token).subscribe(
-  //    x => {
-  //     this.categorySet = x;
-  //     if (this.displayMode == DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
-  //     console.log("CategorySet GELADEN", x);
-  //     this.refreshData();
-  //    });
-  // }
+    showCategorySet_alt() {
+    console.log('CategorySet LADEN...');
+    this.miracleListProxy.categorySet(this.communicationService.token).subscribe(
+     x => {
+      this.categorySet = x;
+      if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
+      console.log("CategorySet GELADEN", x);
+      this.refreshData();
+     });
+  }
 
   selectCategory(c: Category) {
-    console.log("selectCategory",c);
-
+    console.log("selectCategory", c);
     this.task = null;
     this.searchText = null;
     this.displayMode = DisplayMode.TaskSet;
@@ -149,7 +149,7 @@ export class AppComponent implements OnInit {
   }
 
   private getUndoneSubTaskSet(t: Task): Array<SubTask> {
-    if (!t && !t.subTaskSet) return null;
+    if (!t && !t.subTaskSet) { return null; }
     return t.subTaskSet.filter(x => x.done == false);
   }
 
