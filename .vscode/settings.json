@@ -1,8 +1,9 @@
 {
     "tslint.enable": true,
+    "editor.fontSize": 24,
     "typescript.check.workspaceVersion": false,
     "editor.tabSize": 1,
-    "editor.detectIndentation": true,
+    "editor.detectIndentation": false,
     "editor.wordWrap": true,
     "editor.tabCompletion": true,
     "files.exclude": {
