@@ -8,7 +8,8 @@
             <!--Titel-->
             <div class="form-group">
                 <label for="tasktitle">Titel</label>
-                <input name="tasktitle" #tt #tasktitle="ngModel" type="text" [(ngModel)]="task.title " required class="form-control">
+                <input name="tasktitle" #tasktitle="ngModel" type="text" 
+                [(ngModel)]="task.title" required class="form-control">
             </div>
             <!--Validatorausgabe Titel-->
             <div [hidden]="tasktitle.valid || tasktitle.pristine" class="alert alert-danger ">

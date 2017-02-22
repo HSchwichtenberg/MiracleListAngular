@@ -35,7 +35,7 @@ export class TaskEditComponent  implements OnInit {
  @Input()
  public task: Task;
 
-
+// Aufgabe laden
  getTask(id: number) {
   console.log("TaskEdit:Task LADEN...", id)
   this.miracleListProxy.task(this.communicationService.token, id).subscribe(
@@ -54,6 +54,7 @@ export class TaskEditComponent  implements OnInit {
   this.gotoView();
  }
 
+ // Änderungen abspeichern
  submit(form: NgForm) {
   if (form.invalid) return;
   console.log("Task ÄNDERN", this.task);
@@ -64,6 +65,7 @@ export class TaskEditComponent  implements OnInit {
    });
  }
 
+// Zurück zur Ansicht der Aufgaben
  private gotoView() {
   this.communicationService.navigate(`/app/(column3:taskview/${this.task.taskID})`); // Ansicht aufrufen
   this.communicationService.EmitTaskListUpdateEvent(this.task);
