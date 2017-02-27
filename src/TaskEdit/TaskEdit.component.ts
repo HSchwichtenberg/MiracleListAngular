@@ -23,8 +23,7 @@ export class TaskEditComponent  implements OnInit {
   private communicationService: CommunicationService) {
  }
 
-
-  ngOnInit() {
+ ngOnInit() {
   this.route.params.forEach((params: Params) => {
    let id = +params['id'];
    this.getTask(id);
@@ -34,7 +33,6 @@ export class TaskEditComponent  implements OnInit {
 
  @Input()
  public task: Task;
-
 
  getTask(id: number) {
   console.log("TaskEdit:Task LADEN...", id)
