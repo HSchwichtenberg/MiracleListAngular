@@ -19,16 +19,17 @@ import { slideToTop, slideToLeft, slideToRight, slideToBottom } from '../Util/Ro
 export class TaskEditComponent  implements OnInit {
  constructor(private miracleListProxy: MiracleListProxy,
   private router: Router,
-  private route: ActivatedRoute,
+  private activatedRoute: ActivatedRoute,
   private communicationService: CommunicationService) {
  }
 
  ngOnInit() {
-  this.route.params.forEach((params: Params) => {
-   let id = +params['id'];
-   this.getTask(id);
- 
-  });
+ var id =  <number>this.activatedRoute.snapshot.params["id"];
+ this.getTask(id);
+  // this.activatedRoute.params.forEach((params: Params) => {
+  //  let id = (<number>params['id']);
+  //  this.getTask(id);
+  // });
  }
 
  @Input()
