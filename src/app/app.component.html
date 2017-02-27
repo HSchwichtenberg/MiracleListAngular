@@ -1,8 +1,8 @@
 <div class="row">
     <!-- ### Spalte 1: Kategorien-->
     <div class="col-xs-4 col-lg-2 WLPanel" *ngIf="categorySet">
- 
-         <!-- ---------- Überschrift-->
+
+        <!-- ---------- Überschrift-->
         <h4 style="margin: 0px">{{categorySet.length+1}} Kategorien</h4>
         <!-- ---------- neue Kategorie eingeben-->
         <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="neue Kategorie...">
@@ -15,8 +15,6 @@
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
      <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></a>
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="suche...">
-            <!--<a (click)="selectCategory(0)" class="list-group-item"> 
-                Erledigte Aufgaben</a>-->
         </div>
     </div>
     <!-- ### Spalte 2: Aufgaben-->
