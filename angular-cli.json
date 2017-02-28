@@ -18,10 +18,9 @@
         "mobile": false,
         "scripts": [
             "../node_modules/jQuery/dist/jQuery.js",
-            "./electron/jquery-fix.js",
+            "../electron/jquery-fix.js",
             "../node_modules/Bootstrap/dist/js/bootstrap.js",
             "../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"
-
         ],
         "styles": [
             "../node_modules/Bootstrap/dist/css/bootstrap.css",
