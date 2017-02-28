@@ -2,6 +2,9 @@
  * Created by HS on 28.02.2017.
  */
 
+/**
+ * Hilfsklasse, die Menübaum erstellt
+ */
 export class MiracleListMenu {
 // Menü erstellen
  public static CreateMenu(app : Electron.App, win: Electron.BrowserWindow): Electron.MenuItemOptions[] {
@@ -12,7 +15,6 @@ export class MiracleListMenu {
    submenu: [{
     label: 'Über diese Anwendung',
     click: () => {
-
      // const options = {
      //     type: 'info',
      //     title: 'Desktop-Variante der Beispielanwendung MiracleList',

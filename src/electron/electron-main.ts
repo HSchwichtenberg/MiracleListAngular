@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen } from "electron";
+import {app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen} from "electron";
 import {MiracleListMenu} from "./MiracleListMenu";
 
 const path = require('path');
@@ -10,68 +10,81 @@ let win: Electron.BrowserWindow;
 
 function createWindow() {
 
-    // Create the electron browser window
-    console.log("!!!Electron/Main:createWindow");
-    const {width, height} = screen.getPrimaryDisplay().workAreaSize
-    console.log("Screen:" + width + "x" + height );
-    console.log("Path:" + __dirname);
-    win = new BrowserWindow({
-        width: 900,
-        height: 600,
-        icon: path.join(__dirname, 'favicon.ico'),
-        webPreferences: {
-            nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js')
-        }
+ // Create the electron browser window
+ console.log("!!!Electron/Main:createWindow");
+ const {width, height} = screen.getPrimaryDisplay().workAreaSize;
 
-    });
+ console.log("OS:", process.platform);
+ console.log("Screen:" + width + "x" + height);
+ console.log("Path:" + __dirname);
 
-    (<any>win).version = process.versions['electron'];
+ var favicon : string = path.join(__dirname, 'favicon.ico');
+ win = new BrowserWindow({
+  width: 900,
+  height: 600,
+  frame: true, // false für frameless Window
+  icon: favicon,
+  webPreferences: {
+   nodeIntegration: true,
+   preload: path.join(__dirname, 'preload.js')
+  }
 
-    // and load the index.html of the app.
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+ });
 
-    let contents = win.webContents;
+ // Datenübergabe an Renderer mit dynamischen Objekt
+ var env: any = new Object();
+ env.version = process.versions['electron'];
+ env.os = process.platform;
+ (<any>win).env = env;
 
+ // and load the index.html of the app.
+ win.loadURL(url.format({
+  pathname: path.join(__dirname, 'index.html'),
+  protocol: 'file:',
+  slashes: true
+ }));
 
-    // TODO: new Tray: https://github.com/electron/electron/blob/master/docs/api/tray.md
-    // TODO: Globaler Shortcut: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
+ let contents = win.webContents;
 
-    // // =================== Tray setzen
+ // =================== Anwendungsmenü einbinden
+ var menuTemplate = MiracleListMenu.CreateMenu(app, win);
+ const menu = Menu.buildFromTemplate(menuTemplate);
+ Menu.setApplicationMenu(menu);
 
-    let tray = null;
+ // =================== Traymenü erstellen
+ // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
+ let tray = new Tray(favicon);
+ const contextMenu: Electron.Menu = Menu.buildFromTemplate([
+  {
+   label: 'Abmelden', click: () => {
+   contents.send('logout', {msg: ''});
+  }
+  },
+  {
+   label: 'Beenden', click: () => {
+   app.quit();
+  }
+  }
+ ]);
 
-    tray = new Tray(path.join(__dirname, 'favicon.ico'));
-    const contextMenu = Menu.buildFromTemplate([
-        { label: 'Item1', type: 'radio' },
-        { label: 'Item2', type: 'radio' },
-        { label: 'Item3', type: 'radio', checked: true },
-        { label: 'Item4', type: 'radio' }
-    ])
-    tray.setToolTip('MiracleList');
-    tray.setContextMenu(contextMenu);
+ tray.setToolTip('MiracleList');
+ tray.setContextMenu(contextMenu);
 
-    // =================== Anwendungsmenü einbinden
-    var menuTemplate = MiracleListMenu.CreateMenu(app, win);
-    const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu);
+ // =================== Globaler Shortcut
+ // TODO: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
 
-    // Open the DevTools.
-    win.webContents.openDevTools()
+ // Open the DevTools.
+ win.webContents.openDevTools()
 
-    // Emitted when the window is closed.
-    win.on('closed', () => {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        win = null;
-    });
+ // Emitted when the window is closed.
+ win.on('closed', () => {
+  // Dereference the window object, usually you would store windows
+  // in an array if your app supports multi windows, this is the time
+  // when you should delete the corresponding element.
+  win = null;
+ });
 
-    console.log("Electron/Main:createWindow END");
+ console.log("Electron/Main:createWindow END");
 }
 
 // This method will be called when Electron has finished
@@ -81,20 +94,20 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-    // On macOS it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+ // On macOS it is common for applications and their menu bar
+ // to stay active until the user quits explicitly with Cmd + Q
+ if (process.platform !== 'darwin') {
+  app.quit();
+ }
 });
 
 app.on('activate', () => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (win === null) {
-        console.log("Electron/Main:activate");
-        createWindow();
-    }
+ // On macOS it's common to re-create a window in the app when the
+ // dock icon is clicked and there are no other windows open.
+ if (win === null) {
+  console.log("Electron/Main:activate");
+  createWindow();
+ }
 });
 
 // In this file you can include the rest of your app's specific main process
