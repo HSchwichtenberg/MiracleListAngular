@@ -26,13 +26,13 @@ var pckg = require('../../package.json');
 
 export class StartComponent implements OnInit {
 
-    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone) {
+    constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
         overlay.defaultViewContainer = vcr;
         console.log("StartComponent:ctor", typeof electron, this.getElectronEnv());
     }
 
     ngOnInit() {
-        console.log("======= LoginComponent:ngOnInit");
+        console.log("======= StartComponent:ngOnInit");
         console.log("Anwendung: " + pckg.name);
         console.log("Version: " + pckg.version + " vom " + pckg.date);
         console.log("Sprache: " + (<any>moment().localeData())._abbr);
@@ -40,6 +40,8 @@ export class StartComponent implements OnInit {
 
         // Electron-IPC-Events behandeln
         if (typeof electron != "undefined") {
+            this.title.setTitle("MiracleList-Desktop-Client v" + this.getElectronEnv().appversion + " auf " + this.getElectronEnv().os);
+
             console.log("!!!! Registriere mehrere electron-Event-Handler...");
             electron.ipcRenderer.on('about', (event, data) => {
                 this.zone.run(() => {  // für Electron: siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron

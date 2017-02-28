@@ -37,12 +37,18 @@ function createWindow() {
   }
 
  });
+ win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
+
 
  // Datenübergabe an Renderer mit dynamischen Objekt
  var env: any = new Object();
  env.version = process.versions['electron'];
  env.os = process.platform;
+ env.appversion = app.getVersion();
  (<any>win).env = env;
+
+console.log("Lade Index.html...");
+
 
  // and load the index.html of the app.
  win.loadURL(url.format({
@@ -50,6 +56,7 @@ function createWindow() {
   protocol: 'file:',
   slashes: true
  }));
+
 
  let contents = win.webContents;
 
@@ -107,6 +114,8 @@ function createWindow() {
   // when you should delete the corresponding element.
   win = null;
  });
+
+
 
  console.log("Electron/Main:createWindow END");
 }
