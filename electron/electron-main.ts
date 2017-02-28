@@ -105,7 +105,7 @@ console.log("Lade Index.html...");
  // TODO: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
 
  // Open the DevTools.
- win.webContents.openDevTools()
+ // win.webContents.openDevTools()
 
  // Emitted when the window is closed.
  win.on('closed', () => {
