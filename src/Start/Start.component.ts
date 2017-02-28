@@ -24,13 +24,11 @@ var pckg = require('../../package.json');
     templateUrl: './Start.component.html'
 })
 
-
 export class StartComponent implements OnInit {
 
     constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone) {
         overlay.defaultViewContainer = vcr;
-        console.log("StartComponent:ctor", typeof electron, this.getElectronVersion());
-
+        console.log("StartComponent:ctor", typeof electron, this.getElectronEnv());
     }
 
     ngOnInit() {
@@ -38,7 +36,7 @@ export class StartComponent implements OnInit {
         console.log("Anwendung: " + pckg.name);
         console.log("Version: " + pckg.version + " vom " + pckg.date);
         console.log("Sprache: " + (<any>moment().localeData())._abbr);
-        console.log("StartComponent:ngOnInit", typeof electron, this.getElectronVersion());
+        console.log("StartComponent:ngOnInit", typeof electron, this.getElectronEnv());
 
         // Electron-IPC-Events behandeln
         if (typeof electron != "undefined") {
@@ -103,7 +101,7 @@ export class StartComponent implements OnInit {
             <ul>
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
-                <li>Electron-Version: ${this.getElectronVersion()}</li>
+                <li>Electron-Version: ${this.getElectronEnv().version} auf ${this.getElectronEnv().os}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
             )
@@ -111,12 +109,10 @@ export class StartComponent implements OnInit {
         // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
     }
 
-    getElectronVersion(): string {
+    // Liefert das vom Electron Main Prozess übergebe env-Objekt
+    getElectronEnv(): any {
         if (typeof electron == "undefined") return "n/a";
-
-
-
-        return (<any>electron.remote.getCurrentWindow()).version;
+        return (<any>electron.remote.getCurrentWindow()).env;
     }
 
     logout() {
