@@ -58,16 +58,21 @@ function createWindow() {
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  let tray = new Tray(favicon);
  const contextMenu: Electron.Menu = Menu.buildFromTemplate([
-  {
-   label: 'Abmelden', click: () => {
-   contents.send('logout', {msg: ''});
-  }
+   {
+   label: 'Verstecken', click: () => {  win.minimize(); }
   },
   {
-   label: 'Beenden', click: () => {
-   app.quit();
-  }
-  }
+   label: 'Wiederherstellen', click: () => {  win.restore(); }
+  },
+  {
+   label: 'Maximieren', click: () => {  win.maximize(); }
+  },
+  {
+   label: 'Abmelden', click: () => { contents.send('logout', {msg: ''});  }
+  },
+  {
+   label: 'Beenden', click: () => {  app.quit(); }
+  },
  ]);
 
  tray.setToolTip('MiracleList');
