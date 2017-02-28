@@ -1,5 +1,6 @@
 import {app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen} from "electron";
 import {MiracleListMenu} from "./MiracleListMenu";
+import * as username from "username";
 
 const path = require('path');
 const url = require('url');
@@ -16,7 +17,9 @@ function createWindow() {
 
  console.log("OS:", process.platform);
  console.log("Screen:" + width + "x" + height);
- console.log("Path:" + __dirname);
+ console.log("Anwendungspfad:" + __dirname);
+ console.log("Aktueller Benutzer:" + username.sync());
+ console.log("User Home Dir:" + app.getPath("documents"));
 
  var favicon : string = path.join(__dirname, 'favicon.ico');
  win = new BrowserWindow({
