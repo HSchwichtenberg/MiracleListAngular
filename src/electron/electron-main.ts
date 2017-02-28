@@ -3,7 +3,7 @@ import {MiracleListMenu} from "./MiracleListMenu";
 import * as username from "username";
 import ShowMessageBoxOptions = Electron.ShowMessageBoxOptions;
 import * as fs from "fs";
-import * as moment from "Moment";
+import * as moment from "moment";
 
 const path = require('path');
 const url = require('url');
@@ -23,7 +23,6 @@ function createWindow() {
  console.log("Anwendungspfad:" + __dirname);
  console.log("Aktueller Benutzer:" + username.sync());
  console.log("User Home Dir:" + app.getPath("documents"));
-
  writeLog('Anwendungstart');
 
  var favicon : string = path.join(__dirname, 'favicon.ico');
@@ -69,7 +68,7 @@ function createWindow() {
        type: 'info',
        title: 'Cross-Plattform-Desktop-Variante der Beispielanwendung MiracleList',
        buttons: ['Ok'],
-       message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Anwendungsmenü!'
+       message: '(C) Dr. Holger Schwichtenberg 2017\nDetails siehe Anwendungsmenü!\nSystembenutzer: ' + username.sync() + ''
    }
    dialog.showMessageBox(options, function() {})
   }
@@ -139,7 +138,8 @@ app.on('activate', () => {
 function writeLog(logtext: string)
 {
  logtext = moment().format("DD.MM.YYYY HH:mm:ss") + ": " +  logtext + "\r\n";
- let logfile = path.join(__dirname, 'log.txt')
+ let logfile = path.join(app.getPath("documents"), 'miraclelist_log.txt')
+ console.log(logfile);
  fs.appendFile(logfile,logtext , (err) => {
   if (err) throw err;
  });

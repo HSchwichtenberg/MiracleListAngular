@@ -1,5 +1,9 @@
 {
-    "name": "miraclelistelectron",
-    "version": "0.5.0",
-    "main": "electron-main.js"
+  "name": "miraclelistelectron",
+  "version": "0.5.5",
+  "main": "electron-main.js",
+  "dependencies": {
+    "moment": "^2.17.1",
+    "username": "^2.3.0"
+  }
 }
