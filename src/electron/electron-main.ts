@@ -2,6 +2,8 @@ import {app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen} from "electron"
 import {MiracleListMenu} from "./MiracleListMenu";
 import * as username from "username";
 import ShowMessageBoxOptions = Electron.ShowMessageBoxOptions;
+import * as fs from "fs";
+import * as moment from "Moment";
 
 const path = require('path');
 const url = require('url');
@@ -21,6 +23,8 @@ function createWindow() {
  console.log("Anwendungspfad:" + __dirname);
  console.log("Aktueller Benutzer:" + username.sync());
  console.log("User Home Dir:" + app.getPath("documents"));
+
+ writeLog('Anwendungstart');
 
  var favicon : string = path.join(__dirname, 'favicon.ico');
  win = new BrowserWindow({
@@ -115,6 +119,7 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+ writeLog("Anwendungsende");
  // On macOS it is common for applications and their menu bar
  // to stay active until the user quits explicitly with Cmd + Q
  if (process.platform !== 'darwin') {
@@ -130,6 +135,15 @@ app.on('activate', () => {
   createWindow();
  }
 });
+
+function writeLog(logtext: string)
+{
+ logtext = moment().format("DD.MM.YYYY HH:mm:ss") + ": " +  logtext + "\r\n";
+ let logfile = path.join(__dirname, 'log.txt')
+ fs.appendFile(logfile,logtext , (err) => {
+  if (err) throw err;
+ });
+}
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
