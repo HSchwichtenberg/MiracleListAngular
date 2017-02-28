@@ -115,7 +115,17 @@ console.log("Lade Index.html...");
   win = null;
  });
 
+// -------------- Reaktion auf Events
 
+ ipcMain.on('export', (event, arg) => {
+  console.log("export-event", arg);
+  let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
+  let text = JSON.stringify(arg);
+  fs.appendFile(file,text, (err) => {
+   if (err) throw err;
+  });
+  event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+ });
 
  console.log("Electron/Main:createWindow END");
 }
