@@ -3,10 +3,12 @@
 # compiled output
 /dist
 /dist*
+/temp*
 /tmp
 
 # dependencies
 /node_modules
+/electron/node_modules
 
 # IDEs and editors
 /.idea
