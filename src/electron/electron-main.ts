@@ -1,6 +1,7 @@
 import {app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen} from "electron";
 import {MiracleListMenu} from "./MiracleListMenu";
 import * as username from "username";
+import ShowMessageBoxOptions = Electron.ShowMessageBoxOptions;
 
 const path = require('path');
 const url = require('url');
@@ -58,7 +59,18 @@ function createWindow() {
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  let tray = new Tray(favicon);
  const contextMenu: Electron.Menu = Menu.buildFromTemplate([
-   {
+  {
+   label: 'Über diese Anwendung', click: () => {
+   const options : ShowMessageBoxOptions = {
+       type: 'info',
+       title: 'Cross-Plattform-Desktop-Variante der Beispielanwendung MiracleList',
+       buttons: ['Ok'],
+       message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Anwendungsmenü!'
+   }
+   dialog.showMessageBox(options, function() {})
+  }
+  },
+  {
    label: 'Verstecken', click: () => {  win.minimize(); }
   },
   {
@@ -73,6 +85,7 @@ function createWindow() {
   {
    label: 'Beenden', click: () => {  app.quit(); }
   },
+
  ]);
 
  tray.setToolTip('MiracleList');
