@@ -24,7 +24,7 @@
                 <li>0.3: Suchfunktion, fällige Aufgaben</li>
                 <li>0.4: Aufwand als Zusatzeigenschaft</li>
                 <li>0.5: Electron-Client</li>
-                <li>0.6: Cordova-Client, Aufgaben sind sortierbar</li>-->
+                <li>0.6: Cordova-Client, Aufgaben sind sortierbar</li>
 </ul>
 
 --------------------------------------------------------
@@ -40,9 +40,18 @@ Dieser Befehl muss 2x ausgeführt werden
 
 # Hilfe zum Electron-Client
 
-Übersetzen und Testen: `npm run w-electron` (w für Windows, m für Mac)
+Übersetzen und starten: `npm run w-electron` (w für Windows, m für Mac)
 
 Pakete erstellen: `npm run w-electron-deployallprod`
+
+--------------------------------------------------------
+
+# Hilfe zum Cordova-Client
+
+Angular-Webanwendung ins www-Verzeichnis von Cordova übersetzen: `npm run build-cordova` 
+
+Platform hinzufügen: `cordova platform add android` usw.
+Übersetzen: `cordova build android` usw.
 
 --------------------------------------------------------
 # Es folgt die Original-Readme-Datei von Angular-CLI
