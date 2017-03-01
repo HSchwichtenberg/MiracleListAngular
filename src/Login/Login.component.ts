@@ -30,7 +30,11 @@ export class LoginComponent implements OnInit {
   console.log("LOGIN",this.name, this.password);
 
   var li = new LoginInfo();
-  li.clientID = "11111111-85f6-4079-ba87-24987637b042"; //Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+  li.clientID = "11111111-85f6-4079-ba87-24987637b042"; 
+  //"11111111-85f6-4079-ba87-24987637b042" --> Electron
+  //"11111112-85f6-4079-ba87-24987637b042" --> Web
+  //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+
   li.username = this.name;
   li.password = this.password;
   

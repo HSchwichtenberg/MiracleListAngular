@@ -20,8 +20,8 @@ const routes: Routes = [
   ]
  }
  // ,
- // { path: 'test', component: PlaygroundComponent  }, // ohne Parameter zuerst!
- // { path: 'test/:id1/:id2/:id3', component: PlaygroundComponent  }
+ //  { path: 'test', component: PlaygroundComponent  }, // ohne Parameter zuerst!
+ //  { path: 'test/:id1/:id2/:id3', component: PlaygroundComponent  }
  // { path: 'table', component: TaskTableComponent },
 ];
 
