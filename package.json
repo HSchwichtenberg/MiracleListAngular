@@ -31,8 +31,8 @@
         "w-electron-deployallprod": "ng build -prod --output-path=temp_electron --base-href . && npm run w-copy-electron && electron-packager temp_electron MiracleListElectron --platform=darwin,linux,win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
         "w-electron-packagelinux": "electron-packager temp_electron MiracleListElectron --platform=linux --arch=x64 --out=\\\\192.168.1.179/documents --overwrite  --asar --icon=temp_electron/icon.png",
          "////": "---------------------------- Skripte für Cordova",
-         "cordova": "ng build  --output-path MLCordova/www/",
-         "cordova-prod": "ng build --target=production --environment=prod --output-path MLCordova/www/",
+         "build-cordova": "ng build  --output-path MLCordova/www/",
+         "build-cordova-prod": "ng build --target=production --environment=prod --output-path MLCordova/www/",
          "c-browser": "cd MLCordova && cordova run browser",
          "c-win": "cd MLCordova && cordova run windows"
     },
