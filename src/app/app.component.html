@@ -30,7 +30,7 @@
                 <a *ngFor="let t of taskSet; let i = index" dnd-sortable [sortableIndex]="i" (drop)="reorder(t, i)"
                    (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'" [contextMenu]="taskMenu"
                     [contextMenuSubject]="t">
-                    <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control WLcheckbox"> {{ t.order }} <b>{{ t.title }} </b>
+                    <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control WLcheckbox"> <b>{{ t.title }} </b>
                     <span class="badge badge-important" title="Wichtigkeit: {{t.importance | importance}}">{{t.importance | importance}}</span><br>
                     <div>{{getUndoneSubTaskSet(t).length}} offene Teilaufgaben</div>
                     <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}">fällig {{t.due | amTimeAgo}}</div>
