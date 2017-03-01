@@ -40,6 +40,9 @@ import { CommunicationService } from './Services/CommunicationService'
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
+//Drag&Drop
+import {DndModule} from 'ng2-dnd';
+
 // // Sonstiges
 //import { PlaygroundComponent } from './playground/playground.component';
 
@@ -64,21 +67,21 @@ import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
-    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent,StartComponent  
+    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent,StartComponent
    // PlaygroundComponent
     //, TaskTableComponent
   ],
   imports: [ // Angular-Module
     BrowserModule, FormsModule,
-    HttpModule, ContextMenuModule, MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule,
+    HttpModule, ContextMenuModule, MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule,     DndModule.forRoot()
     //GridModule
   ],
-  providers: [ // Services / Dependency Injection 
+  providers: [ // Services / Dependency Injection
    MiracleListProxy, CommunicationService, { provide: LOCALE_ID, useValue: 'de-DE' }],
-  bootstrap: [StartComponent] // Startkomponente 
+  bootstrap: [StartComponent] // Startkomponente
 
 })
-export class AppModule { 
+export class AppModule {
 
 /**
  *
@@ -89,7 +92,7 @@ constructor() {
  // moment.locale(window.navigator.language);
  // oder feste Sprache:
  moment.locale("de-de");
-  
+
 }
 
 }

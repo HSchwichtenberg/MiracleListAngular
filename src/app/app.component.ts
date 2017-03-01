@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
       // Unterscheiden, was aktualisiert werden muss
       switch (this.displayMode) {
         case DisplayMode.TaskSet: if (this.category) { this.showTaskSet(this.category); } break; // Blättermodus
-        case DisplayMode.Search: this.search(true); break;// Suchmodus 
+        case DisplayMode.Search: this.search(true); break;// Suchmodus
       }
     }
     console.log("refreshData:dueTaskSet", this.displayMode);
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
   async showCategorySet() {
     console.log('CategorySet LADEN...');
     this.categorySet = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
-    if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
+    if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen
     console.log('CategorySet GELADEN', this.categorySet);
     this.refreshData();
   }
@@ -123,7 +123,7 @@ export class AppComponent implements OnInit {
     this.miracleListProxy.categorySet(this.communicationService.token).subscribe(
      x => {
       this.categorySet = x;
-      if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen 
+      if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen
       console.log("CategorySet GELADEN", x);
       this.refreshData();
      });
@@ -141,15 +141,16 @@ export class AppComponent implements OnInit {
   }
 
   async showTaskSet(c: Category) {
-    console.log("TaskSet LADEN...");
-    let x = await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).toPromise();
-    this.taskSet = x;
+   console.log("TaskSet LADEN...");
+   let x = await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).toPromise();
+   x = this.neuSortieren(x);
+   this.taskSet = x.sort((x,y)=>(x.order-y.order));
     console.log("TaskSet GELADEN", x);
   }
 
    async showTaskSet_alt(c: Category) {
     console.log("TaskSet LADEN...");
-    await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x => 
+    await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x =>
     {
       this.taskSet = x;
       console.log("TaskSet GELADEN", x);
@@ -205,7 +206,7 @@ export class AppComponent implements OnInit {
             this.showCategorySet();
           });
       },
-      (cancel) => { // nichts tun }); 
+      (cancel) => { // nichts tun });
       });
   }
 
@@ -239,7 +240,7 @@ export class AppComponent implements OnInit {
             this.communicationService.navigate(`/app`); // Ansicht aufrufen
           });
       },
-      (cancel) => { // nichts tun }); 
+      (cancel) => { // nichts tun });
       });
   }
 
@@ -305,4 +306,50 @@ export class AppComponent implements OnInit {
       this.categorySetWithTaskSet = x;
     });
   }
+
+  // Speichern der neuen Sortierung
+ reorder(task: Task, position: number)
+ {console.clear();
+  console.log("!Reorder-Auftrag:", task.title, task.order + "->" + position);
+
+  // Schritt 1: IDs verändern
+  for(var t of this.taskSet) {
+   console.log("-- Task:", t.title, t.order);
+   if (t.taskID == task.taskID) {
+    console.log("Position setzen", t.title, t.order, position);
+    t.order = position;
+   } // aktuelles Element
+   else {
+    if (t.order > position) {
+     console.log("nach hinten", t.title, t.order, (t.order + 1));
+     t.order = position + t.order;
+    } // verschieben nach hinten
+    if (t.order <= position) {
+     console.log("nach vorne", t.title, t.order, (t.order - 1));
+     t.order = position - t.order;
+    }// verschieben nach vorne
+   }
+  }
+
+  this.taskSet = this.neuSortieren(this.taskSet);
+  // 3. Alle Speichern
+  for(var t of this.taskSet) {
+
+   this.miracleListProxy.changeTask(this.communicationService.token, t).subscribe(
+    x => {
+     // console.log("!!Task GEÄNDERT", x, x.order)
+    });
+  }
+ }
+
+ neuSortieren(taskSet: Array<Task>)
+ {
+  // neu Sortieren
+  var i = 0;
+  for(var t of taskSet.sort((x,y)=>(x.order-y.order))) {
+   t.order = i;
+   i++;
+  }
+  return taskSet;
+ }
 }
