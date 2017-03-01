@@ -41,7 +41,7 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 // // Sonstiges
-// import { PlaygroundComponent } from './playground/playground.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 // // KendoUI Grid
 // import { GridModule } from '@progress/kendo-angular-grid';
@@ -65,7 +65,8 @@ import { LOCALE_ID } from '@angular/core';
 @NgModule({
   declarations: [ // Komponenten und Pipes
     AppComponent,ImportancePipe,LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent,LoginComponent,StartComponent,  
-    //PlaygroundComponent, TaskTableComponent
+    PlaygroundComponent
+    //, TaskTableComponent
   ],
   imports: [ // Angular-Module
     BrowserModule, FormsModule,

@@ -5,7 +5,7 @@
 /**
  * Hilfsklasse, die Menübaum erstellt
  */
-export class MiracleListMenu {
+export class MiracleListAppMenu {
 // Menü erstellen
  public static CreateMenu(app : Electron.App, win: Electron.BrowserWindow): Electron.MenuItemOptions[] {
   let contents = win.webContents;
@@ -15,13 +15,6 @@ export class MiracleListMenu {
    submenu: [{
     label: 'Über diese Anwendung',
     click: () => {
-     // const options = {
-     //     type: 'info',
-     //     title: 'Desktop-Variante der Beispielanwendung MiracleList',
-     //     buttons: ['Ok'],
-     //     message: '(C) Dr. Holger Schwichtenberg 2017, Details siehe Hamburgermenü!'
-     // }
-     // dialog.showMessageBox(options, function() {})
      console.log("Sende nachricht...");
      contents.send('about', {msg: 'nachricht'});
      console.log("Sende nachricht ENDE");
