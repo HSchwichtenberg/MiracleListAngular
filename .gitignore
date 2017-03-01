@@ -3,6 +3,7 @@
 #playgrounds
 /src/playground
 /src/tasktable
+/src/unused
 
 # compiled output
 /dist
