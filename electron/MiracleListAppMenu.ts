@@ -5,7 +5,7 @@
 /**
  * Hilfsklasse, die Menübaum erstellt
  */
-export class MiracleListMenu {
+export class MiracleListAppMenu {
 // Menü erstellen
  public static CreateMenu(app : Electron.App, win: Electron.BrowserWindow): Electron.MenuItemOptions[] {
   let contents = win.webContents;

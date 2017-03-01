@@ -1,5 +1,5 @@
 import {app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen} from "electron";
-import {MiracleListMenu} from "./MiracleListMenu";
+import {MiracleListAppMenu} from "./MiracleListAppMenu";
 import * as username from "username";
 import ShowMessageBoxOptions = Electron.ShowMessageBoxOptions;
 import * as fs from "fs";
@@ -61,7 +61,7 @@ console.log("Lade Index.html...");
  let contents = win.webContents;
 
  // =================== Anwendungsmenü einbinden
- var menuTemplate = MiracleListMenu.CreateMenu(app, win);
+ var menuTemplate = MiracleListAppMenu.CreateMenu(app, win);
  const menu = Menu.buildFromTemplate(menuTemplate);
  Menu.setApplicationMenu(menu);
 
