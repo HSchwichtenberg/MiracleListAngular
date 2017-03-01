@@ -71,7 +71,7 @@ export class StartComponent implements OnInit {
  }
 
  async export() {
-  var categorySet = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
+  let categorySet = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
   console.log("Export", categorySet);
   electron.ipcRenderer.send("export", categorySet);
  }
@@ -88,10 +88,10 @@ export class StartComponent implements OnInit {
    .showClose(true)
    .title('Über die Anwendung MiracleList')
    .body(`
-            <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
+            <h4>Dies ist eine Beispielanwendung für eine  Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
             <div>Version: ${pckg.version} vom ${pckg.date}</div>
-     
+    
             <h5>Webadressen:</h5>
             <ul>
               <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -99,8 +99,7 @@ export class StartComponent implements OnInit {
                 <li>Windows-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar</a></li>
                 <li>MacOS-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar</a></li>
                 <li>Linux-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar</a></li>
-                <li>Quellcode Frontend: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>
-        
+                <li>Quellcode Frontend: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>     
             </ul>
             <h5>Eingesetzte Techniken:</h5>
             <ul>
