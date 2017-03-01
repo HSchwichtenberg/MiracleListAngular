@@ -1,13 +1,13 @@
 {
-  "name": "miraclelistelectron",
-  "version": "0.5.5-Beta1",
-  "main": "electron-main.js",
-  "dependencies": {
-    "moment": "^2.17.1",
-    "username": "^2.3.0"
-  },
- "devDependencies": {
-  "@types/node": "^6.0.64",
-  "@types/username": "^1.0.28"
- }
+    "name": "miraclelistelectron",
+    "version": "0.5.5-Beta1c",
+    "main": "electron-main.js",
+    "dependencies": {
+        "moment": "^2.17.1",
+        "username": "^2.3.0"
+    },
+    "devDependencies": {
+        "@types/node": "^6.0.64",
+        "@types/username": "^1.0.28"
+    }
 }

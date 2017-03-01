@@ -7,7 +7,7 @@ import * as moment from "moment";
 
 const path = require('path');
 const url = require('url');
-const NativeImage = require('native-image');
+// const NativeImage = require('native-image');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,17 +28,17 @@ function createWindow() {
 
  const favicon: string = path.join(__dirname, 'favicon.ico');
  writeLog("Icon1:" + favicon);
- const icon: string = path.join(__dirname, 'favicon.png');
- writeLog("Icon2:" + icon);
+ // const icon: string = path.join(__dirname, 'icon.png');
+ // writeLog("Icon2:" + icon);
 
-const ni = NativeImage.createFromPath(favicon);
+// const ni = NativeImage.createFromPath(favicon);
 
  writeLog("new BrowserWindow()");
  win = new BrowserWindow({
   width: 900,
   height: 600,
   frame: true, // false für frameless Window
-  icon: ni,
+  icon: favicon,
   webPreferences: {
    nodeIntegration: true,
    preload: path.join(__dirname, 'preload.js')
@@ -94,7 +94,7 @@ writeLog("Electron/Main:Lade Index.html...");
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  try {
   writeLog("Electron/Main:Traymenü erstellen...");
-  let tray = new Tray(icon);
+  let tray = new Tray(favicon);
   const contextMenu: Electron.Menu = Menu.buildFromTemplate([
    {
     label: 'Über diese Anwendung', click: () => {
