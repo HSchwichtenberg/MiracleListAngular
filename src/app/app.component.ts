@@ -148,9 +148,9 @@ export class AppComponent implements OnInit {
     console.log("TaskSet GELADEN", x);
   }
 
-   async showTaskSet_alt(c: Category) {
+    showTaskSet_alt(c: Category) {
     console.log("TaskSet LADEN...");
-    await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x =>
+     this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x =>
     {
       this.taskSet = x;
       console.log("TaskSet GELADEN", x);
