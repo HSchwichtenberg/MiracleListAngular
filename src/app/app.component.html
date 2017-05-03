@@ -25,16 +25,16 @@
         <!-- ---------- neue Aufgaben eingeben-->
         <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="neue Aufgabe...">
         <!-- ---------- Aufgabenliste ausgeben-->
-        <div class="list-group" dnd-sortable-container [sortableData]="taskSet">
+        <ol class="list-group" dnd-sortable-container [sortableData]="taskSet">
             <!-- ---------- eine Aufgabe im Block ausgeben-->
-            <a *ngFor="let t of taskSet; let i = index" dnd-sortable [sortableIndex]="i" (drop)="reorder(t, i)" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'"
+            <li *ngFor="let t of taskSet; let i = index" dnd-sortable [sortableIndex]="i" (drop)="reorder(t, i)" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'"
                 [contextMenu]="taskMenu" [contextMenuSubject]="t">
-                <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control WLcheckbox"> <b>{{ t.title }} </b>
+                <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control MLcheckbox"> <b>{{ t.title }} </b>
                 <span class="badge badge-important" title="Wichtigkeit: {{t.importance | importance}}">{{t.importance | importance}}</span><br>
                 <div>{{getUndoneSubTaskSet(t).length}} offene Teilaufgaben</div>
                 <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}">fällig {{t.due | amTimeAgo}}</div>
-            </a>
-        </div>
+            </li>
+        </ol>
     </div>
     <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
     <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}" *ngIf="categorySetWithTaskSet">
@@ -43,15 +43,15 @@
             <h5><a (click)="selectCategory(c?.categoryID)">{{c.name}}</a></h5>
             <div class="list-group">
                 <form class="form-inline">
-                    <div class="list-group">
-                        <a *ngFor="let t of c.taskSet" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'" [contextMenu]="taskMenu"
+                    <ol class="list-group">
+                        <li *ngFor="let t of c.taskSet" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'" [contextMenu]="taskMenu"
                             [contextMenuSubject]="t">
-                            <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" [ngModelOptions]="{standalone:true}" name="done{{t.taskID}}" id="done2{{t.taskID}}" class="form-control WLcheckbox"> <b>{{ t.title }} </b>
+                            <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" [ngModelOptions]="{standalone:true}" name="done{{t.taskID}}" id="done2{{t.taskID}}" class="form-control MLcheckbox"> <b>{{ t.title }} </b>
                             <span class="badge badge-important" title="Wichtigkeit: {{t.importance | importance}}">{{t.importance | importance}}</span><br>
                             <div>{{getUndoneSubTaskSet(t).length}} offene Teilaufgaben</div>
                             <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}">fällig {{t.due | amTimeAgo}}</div>
-                        </a>
-                    </div>
+                        </li>
+                    </ol>
                 </form>
             </div>
         </div>
