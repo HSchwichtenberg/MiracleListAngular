@@ -140,6 +140,7 @@ export class AppComponent implements OnInit {
     this.showTaskSet(c);
   }
 
+// Neu ab TS 2.1 mit async/await
   async showTaskSet(c: Category) {
    console.log("TaskSet LADEN...");
    let x = await this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).toPromise();
@@ -148,7 +149,8 @@ export class AppComponent implements OnInit {
     console.log("TaskSet GELADEN", x);
   }
 
-    showTaskSet_alt(c: Category) {
+// Alte Variante mit Observable / Subscribe
+  showTaskSet_alt(c: Category) {
     console.log("TaskSet LADEN...");
      this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x =>
     {
