@@ -30,7 +30,6 @@ function createWindow() {
  writeLog("Icon1:" + favicon);
  // const icon: string = path.join(__dirname, 'icon.png');
  // writeLog("Icon2:" + icon);
-
 // const ni = NativeImage.createFromPath(favicon);
 
  writeLog("new BrowserWindow()");
@@ -43,19 +42,17 @@ function createWindow() {
    nodeIntegration: true,
    preload: path.join(__dirname, 'preload.js')
   }
-
  });
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
 
-
- // Datenübergabe an Renderer mit dynamischen Objekt
+ // Datenübergabe von Informationen an Renderer mit dynamischen Objekt
  let env: any = new Object();
  env.version = process.versions['electron'];
  env.os = process.platform;
  env.appversion = app.getVersion();
  (<any>win).env = env;
 
-writeLog("Electron/Main:Lade Index.html...");
+ writeLog("Electron/Main:Lade Index.html...");
 
  // and load the index.html of the app.
  win.loadURL(url.format({
@@ -64,16 +61,15 @@ writeLog("Electron/Main:Lade Index.html...");
   slashes: true
  }));
 
-
  let contents = win.webContents;
 
- // =================== Anwendungsmenü
+ // =================== Anwendungsmenü erstellen
  writeLog("Electron/Main:Anwendungsmenü erstellen...");
- var menuTemplate = MiracleListAppMenu.CreateMenu(app, win);
+ let menuTemplate = MiracleListAppMenu.CreateMenu(app, win);
  const menu = Menu.buildFromTemplate(menuTemplate);
  Menu.setApplicationMenu(menu);
 
- // =================== Reaktion auf Events
+ // =================== Reaktion auf Events vom Renderer
  writeLog("Electron/Main:Event Handler erstellen...");
  ipcMain.on('export', (event, arg) => {
   console.log("export-event", arg);
@@ -122,7 +118,6 @@ writeLog("Electron/Main:Lade Index.html...");
    {
     label: 'Beenden', click: () => { app.quit(); }
    },
-
   ]);
 
   tray.setToolTip('MiracleList');
@@ -144,7 +139,6 @@ writeLog("Electron/Main:Lade Index.html...");
   // when you should delete the corresponding element.
   win = null;
  });
-
  writeLog("Electron/Main:createWindow END");
 }
 
@@ -183,4 +177,3 @@ function writeLog(logtext: string) {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
