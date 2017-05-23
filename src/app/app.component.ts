@@ -154,7 +154,7 @@ export class AppComponent implements OnInit {
     console.log("TaskSet LADEN...");
      this.miracleListProxy.taskSet(this.communicationService.token, c.categoryID).subscribe(x =>
     {
-      this.taskSet = x;
+     this.taskSet = x.sort((x,y)=>(x.order-y.order));
       console.log("TaskSet GELADEN", x);
     });
   }
@@ -199,11 +199,10 @@ export class AppComponent implements OnInit {
 
     // Dialog-Ergebnis (Promise) auswerten
     dialog.then((d) => d.result)
-      .then((d) => d.result)
       .then((ok) => {
         this.miracleListProxy.deleteTask(this.communicationService.token, t.taskID).subscribe(
           x => {
-            console.log("Task GELÖSCHT", t.taskID)
+            console.log("Task GELÖSCHT", t.taskID);
             this.task = null;
             this.showCategorySet();
           });
