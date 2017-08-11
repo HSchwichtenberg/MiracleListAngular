@@ -1,7 +1,7 @@
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen } from "electron";
 import { MiracleListAppMenu } from "./MiracleListAppMenu";
 import * as username from "username";
-import ShowMessageBoxOptions = Electron.ShowMessageBoxOptions;
+import ShowMessageBoxOptions = Electron.MessageBoxOptions;
 import * as fs from "fs";
 import * as moment from "moment";
 
