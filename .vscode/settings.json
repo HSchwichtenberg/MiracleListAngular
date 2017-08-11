@@ -1,6 +1,6 @@
 {
     "tslint.enable": true,
-    "editor.fontSize": 24,
+    "editor.fontSize": 18,
     "typescript.check.workspaceVersion": false,
     "editor.tabSize": 1,
     "editor.detectIndentation": false,
