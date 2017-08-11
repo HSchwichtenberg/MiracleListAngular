@@ -119,6 +119,7 @@ export class StartComponent implements OnInit {
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
                 <li>Electron-Version: ${this.getElectronEnv().version} auf ${this.getElectronEnv().os}</li>
+                <li>Cordova-Version: ${(<any>window).device.version} auf ${(<any>window).device.platform}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
    )

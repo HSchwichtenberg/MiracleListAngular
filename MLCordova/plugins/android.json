@@ -7,8 +7,11 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "io.cordova.miraclelist"
+        },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "io.cordova.miraclelist"
         }
     },
     "dependent_plugins": {}

@@ -10,7 +10,12 @@
         "**/*.js": { "when": "$(basename).ts" },
         "**/*.js.map": true,
         "dist*": true,
-        "temp*": true
+        "temp*": true,
+        "node_modules": true,
+        "electron/node_modules": true,
+        "MLCordova/node_modules": true,
+        "MLCordova/plugins": true,
+        "MLCordova/platforms": true
     },
     "angulardoc.repoId": "8a2537c0-ca6c-4c7a-821f-3a9b29612d52",
     "angulardoc.lastSync": 0

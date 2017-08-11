@@ -48,10 +48,20 @@ Pakete erstellen: `npm run w-electron-deployallprod`
 
 # Hilfe zum Cordova-Client
 
-Angular-Webanwendung ins www-Verzeichnis von Cordova übersetzen: `npm run build-cordova` 
+Cordova global installieren: `install -g cordova`
+
+Angular-Webanwendung ins Verzeichnis 'MLCordova/www" übersetzen: `npm run build-cordova` 
+
+Verzeichnis wechseln `cd .\MLCordova\`
 
 Platform hinzufügen: `cordova platform add android` usw.
+
 Übersetzen: `cordova build android` usw.
+
+Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android` usw. 
+
+Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
+ 
 
 # Angular-CLI
 

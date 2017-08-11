@@ -1,0 +1,23 @@
+{
+    "name": "io.cordova.hellocordova",
+    "version": "1.0.0",
+    "displayName": "MiracleListCordova",
+    "cordova": {
+        "platforms": [
+            "android",
+            "browser",
+            "windows"
+        ],
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-device": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-browser": "^4.1.0",
+        "cordova-plugin-device": "^1.1.6",
+        "cordova-plugin-whitelist": "1",
+        "cordova-windows": "~5.0.0"
+    }
+}
