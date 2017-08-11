@@ -11,11 +11,11 @@ import {Modal} from 'angular2-modal/plugins/bootstrap';
 // MomentJS
 import * as moment from 'moment';
 
-// Importe für Elektron
-
+// Importe für Electron
+// sind hier nicht, sondern in typings.d.ts weil 
 // import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
-declare var electron: any;
 declare var Notification: any;
+
 // Versionsnummer auslesen
 var pckg = require('../../package.json');
 
@@ -132,7 +132,7 @@ export class StartComponent implements OnInit {
   return (<any>electron.remote.getCurrentWindow()).env;
  }
 
- logout() {
+ logout() { // Abmelden wird sowohl von Webseite als auch Electron gerufen
   console.log("logout");
   this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => {
    console.log("logoff: OK!")
@@ -140,11 +140,20 @@ export class StartComponent implements OnInit {
    this.communicationService.username = "";
    this.titleService.setTitle("MiracleListClient");
    this.communicationService.navigate(""); // Ansicht aufrufen
-   // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
-   // HTML5 Notification API
+  
+   // HTML5 Notification API (NICHT das Electron-API, soll ja auch in normaler Webseite laufen!)
+   if (Notification.permission !== "granted")
+    {
+    Notification.requestPermission();
+    }
+ 
    let myNotification = new Notification('MiracleList', {
+     title: "MiracleList",
+    icon: "./assets/MiracleListLogo_ohneText.jpg",
     body: 'Sie wurden abgemeldet!'
    })
+  
+
   });
 
  }
