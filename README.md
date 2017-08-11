@@ -53,11 +53,11 @@ Angular-Webanwendung ins www-Verzeichnis von Cordova übersetzen: `npm run build
 Platform hinzufügen: `cordova platform add android` usw.
 Übersetzen: `cordova build android` usw.
 
---------------------------------------------------------
-TDs Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.
---------------------------------------------------------
+# Angular-CLI
 
-# Es folgt die Original-Readme-Datei von Angular-CLI
+Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.
+
+Es folgt die Original-Readme-Datei von Angular-CLI
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
