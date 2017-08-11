@@ -2,7 +2,7 @@
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
 /*global jasmine */
-var SpecReporter = require('jasmine-spec-reporter');
+const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
     allScriptsTimeout: 11000,
@@ -10,7 +10,7 @@ exports.config = {
         './e2e/**/*.e2e-spec.ts'
     ],
     capabilities: {
-        'browserName': 'firefox' /*firefox' /*internet explorer' /*chrome */
+        'browserName': 'chrome' /*firefox' /*internet explorer' /*chrome */
             /* Während Chrome und FireFox den Silenium WebDriver inzwischen direkt unterstützen, muss der Entwickler für Internet Explorer[https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver], Edge [https://www.microsoft.com/en-us/download/details.aspx?id=48212] und Opera [https://github.com/operasoftware/operachromiumdriver] vorher einen Treiber auf seinem System installieren.
              */
     },
@@ -22,13 +22,12 @@ exports.config = {
         defaultTimeoutInterval: 30000,
         print: function() {}
     },
-    useAllAngular2AppRoots: true,
     beforeLaunch: function() {
         require('ts-node').register({
-            project: 'e2e'
+            project: 'e2e/tsconfig.e2e.json'
         });
     },
     onPrepare: function() {
-        jasmine.getEnv().addReporter(new SpecReporter());
+        jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
     }
 };

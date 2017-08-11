@@ -1,4 +1,4 @@
-import { AppModule } from './../src/app/app.module';
+import { AppModule } from '../src/app.module';
 import { MiracleListClientPage } from './app.po';
 import { browser, element, by } from 'protractor';
 
@@ -32,7 +32,7 @@ describe('miracle-list-client App', function () {
 
     // hat sich die URL nun verändert?
     expect(browser.getCurrentUrl())  
-     .toBe( browser.baseUrl + 'app');});
+     .toBe( browser.baseUrl + '/app');});
 
     // ========== Zugriff auf Modell geht noch nicht in Angular 2 :-(
     //  var e2 = element(by.model("this.communicationService.username"));
