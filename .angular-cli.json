@@ -1,6 +1,6 @@
 {
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "project": {
-        "version": "1.0.0-beta.24",
         "name": "miracle-list-client"
     },
     "apps": [{
@@ -12,6 +12,7 @@
         ],
         "index": "index.html",
         "main": "main.ts",
+        "polyfills": "polyfills.ts",
         "test": "test.ts",
         "tsconfig": "tsconfig.json",
         "prefix": "app",
@@ -29,8 +30,8 @@
             "styles.css"
         ],
 
+        "environmentSource": "environments/environment.ts",
         "environments": {
-            "source": "environments/environment.ts",
             "dev": "environments/environment.ts",
             "prod": "environments/environment.prod.ts"
         }
@@ -42,6 +43,19 @@
             "config": "./protractor.conf.js"
         }
     },
+    "lint": [{
+            "project": "src/tsconfig.app.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "src/tsconfig.spec.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
     "test": {
         "karma": {
             "config": "./karma.conf.js"
@@ -49,18 +63,9 @@
     },
     "defaults": {
         "styleExt": "css",
-        "prefixInterfaces": false,
-        "inline": {
-            "style": false,
-            "template": false
-        },
-        "spec": {
-            "class": false,
-            "component": true,
-            "directive": true,
-            "module": false,
-            "pipe": true,
-            "service": true
+        "component": {
+            "inlineTemplate": false,
+            "spec": true
         }
     }
 }
