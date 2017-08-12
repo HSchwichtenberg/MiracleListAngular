@@ -1,5 +1,5 @@
 import {Title} from '@angular/platform-browser';
-import {Component, OnInit, NgZone} from '@angular/core';
+import {Component, OnInit, NgZone, HostListener} from '@angular/core';
 // Dienste
 import {MiracleListProxy} from '../Services/MiracleListProxy';
 import {CommunicationService} from '../Services/CommunicationService'
@@ -28,6 +28,7 @@ export class StartComponent implements OnInit {
 
  constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
   overlay.defaultViewContainer = vcr;
+   this.calcSizeInfo(window.screen.width);
   console.log("StartComponent:ctor", typeof electron, this.getElectronEnv());
  }
 
@@ -80,6 +81,28 @@ export class StartComponent implements OnInit {
  get isLoggedIn(): boolean {
   return (this.communicationService.username != null && this.communicationService.username != "")
  }
+
+sizeInfo : string;
+
+@HostListener('window:resize', ['$event'])
+onResize(event) {
+ this.calcSizeInfo(event.target.innerWidth);
+}
+
+calcSizeInfo(width : number)
+{
+ var size = width;
+ var sizeName = "";
+
+  switch (true) {
+   case (size >= 1170): sizeName = "lg"; break;
+   case (size >= 970): sizeName = "md"; break;
+   case (size >= 750): sizeName = "sm"; break;
+   default: sizeName = "xs"; break;
+  }
+
+ this.sizeInfo =  size +  "px (" + sizeName + ")";
+}
 
  about() {
   console.log(this.modal);
