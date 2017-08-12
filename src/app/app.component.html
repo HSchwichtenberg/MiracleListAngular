@@ -10,13 +10,13 @@
  <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
          </a>
         <!-- ---------- Kategorieliste ausgeben-->
-        <div class="list-group">
-            <a *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
+        <ol class="list-group">
+            <li *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
 
-     <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></a>
+                <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></li>
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="suche...">
-        </div>
+        </ol>
     </div>
     <!-- ### Spalte 2: Aufgaben-->
     <div *ngIf="taskSet" [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}">
