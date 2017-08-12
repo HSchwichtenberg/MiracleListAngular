@@ -80,8 +80,10 @@ export class AppComponent implements OnInit {
     );
 
     // Ereignisbehandlung für Event von TaskView/TaskEdit
+    // wird gefeuert, wenn dort auf "zurück" geklickt wurde
     communicationService.TaskDetailCloseEvent.subscribe(
       x => {
+       // Wenn fällige Aufgaben angezeigt wurden, dann gibt es keine aktuelle Kategorie!
        if (  this.displayMode === DisplayMode.DueTaskSet) { this.getDueTaskSet(false); }
        else {  this.selectCategory(this.category); }
       }
@@ -197,7 +199,7 @@ setlistHeigth()
       x => {
         console.log("Task GEÄNDERT", x)
         this.refreshData(true);
-          if (  this.displayMode === DisplayMode.DueTaskSet) this.task = null;
+          if (  this.displayMode === DisplayMode.DueTaskSet) this.task = null; // Wenn gerade eine fällige Aufgabe abgeharkt wurde, dann sollte die nicht mehr in Einzelansicht erscheinen, weil die ja aus der Liste verschwindet
       });
   }
 
