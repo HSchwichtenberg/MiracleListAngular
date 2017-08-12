@@ -85,6 +85,7 @@ export class AppComponent implements OnInit {
       x => {
        // Wenn fällige Aufgaben angezeigt wurden, dann gibt es keine aktuelle Kategorie!
        if (  this.displayMode === DisplayMode.DueTaskSet) { this.getDueTaskSet(false); }
+           if (  this.displayMode === DisplayMode.Search) { this.search(false); }
        else {  this.selectCategory(this.category); }
       }
     );
