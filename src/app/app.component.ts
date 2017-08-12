@@ -71,11 +71,18 @@ export class AppComponent implements OnInit {
 
     overlay.defaultViewContainer = vcr; // für Dialoge
 
-    // Ereignisbehandlung für taskChangedEvent in TaskEdit
+    // Ereignisbehandlung für Event von TaskView/TaskEdit
     communicationService.TaskListUpdateEvent.subscribe(
       x => {
         this.task = x;
         this.refreshData();
+      }
+    );
+
+    // Ereignisbehandlung für Event von TaskView/TaskEdit
+    communicationService.TaskDetailCloseEvent.subscribe(
+      x => {
+        this.selectCategory(this.category);
       }
     );
   }

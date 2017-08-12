@@ -15,10 +15,16 @@ export class CommunicationService {
 
  // Ereignis für Ereigniskonsumenten
  TaskListUpdateEvent = new EventEmitter();
+ TaskDetailCloseEvent = new EventEmitter();
 
  // Ereignisauslösung
  EmitTaskListUpdateEvent(t: Task) {
   this.TaskListUpdateEvent.emit(t);
+ }
+
+  // Ereignisauslösung
+ EmitTaskDetailCloseEvent(t: Task) {
+  this.TaskDetailCloseEvent.emit(t);
  }
 
  // Daten der Benutzeranmeldung

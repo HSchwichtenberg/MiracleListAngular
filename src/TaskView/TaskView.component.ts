@@ -46,6 +46,11 @@ export class TaskViewComponent implements OnInit {
   this.communicationService.navigate(`/app/(column3:taskedit/${this.task.taskID})`); // Ansicht aufrufen
  }
 
+ gotoTaskList()
+ {
+this.communicationService.EmitTaskDetailCloseEvent(this.task);
+ }
+
  reload(obj: any) {
   this.communicationService.EmitTaskListUpdateEvent(this.task);
  }
