@@ -25,7 +25,7 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-                <icon density="ldpi" src="assets/MiracleListLogo_ohneText.png" />
+        <icon density="ldpi" src="assets/MiracleListLogo_ohneText.png" />
         <icon density="mdpi" src="assets/MiracleListLogo_ohneText.png" />
         <icon density="hdpi" src="assets/MiracleListLogo_ohneText.png" />
         <icon density="xhdpi" src="assets/MiracleListLogo_ohneText.png" />
