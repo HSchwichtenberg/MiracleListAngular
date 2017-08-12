@@ -50,7 +50,7 @@ Pakete erstellen: `npm run w-electron-deployallprod`
 
 Cordova global installieren: `install -g cordova`
 
-Angular-Webanwendung ins Verzeichnis 'MLCordova/www" übersetzen: `npm run build-cordova` 
+Angular-Webanwendung ins Verzeichnis "MLCordova/www" übersetzen: `npm run build-cordova` 
 
 Verzeichnis wechseln `cd .\MLCordova\`
 
