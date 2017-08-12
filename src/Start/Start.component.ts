@@ -16,8 +16,7 @@ import * as moment from 'moment';
 // import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var Notification: any;
 
-// Versionsnummer auslesen
-var pckg = require('../../package.json');
+
 
 @Component({
  selector: 'Start',
@@ -34,8 +33,8 @@ export class StartComponent implements OnInit {
 
  ngOnInit() {
   console.log("======= StartComponent:ngOnInit");
-  console.log("Anwendung: " + pckg.name);
-  console.log("Version: " + pckg.version + " vom " + pckg.date);
+  console.log("Anwendung: " + this.GetPackage().name);
+  console.log("Version: " + this.GetPackage().version + " vom " + this.GetPackage().date);
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
   console.log("StartComponent:ngOnInit", typeof electron, this.getElectronEnv());
 
@@ -113,7 +112,7 @@ calcSizeInfo(width : number)
    .body(`
             <h4>Dies ist eine Beispielanwendung für eine  Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: ${pckg.version} vom ${pckg.date}</div>
+            <div>Version: ${this.GetPackage().version} vom ${this.GetPackage().date}</div>
     
             <h5>Webadressen:</h5>
             <ul>
@@ -154,6 +153,11 @@ calcSizeInfo(width : number)
  }
 
 
+  GetPackage() : any
+ {
+  // Versionsnummer auslesen
+  return require('../../package.json');
+ }
  // Liefert das vom Electron Main Prozess übergebe env-Objekt
   getElectronEnv(): any {
   if (typeof electron == "undefined") return "n/a";
