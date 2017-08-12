@@ -43,6 +43,9 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 //Drag&Drop
 import {DndModule} from 'ng2-dnd';
 
+// Animationen (ab Angular 4.0)
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // // Sonstiges
 //import { PlaygroundComponent } from './playground/playground.component';
 
@@ -65,6 +68,8 @@ import {DndModule} from 'ng2-dnd';
 
 import { LOCALE_ID } from '@angular/core';
 
+
+
 @NgModule({
   declarations: [ // Komponenten und Pipes
     AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent,StartComponent
@@ -73,7 +78,7 @@ import { LOCALE_ID } from '@angular/core';
   ],
   imports: [ // Angular-Module
     BrowserModule, FormsModule,
-    HttpModule, ContextMenuModule, MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule,     DndModule.forRoot()
+    HttpModule, ContextMenuModule, MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
