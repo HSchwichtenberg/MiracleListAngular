@@ -6,3 +6,7 @@
 .MLselected {
     background-color: #E0EEFA !important;
 }
+
+.scroll {
+    overflow-y: auto;
+}

@@ -6,11 +6,13 @@
         <h4 style="margin: 0px">{{categorySet.length+1}} Kategorien</h4>
         <!-- ---------- neue Kategorie eingeben-->
         <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="neue Kategorie...">
-        <a (click)="getDueTaskSet()" class="list-group-item" [style.background-color]="displayMode == 1 ? '#E0EEFA' : 'white'">Fällige Aufgaben
- <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
-         </a>
+
         <!-- ---------- Kategorieliste ausgeben-->
-        <ol class="list-group">
+        <ol class="list-group scroll" [style.height]="this.listHeight">
+            <li (click)="getDueTaskSet()" class="list-group-item" [style.background-color]="displayMode == 1 ? '#E0EEFA' : 'white'">Fällige Aufgaben
+                <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
+            </li>
+
             <li *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
 
@@ -25,7 +27,7 @@
         <!-- ---------- neue Aufgaben eingeben-->
         <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="neue Aufgabe...">
         <!-- ---------- Aufgabenliste ausgeben-->
-        <ol class="list-group" dnd-sortable-container [sortableData]="taskSet">
+        <ol class="list-group scroll" dnd-sortable-container [sortableData]="taskSet" [style.height]="this.listHeight">
             <!-- ---------- eine Aufgabe im Block ausgeben mit Kontextmenü und Sortierbarkeit -->
             <li *ngFor="let t of taskSet; let i = index" dnd-sortable [sortableIndex]="i" (drop)="reorder(t, i)" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'"
                 [contextMenu]="taskMenu" [contextMenuSubject]="t">
@@ -37,7 +39,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
-    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'col-xs-4 col-lg-6 WLPanel': task}" *ngIf="categorySetWithTaskSet">
+    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel scroll': !task, 'col-xs-4 col-lg-6 WLPanel scroll': task}" *ngIf="categorySetWithTaskSet" [style.height]="this.listHeight">
         <h4 style="margin: 0px">Suchergebnisse in {{categorySetWithTaskSet.length}} Kategorien</h4>
         <div *ngFor="let c of categorySetWithTaskSet">
             <h5><a (click)="selectCategory(c?.categoryID)">{{c.name}}</a></h5>

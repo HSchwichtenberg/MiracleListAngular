@@ -1,5 +1,5 @@
 import { RoutingModule } from './../Util/RoutingModule';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MiracleListProxy } from '../Services/MiracleListProxy';
 import { Category, Task, SubTask, Importance, LoginInfo } from '../Services/MiracleListProxy';
 import { TaskEditComponent } from "../TaskEdit/TaskEdit.component";
@@ -91,8 +91,16 @@ export class AppComponent implements OnInit {
     // Startaktion
     // console.log("======= AppComponent:ngOnInit");
     this.displayMode = DisplayMode.TaskSet;
+         this.listHeight = (window.innerHeight - 150) + "px";
     this.showCategorySet();
+
   }
+
+  listHeight : string = "400px";
+  @HostListener('window:resize', ['$event'])
+onResize(event) {
+ this.listHeight = (window.innerHeight - 150) + "px";
+}
 
  async refreshData(onlyDueTaskSet: boolean = false) {
 
