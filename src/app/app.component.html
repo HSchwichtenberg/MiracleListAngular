@@ -1,6 +1,6 @@
 <div class="row">
     <!-- ### Spalte 1: Kategorien-->
-    <div class="col-xs-4 col-lg-2 WLPanel" *ngIf="categorySet" [ngClass]="{'hidden-sm hidden-xs': this.task}">
+    <div class="col-xs-4 col-md-2 col-lg-2 WLPanel" *ngIf="categorySet" [ngClass]="{'hidden-sm hidden-xs': this.task}">
 
         <!-- ---------- Überschrift-->
         <h4>{{categorySet.length+1}} Kategorien</h4>
@@ -21,7 +21,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Aufgabenliste-->
-    <div *ngIf="taskSet" [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'hidden-xs col-sm-6 col-lg-6 WLPanel': task}">
+    <div *ngIf="taskSet" [ngClass]="{'col-xs-8 col-lg-10 WLPanel': !task, 'hidden-xs col-sm-6 col-md-6 col-lg-6 WLPanel': task}">
         <!-- ---------- Überschrift-->
         <h4>{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
@@ -39,7 +39,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
-    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel scroll': !task, 'hidden-xs col-sm-6 col-lg-6 WLPanel scroll': task}" *ngIf="categorySetWithTaskSet" [style.height]="this.listHeight">
+    <div [ngClass]="{'col-xs-8 col-lg-10 WLPanel scroll': !task, 'hidden-xs col-sm-6 col-md-6 col-lg-6 WLPanel scroll': task}" *ngIf="categorySetWithTaskSet" [style.height]="this.listHeight">
         <h4>Suchergebnisse in {{categorySetWithTaskSet.length}} Kategorien</h4>
         <div *ngFor="let c of categorySetWithTaskSet">
             <h5><a (click)="selectCategory(c?.categoryID)">{{c.name}}</a></h5>
