@@ -136,13 +136,16 @@ calcSizeInfo(width : number)
                 <li>0.3: Suchfunktion, fällige Aufgaben</li>
                 <li>0.4: Aufwand zu einer Aufgabe erfassbar</li>
                 <li>0.5: Electron-Client</li>
+                <li>0.6: Cordova-Client, Aufgaben sind sortierbar</li>
+                <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
             </ul>
             <h5>Systeminfo:</h5>
             <ul>
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
-                <li>Electron-Version: ${this.getElectronEnv().version} auf ${this.getElectronEnv().os}</li>
-                <li>Cordova-Version: ${(<any>window).device.version} auf ${(<any>window).device.platform}</li>
+                     <li>Bildschirmauflösung: ${window.innerWidth}x${window.innerHeight}</li>
+                <li>Electron-Version: ${this.getElectronEnvString()}</li>
+                <li>Cordova-Version: ${this.getCordovaEnvString()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
    )
@@ -150,10 +153,24 @@ calcSizeInfo(width : number)
   // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
  }
 
+
  // Liefert das vom Electron Main Prozess übergebe env-Objekt
- getElectronEnv(): any {
+  getElectronEnv(): any {
   if (typeof electron == "undefined") return "n/a";
-  return (<any>electron.remote.getCurrentWindow()).env;
+  var env = (<any>electron.remote.getCurrentWindow()).env;
+  return env;
+ }
+ 
+getElectronEnvString(): string {
+  if (typeof electron == "undefined") return "n/a";
+  var env = this.getElectronEnv();
+  return (env.version + " auf " + env.os);
+ }
+
+  getCordovaEnvString(): string {
+   if (typeof (<any>window).device == "undefined") return "n/a";
+   var env = (<any>window).device;
+   return (env.version + " auf " + env.platform);
  }
 
  logout() { // Abmelden wird sowohl von Webseite als auch Electron gerufen
