@@ -3,11 +3,13 @@
         <span class="col-xs-8">
      <h4>Aufgabe</h4>    
     <h4 style="margin-bottom: 10px;margin-top:0px">{{task.title}}</h4></span>
+
+        <!-- schalflächen -->
         <span class="col-xs-4" style="text-align: right">
-    <button lass="btn btn-info" title="Bearbeiten" (click)="gotoEdit()" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>
+    <button class="btn btn-primary" title="Bearbeiten" (click)="gotoEdit()" ><span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm hidden-md">Bearbeiten</span></button>
 
-        <button lass="btn btn-info hidden-md hidden-lg" title="Zurück" (click)="gotoTaskList()" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> 
+        <button class="btn btn-primary hidden-md hidden-lg" title="Zurück" (click)="gotoTaskList()"><span class="glyphicon glyphicon-arrow-left"></span> 
      <span class="hidden-xs hidden-sm hidden-md">Zurück</span></button>
         </span>
     </div>
