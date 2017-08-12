@@ -1,5 +1,5 @@
 # MiracleListClient
-
+<img align="right" src="/src/assets/miracllistlogo.jpg">
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
             <div>Version: 0.6.1-Beta1 vom 12.08.2017</div>
@@ -41,7 +41,7 @@ Dieser Befehl muss 2x ausgeführt werden
 
 # Hilfe zum Electron-Client
 
-Übersetzen und starten: `npm run w-electron` (w für Windows, m für Mac)
+Übersetzen und starten: `npm run w-electron` (w für AUSFÜHRUNG auf Windows, m für Mac)
 
 Pakete erstellen: `npm run w-electron-deployallprod`
 
