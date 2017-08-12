@@ -82,7 +82,8 @@ export class AppComponent implements OnInit {
     // Ereignisbehandlung für Event von TaskView/TaskEdit
     communicationService.TaskDetailCloseEvent.subscribe(
       x => {
-        this.selectCategory(this.category);
+       if (  this.displayMode === DisplayMode.DueTaskSet) { this.getDueTaskSet(false); }
+       else {  this.selectCategory(this.category); }
       }
     );
   }
@@ -91,14 +92,20 @@ export class AppComponent implements OnInit {
     // Startaktion
     // console.log("======= AppComponent:ngOnInit");
     this.displayMode = DisplayMode.TaskSet;
-         this.listHeight = (window.innerHeight - 150) + "px";
+this.setlistHeigth();
     this.showCategorySet();
 
   }
 
-  listHeight : string = "400px";
+  listHeight : string = "";
   @HostListener('window:resize', ['$event'])
 onResize(event) {
+this.setlistHeigth();
+}
+
+// Lösung über CSS hatte viele Probleme mit Bootstrap 3. Daher hier dynamische Berechnung!
+setlistHeigth()
+{
  this.listHeight = (window.innerHeight - 150) + "px";
 }
 
@@ -190,6 +197,7 @@ onResize(event) {
       x => {
         console.log("Task GEÄNDERT", x)
         this.refreshData(true);
+          if (  this.displayMode === DisplayMode.DueTaskSet) this.task = null;
       });
   }
 
