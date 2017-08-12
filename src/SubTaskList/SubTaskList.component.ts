@@ -28,7 +28,7 @@ export class SubTaskListComponent implements OnInit {
  @Output()
  subTaskListChangedEvent = new EventEmitter();
 
- private newSubTaskTitle: string;
+ public newSubTaskTitle: string;
 
  createSubTask() {
   let st = new SubTask();

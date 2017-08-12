@@ -28,7 +28,7 @@ export class TaskViewComponent implements OnInit {
   });
  }
 
- private task: Task;
+ public task: Task;
 
  getTask(id: number) {
   console.log("TaskView:Task LADEN...", id)

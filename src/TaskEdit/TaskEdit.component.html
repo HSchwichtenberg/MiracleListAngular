@@ -1,6 +1,6 @@
-<div *ngIf="task" class="col-xs-4" style="padding: 0">
-    <div style="margin:0px 25px 0px 0px">
-        <h4 style="margin: 0px">Aufgabe</h4>
+<div *ngIf="task" style="padding: 0">
+    <div>
+        <h4>Aufgabe</h4>
         <form #taskForm="ngForm">
             <!--Schaltflächen-->
             <button type="button" [disabled]="!taskForm.form.valid" (click)="submit(taskForm)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> <span class="hidden-xs">Speichern</span></button>

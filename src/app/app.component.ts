@@ -25,16 +25,16 @@ enum DisplayMode { TaskSet = 0, DueTaskSet = 1, Search = 2 };
 export class AppComponent implements OnInit {
 
   // Attribute mit in HTML darzustellenden Daten
-  private categorySet: Array<Category>;
-  private category: Category; // Aktuelle Kategorie
-  private taskSet: Array<Task>;
-  private task: Task; // Aktuelle Aufgabe
-  private newCategoryName: string; // neue Kategorie
-  private newTaskTitle: string; // neue Aufgabe
-  private searchText: string; // Suchtext
-  private categorySetWithTaskSet: Array<Category>; // Suchergebnisse
-  private dueTaskSet: Array<Category>; // fällige Aufgaben
-  private displayMode: DisplayMode;
+  public categorySet: Array<Category>;
+  public category: Category; // Aktuelle Kategorie
+  public taskSet: Array<Task>;
+  public task: Task; // Aktuelle Aufgabe
+  public newCategoryName: string; // neue Kategorie
+  public newTaskTitle: string; // neue Aufgabe
+  public searchText: string; // Suchtext
+  public categorySetWithTaskSet: Array<Category>; // Suchergebnisse
+  public dueTaskSet: Array<Category>; // fällige Aufgaben
+  public displayMode: DisplayMode;
 
   // weitere Attribute
   private today: Date = new Date();
@@ -94,9 +94,13 @@ export class AppComponent implements OnInit {
     // Startaktion
     // console.log("======= AppComponent:ngOnInit");
     this.displayMode = DisplayMode.TaskSet;
-this.setlistHeigth();
+    this.setlistHeigth();
     this.showCategorySet();
 
+    // für vereinfachtes Debugging der TaskEdit-Ansicht
+    this.miracleListProxy.task(this.communicationService.token, 6498).subscribe(x=> { this.task = x; this.editTask(x) });
+  
+    // this.communicationService.navigate("/app/(column3:taskedit/6498)");
   }
 
   listHeight : string = "";
@@ -108,6 +112,8 @@ this.setlistHeigth();
 // Lösung über CSS hatte viele Probleme mit Bootstrap 3. Daher hier dynamische Berechnung!
 setlistHeigth()
 {
+ var abstand : number = 150;
+ if (window.innerHeight < 750) abstand = 220; // weil dann unter noch der Footer steht!
  this.listHeight = (window.innerHeight - 150) + "px";
 }
 

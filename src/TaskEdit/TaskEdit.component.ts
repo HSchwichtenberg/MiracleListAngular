@@ -7,13 +7,13 @@ import { MiracleListProxy } from '../Services/MiracleListProxy';
 import { CommunicationService } from "../Services/CommunicationService"
 
 // Animationen
-import { slideToTop, slideToLeft, slideToRight, slideToBottom } from '../Util/RouterAnimations';
+import { slideToTop, slideToLeft, slideToRight, slideToBottom, fadeInAnimation } from '../Util/RouterAnimations';
 
 @Component({
  selector: 'TaskEdit',
  templateUrl: './TaskEdit.component.html',
  styleUrls:[ './TaskEdit.component.css'],
- animations: [slideToLeft()],
+ animations: [fadeInAnimation()],
  host: { '[@routerTransition]': '' }
 })
 export class TaskEditComponent  implements OnInit {
