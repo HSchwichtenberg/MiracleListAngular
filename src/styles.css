@@ -12,6 +12,11 @@ body {
     }
 } */
 
+.WLPanel {
+    padding-right: 2px;
+    padding-left: 5px;
+}
+
 h4 {
     margin: 2px;
 }

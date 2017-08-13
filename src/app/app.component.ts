@@ -99,7 +99,7 @@ export class AppComponent implements OnInit {
     this.showCategorySet();
 
     // für vereinfachtes Debugging der TaskEdit-Ansicht
-    this.miracleListProxy.task(this.communicationService.token, 6498).subscribe(x=> { this.task = x; this.editTask(x) });
+    // this.miracleListProxy.task(this.communicationService.token, 6498).subscribe(x=> { this.task = x; this.editTask(x) });
   
     // this.communicationService.navigate("/app/(column3:taskedit/6498)");
   }

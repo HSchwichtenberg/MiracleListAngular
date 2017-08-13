@@ -1,8 +1,7 @@
 <div class="row">
     <!-- ### Spalte 1: Kategorien-->
     <div class="col-xs-4 col-md-3 col-lg-2 WLPanel" *ngIf="categorySet" [ngClass]="{'hidden-sm hidden-xs': this.task}">
-
-        <!-- ---------- Überschrift-->
+        <!-- ---------- Überschrift Spalte 1-->
         <h4>{{categorySet.length+1}} Kategorien</h4>
         <!-- ---------- neue Kategorie eingeben-->
         <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="neue Kategorie...">
@@ -21,8 +20,8 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Aufgabenliste-->
-    <div *ngIf="taskSet" [ngClass]="{'col-xs-8 col-md-9 col-lg-10 WLPanel': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel': task}">
-        <!-- ---------- Überschrift-->
+    <div *ngIf="taskSet" [ngClass]="{'WLPanel col-xs-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel': task}" style="padding-left:5px;padding-right: 2px;">
+        <!-- ---------- Überschrift Spalte 2-->
         <h4>{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
         <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="neue Aufgabe...">
@@ -74,7 +73,7 @@
   </template>
     </context-menu>
     <!-- ### Spalte 3: Aufgabendetails-->
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" [hidden]="!task">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 WLPanel" [hidden]="!task">
         <router-outlet name="column3">
             <!--View:
         <TaskView [task]="task"></TaskView>
