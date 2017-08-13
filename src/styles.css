@@ -14,7 +14,17 @@ body {
 
 .WLPanel {
     padding-right: 2px;
-    padding-left: 5px;
+    padding-left: 2px;
+}
+
+.WLPanelLeft {
+    padding-right: 2px;
+    padding-left: 0px;
+}
+
+.WLPanelRight {
+    padding-right: 0px;
+    padding-left: 2px;
 }
 
 h4 {
