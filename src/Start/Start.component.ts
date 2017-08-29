@@ -103,6 +103,13 @@ calcSizeInfo(width : number)
  this.sizeInfo =  size +  "px (" + sizeName + ")";
 }
 
+mainpage()
+{
+ console.log("GOTO mainpage");
+ window.location.reload();
+ // this.communicationService.EmitTaskDetailCloseEvent(null);
+}
+
  about() {
   console.log(this.modal);
   this.modal.alert()
@@ -184,7 +191,7 @@ getElectronEnvString(): string {
    this.communicationService.token = "";
    this.communicationService.username = "";
    this.titleService.setTitle("MiracleListClient");
-   this.communicationService.navigate(""); // Ansicht aufrufen
+   this.communicationService.navigate(""); // Anmeldeansicht aufrufen
   
    // HTML5 Notification API (NICHT das Electron-API, soll ja auch in normaler Webseite laufen!)
    if (Notification.permission !== "granted")
