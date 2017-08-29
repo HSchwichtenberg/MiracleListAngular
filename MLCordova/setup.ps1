@@ -5,4 +5,5 @@ $env:Path=$env:Path + ";C:\Program Files (x86)\Gradle\bin"
 $env:_JAVA_OPTIONS="-Xmx512M"
 java
 gradle -v
-cd MLCordova
+"Setze Pfad..."
+if ((get-location).Path -notlike "*MLCordova*") { cd MLCordova }
