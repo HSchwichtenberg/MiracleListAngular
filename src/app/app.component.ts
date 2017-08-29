@@ -167,7 +167,7 @@ setlistHeigth()
     this.displayMode = DisplayMode.TaskSet;
     this.category = c;
     this.categorySetWithTaskSet = null;
-    this.communicationService.navigate(`/app)`); // Ansicht aufrufen
+    this.communicationService.navigate(`/app`); // Ansicht aufrufen
     this.showTaskSet(c);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommunicationService } from '../Services/CommunicationService'
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
@@ -10,23 +10,29 @@ import { Title }  from '@angular/platform-browser';
 
 export class LoginComponent implements OnInit {
 
- constructor(private miracleListProxy : MiracleListProxy, private communicationService: CommunicationService, private titleService: Title)
+ constructor(private miracleListProxy : MiracleListProxy, public communicationService: CommunicationService, private titleService: Title, private zone: NgZone)
  {   
+  
   //  console.log("======= LoginComponent:constructor");
-
 }
 
-    ngOnInit(){
+  ngOnInit(){
   // Startaktion
   // console.log("======= LoginComponent:ngOnInit");
-
+  this.zone.run(() => {
+   console.log("isCordova",this.communicationService.isCordova());
+   console.log("isElectron",this.communicationService.isElectron());
+   console.log("oder",this.communicationService.isCordova() || this.communicationService.isElectron());
+   console.log("not",!(this.communicationService.isCordova() || this.communicationService.isElectron()));
+     this.showDownloads = !(this.communicationService.isCordova() || this.communicationService.isElectron());
+  });
   }
 
  public name: string = "";
  public password: string;
  public errorMsg = '';
 
- public showDownloads: boolean = !this.communicationService.isCordova() && !this.communicationService.isElectron();
+ public showDownloads: boolean;
 
  login() {
   console.log("LOGIN",this.name, this.password);

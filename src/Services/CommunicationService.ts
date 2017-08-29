@@ -43,6 +43,11 @@ export class CommunicationService {
   return env;
  }
  
+ isElectron() : boolean
+ {
+  return (electron != undefined);
+ }
+
 getElectronEnvString(): string {
  if (!this.isElectron()) return "n/a";
   var env = this.getElectronEnv();
@@ -51,12 +56,8 @@ getElectronEnvString(): string {
 
  isCordova() : boolean
  {
-  return (typeof (<any>window).device != "undefined");
- }
-
- isElectron() : boolean
- {
-  return (typeof electron != "undefined");
+  console.log("xx isCordova",(<any>window).device);
+  return ((<any>window).device != undefined);
  }
 
   getCordovaEnvString(): string {

@@ -16,8 +16,6 @@ import * as moment from 'moment';
 // import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var Notification: any;
 
-
-
 @Component({
  selector: 'Start',
  templateUrl: './Start.component.html'
@@ -25,22 +23,22 @@ declare var Notification: any;
 
 export class StartComponent implements OnInit {
 
- constructor(private miracleListProxy: MiracleListProxy, private communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
+ constructor(private miracleListProxy: MiracleListProxy, public communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
   overlay.defaultViewContainer = vcr;
    this.calcSizeInfo(window.screen.width);
-  console.log("StartComponent:ctor", typeof electron, this.getElectronEnv());
+  console.log("StartComponent:ctor", typeof electron, this.communicationService.getElectronEnv());
  }
 
  ngOnInit() {
   console.log("======= StartComponent:ngOnInit");
-  console.log("Anwendung: " + this.GetPackage().name);
-  console.log("Version: " + this.GetPackage().version + " vom " + this.GetPackage().date);
+  console.log("Anwendung: " + this.communicationService.GetPackage().name);
+  console.log("Version: " + this.communicationService.GetPackage().version + " vom " + this.communicationService.GetPackage().date);
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
-  console.log("StartComponent:ngOnInit", typeof electron, this.getElectronEnv());
+  console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
 
   // Electron-IPC-Events behandeln
   if (typeof electron != "undefined") {
-   this.title.setTitle("MiracleList-Desktop-Client v" + this.getElectronEnv().appversion + " auf " + this.getElectronEnv().os);
+   this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnv().appversion + " auf " + this.communicationService.getElectronEnv().os);
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
    electron.ipcRenderer.on('about', (event, data) => {
@@ -63,11 +61,6 @@ export class StartComponent implements OnInit {
     });
    });
   }
- }
-
-
- get isElectron(): boolean {
-  return (typeof electron != "undefined");
  }
 
  async export() {
@@ -119,7 +112,7 @@ mainpage()
    .body(`
             <h4>Dies ist eine Beispielanwendung für eine  Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: ${this.GetPackage().version} vom ${this.GetPackage().date}</div>
+            <div>Version: ${this.communicationService.GetPackage().version} vom ${this.communicationService.GetPackage().date}</div>
     
             <h5>Webadressen:</h5>
             <ul>
@@ -150,38 +143,12 @@ mainpage()
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
                      <li>Bildschirmauflösung: ${window.innerWidth}x${window.innerHeight}</li>
-                <li>Electron-Version: ${this.getElectronEnvString()}</li>
-                <li>Cordova-Version: ${this.getCordovaEnvString()}</li>
+                <li>Electron-Version: ${this.communicationService.isElectron()} ${this.communicationService.getElectronEnvString()}</li>
+                <li>Cordova-Version: ${this.communicationService.isCordova()} ${this.communicationService.getCordovaEnvString()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
    )
    .open();
-  // this.appRef.tick(); // das wird für Electron gebraucht, weil Angular sich sonst nicht richtig aktualisiert!
- }
-
-
-  GetPackage() : any
- {
-  // Versionsnummer auslesen
-  return require('../../package.json');
- }
- // Liefert das vom Electron Main Prozess übergebe env-Objekt
-  getElectronEnv(): any {
-  if (typeof electron == "undefined") return "n/a";
-  var env = (<any>electron.remote.getCurrentWindow()).env;
-  return env;
- }
- 
-getElectronEnvString(): string {
-  if (typeof electron == "undefined") return "n/a";
-  var env = this.getElectronEnv();
-  return (env.version + " auf " + env.os);
- }
-
-  getCordovaEnvString(): string {
-   if (typeof (<any>window).device == "undefined") return "n/a";
-   var env = (<any>window).device;
-   return (env.version + " auf " + env.platform);
  }
 
  logout() { // Abmelden wird sowohl von Webseite als auch Electron gerufen
