@@ -40,6 +40,9 @@ export class StartComponent implements OnInit {
   this.miracleListProxy.version().subscribe(x=>
    {
     this.serverStatus = "Server v" + x + " verfügbar!";
+    this.miracleListProxy.about().subscribe(x=> {
+     this.serverStatusDetails = x.join();
+    });
    }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x; });
 
   // Electron-IPC-Events behandeln
