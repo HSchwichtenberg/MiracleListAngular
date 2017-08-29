@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
  public password: string;
  public errorMsg = '';
 
+ public showDownloads: boolean = !this.communicationService.isCordova() && !this.communicationService.isElectron();
+
  login() {
   console.log("LOGIN",this.name, this.password);
 
