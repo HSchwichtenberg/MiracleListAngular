@@ -105,8 +105,15 @@ calcSizeInfo(width : number)
 
 mainpage()
 {
+ if (!this.communicationService.isElectron()) // geht so nicht in Electron
+  {
  console.log("GOTO mainpage");
  window.location.reload();
+  }
+  else
+   {
+    // TODO: fehlt noch siehe https://github.com/electron/electron/blob/master/docs/api/app.md
+   }
  // this.communicationService.EmitTaskDetailCloseEvent(null);
 }
 
