@@ -20,10 +20,7 @@ export class LoginComponent implements OnInit {
   // Startaktion
   // console.log("======= LoginComponent:ngOnInit");
   this.zone.run(() => {
-   console.log("isCordova",this.communicationService.isCordova());
-   console.log("isElectron",this.communicationService.isElectron());
-   console.log("oder",this.communicationService.isCordova() || this.communicationService.isElectron());
-   console.log("not",!(this.communicationService.isCordova() || this.communicationService.isElectron()));
+
      this.showDownloads = !(this.communicationService.isCordova() || this.communicationService.isElectron());
   });
   }

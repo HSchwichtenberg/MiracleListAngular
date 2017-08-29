@@ -1,11 +1,11 @@
 import { Task } from './MiracleListProxy';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class CommunicationService {
 
- constructor(private router: Router)
+ constructor(private router: Router, private zone: NgZone, )
  { }
 
  // Client-Navigation per Router
@@ -56,8 +56,8 @@ getElectronEnvString(): string {
 
  isCordova() : boolean
  {
-  console.log("xx isCordova",(<any>window).device);
-  return ((<any>window).device != undefined);
+   console.log("--> Cordova=",(<any>window).device);
+   return ((<any>window).device != undefined);
  }
 
   getCordovaEnvString(): string {

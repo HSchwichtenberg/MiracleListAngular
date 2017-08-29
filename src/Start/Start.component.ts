@@ -143,8 +143,8 @@ mainpage()
                 <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
                 <li>Browser: ${navigator.userAgent}</li>
                      <li>Bildschirmauflösung: ${window.innerWidth}x${window.innerHeight}</li>
-                <li>Electron-Version: ${this.communicationService.isElectron()} ${this.communicationService.getElectronEnvString()}</li>
-                <li>Cordova-Version: ${this.communicationService.isCordova()} ${this.communicationService.getCordovaEnvString()}</li>
+                <li>Electron-Version: ${this.communicationService.getElectronEnvString()}</li>
+                <li>Cordova-Version: ${this.communicationService.getCordovaEnvString()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
             </ul>`
    )
