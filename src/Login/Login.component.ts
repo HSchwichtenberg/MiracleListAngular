@@ -23,14 +23,12 @@ export class LoginComponent implements OnInit {
 
      this.showDownloads = !(this.communicationService.isCordova() || this.communicationService.isElectron());
   });
-
-
   }
 
  public name: string = "";
  public password: string;
  public errorMsg = '';
- public serverStatus = "...lade...";
+
  public showDownloads: boolean;
 
  login() {
