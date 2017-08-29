@@ -1,7 +1,7 @@
 import { RoutingModule } from './../Util/RoutingModule';
 import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MiracleListProxy } from '../Services/MiracleListProxy';
-import { Category, Task, SubTask, Importance, LoginInfo } from '../Services/MiracleListProxy';
+import { Category, Task, SubTask, TaskImportance, LoginInfo } from '../Services/MiracleListProxy';
 import { TaskEditComponent } from "../TaskEdit/TaskEdit.component";
 
 // RoutingModule
@@ -198,6 +198,7 @@ setlistHeigth()
   showTaskDetail(t: Task) {
     this.task = t;
     this.communicationService.navigate(`/app/(column3:taskview/${t.taskID})`); // Ansicht aufrufen
+    console.log("--> TASK: " + t.info);
   }
 
   changeDone(t: Task) {
@@ -282,7 +283,7 @@ setlistHeigth()
     t.taskID = 0; // notwendig für Server, da der die ID vergibt
     t.title = this.newTaskTitle;
     t.categoryID = this.category.categoryID;
-    t.importance = Importance.B;
+    t.importance = TaskImportance.B;
     t.created = new Date();
     t.due = null;
     t.order = 0;
