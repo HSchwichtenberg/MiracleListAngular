@@ -68,6 +68,8 @@ Platform hinzufügen: `cordova platform add android` usw.
 
 Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android -device` usw. 
 
+Geräteliste: `cordova run android --list` 
+
 Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
  
 # Angular-CLI
