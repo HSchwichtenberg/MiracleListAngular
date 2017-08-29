@@ -10,7 +10,7 @@
     <span class="col-xs-6 col-lg-8 hidden-xs" style="vertical-align: center">
     <div style="margin-top: 3px;">Beispielanwendung v{{communicationService.GetPackage().version}} vom {{communicationService.GetPackage().date}}</div>
     <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
-    <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}}
+    <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}} Serverstatus: {{serverStatus}}
 </div>
 </span>
 <span class="col-xs-1">
@@ -38,5 +38,5 @@
      <hr>
     <div style="margin-top: 3px;">Beispielanwendung</div>
     <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
-  <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}}
+  <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}} Serverstatus: {{serverStatus}}
 </div>

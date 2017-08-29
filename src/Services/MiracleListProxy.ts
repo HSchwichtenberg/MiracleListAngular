@@ -32,6 +32,104 @@ export class MiracleListProxy {
     }
 
     /**
+     * Informationen über den Server
+     * @return Success
+     */
+    about(): Observable<string[] | null> {
+        let url_ = this.baseUrl + "/About";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processAbout(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processAbout(response_);
+                } catch (e) {
+                    return <Observable<string[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<string[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processAbout(response: Response): Observable<string[] | null> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: string[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(item);
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<string[] | null>(<any>null);
+    }
+
+    /**
+     * Liefert die Version des Servers als Zeichenkette
+     * @return Success
+     */
+    version(): Observable<string | null> {
+        let url_ = this.baseUrl + "/Version";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processVersion(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processVersion(response_);
+                } catch (e) {
+                    return <Observable<string>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<string>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processVersion(response: Response): Observable<string | null> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: string | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<string | null>(<any>null);
+    }
+
+    /**
      * Anmeldung mit einer Client-ID, einem Benutzernamen und einem Kennwort. Diese Operation /Login sendet eine GUID als Sitzungstoken zurück, welches in allen folgenden Operationen mitzugeben ist.
      * @return Success
      */
@@ -900,7 +998,7 @@ export class Task implements ITask {
     categoryID?: number | undefined;
 
     get info() {
-        return this.title + ": " + this.subTaskSet + " Augaben";
+        return this.title + ": " + this.subTaskSet + " Teilaufgaben";
     }
 
     constructor(data?: ITask) {

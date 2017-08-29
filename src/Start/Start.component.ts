@@ -36,6 +36,12 @@ export class StartComponent implements OnInit {
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
   console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
 
+  // Serverstatus ermitteln
+  this.miracleListProxy.version().subscribe(x=>
+   {
+    this.serverStatus = "Server v" + x + " verfügbar!";
+   }, x=> { this.serverStatus = "Server NICHT verfügbar!" });
+
   // Electron-IPC-Events behandeln
   if (typeof electron != "undefined") {
    this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnv().appversion + " auf " + this.communicationService.getElectronEnv().os);
@@ -75,6 +81,7 @@ export class StartComponent implements OnInit {
  }
 
 sizeInfo : string;
+public serverStatus = "...lade...";
 
 @HostListener('window:resize', ['$event'])
 onResize(event) {
