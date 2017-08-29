@@ -41,6 +41,13 @@ Dieser Befehl muss 2x ausgeführt werden
 
 # Hilfe zum Electron-Client
 
+Voraussetzungen:
+`npm install electron`
+for use from cli
+`npm install electron-packager -g`
+for use in npm scripts
+`npm install --save-dev electron-packager`
+
 Übersetzen und starten: `npm run w-electron` (w für AUSFÜHRUNG auf Windows, m für Mac)
 
 Pakete erstellen: `npm run w-electron-deployallprod`
