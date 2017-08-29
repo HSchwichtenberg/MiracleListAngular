@@ -40,7 +40,7 @@ export class StartComponent implements OnInit {
   this.miracleListProxy.version().subscribe(x=>
    {
     this.serverStatus = "Server v" + x + " verfügbar!";
-   }, x=> { this.serverStatus = "Server NICHT verfügbar!" });
+   }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x; });
 
   // Electron-IPC-Events behandeln
   if (typeof electron != "undefined") {
@@ -82,6 +82,7 @@ export class StartComponent implements OnInit {
 
 sizeInfo : string;
 public serverStatus = "...lade...";
+public serverStatusDetails = "...lade...";
 
 @HostListener('window:resize', ['$event'])
 onResize(event) {
