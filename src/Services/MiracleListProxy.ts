@@ -28,7 +28,8 @@ export class MiracleListProxy {
 
     constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "https://miraclelistbackend.azurewebsites.net";
+        // this.baseUrl = baseUrl ? baseUrl :"http://localhost:8887"; 
+        this.baseUrl = baseUrl ? baseUrl :"https://miraclelistbackend.azurewebsites.net";
     }
 
     /**
