@@ -12,8 +12,7 @@ import {Modal} from 'angular2-modal/plugins/bootstrap';
 import * as moment from 'moment';
 
 // Importe für Electron
-// sind hier nicht, sondern in typings.d.ts weil 
-// import { remote, ipcRenderer }  from "electron"; // geht nicht. FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
+// sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var Notification: any;
 
 @Component({
