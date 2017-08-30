@@ -6,5 +6,4 @@ npm run build-cordova
 cd MLCordova
 cordova build android
 "-------> Starten..."
-
-cordova run android -device 
+#cordova run android -device 
