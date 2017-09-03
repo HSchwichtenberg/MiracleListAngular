@@ -8,6 +8,7 @@ import { AppComponent } from './app/app.component';
 
 // Proxy
 import { MiracleListProxy } from './Services/MiracleListProxy';
+import { MiracleListProxyV2 } from './Services/MiracleListProxyV2';
 // MomentJS
 import * as moment from 'moment';
 import 'moment/locale/de';
@@ -82,7 +83,7 @@ import { LOCALE_ID } from '@angular/core';
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
-   MiracleListProxy, CommunicationService, { provide: LOCALE_ID, useValue: 'de-DE' }],
+   MiracleListProxy, MiracleListProxyV2, CommunicationService, { provide: LOCALE_ID, useValue: 'de-DE' }],
   bootstrap: [StartComponent] // Startkomponente
 
 })

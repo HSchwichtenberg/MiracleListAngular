@@ -2,6 +2,7 @@ import {Title} from '@angular/platform-browser';
 import {Component, OnInit, NgZone, HostListener} from '@angular/core';
 // Dienste
 import {MiracleListProxy} from '../Services/MiracleListProxy';
+import {MiracleListProxyV2} from '../Services/MiracleListProxyV2';
 import {CommunicationService} from '../Services/CommunicationService'
 // für Modalfenster
 import {ViewContainerRef} from '@angular/core';
@@ -22,7 +23,7 @@ declare var Notification: any;
 
 export class StartComponent implements OnInit {
 
- constructor(private miracleListProxy: MiracleListProxy, public communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
+ constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
   overlay.defaultViewContainer = vcr;
    this.calcSizeInfo(window.screen.width);
   console.log("StartComponent:ctor", typeof electron, this.communicationService.getElectronEnv());
