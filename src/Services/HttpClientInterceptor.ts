@@ -8,8 +8,10 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
+
 import { CommunicationService } from './CommunicationService';
 import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class HttpClientInterceptor implements HttpInterceptor {
   constructor(public communicationService: CommunicationService) {}
