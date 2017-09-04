@@ -133,7 +133,7 @@ setlistHeigth()
     }
     console.log("refreshData:dueTaskSet", this.displayMode);
     // immer auch die fälligen Aufgaben aktualisieren, damit die Anzahl in Spalte 1 stimmt!
-   let r2 = await this.miracleListProxyV2.dueTaskSet(this.communicationService.token).toPromise();
+   let r2 = await this.miracleListProxyV2.dueTaskSet().toPromise();
       console.log("refreshData:dueTaskSet",     r2);
       this.dueTaskSet = r2;
 
@@ -145,7 +145,7 @@ setlistHeigth()
 
   async showCategorySet() {
     console.log('CategorySet LADEN...');
-    this.categorySet = await this.miracleListProxyV2.categorySet(this.communicationService.token).toPromise();
+    this.categorySet = await this.miracleListProxyV2.categorySet().toPromise();
     if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen
     console.log('CategorySet GELADEN', this.categorySet);
     this.refreshData();
@@ -154,7 +154,7 @@ setlistHeigth()
    // alt ohne await:
     showCategorySet_alt() {
     console.log('CategorySet LADEN...');
-    this.miracleListProxyV2.categorySet(this.communicationService.token).subscribe(
+    this.miracleListProxyV2.categorySet().subscribe(
      x => {
       this.categorySet = x;
       if (this.displayMode === DisplayMode.TaskSet && this.category == null) { this.category = this.categorySet[0]; } // erste Kategorie wählen
@@ -177,7 +177,7 @@ setlistHeigth()
 // Neu ab TS 2.1 mit async/await
   async showTaskSet(c: Category) {
    console.log("TaskSet LADEN...");
-   let x = await this.miracleListProxyV2.taskSet(c.categoryID, this.communicationService.token).toPromise();
+   let x = await this.miracleListProxyV2.taskSet(c.categoryID).toPromise();
    x = this.neuSortieren(x);
    this.taskSet = x.sort((x,y)=>(x.order-y.order));
     console.log("TaskSet GELADEN", x);
@@ -186,7 +186,7 @@ setlistHeigth()
 // Alte Variante mit Observable / Subscribe
   showTaskSet_alt(c: Category) {
     console.log("TaskSet LADEN...");
-     this.miracleListProxyV2.taskSet(c.categoryID, this.communicationService.token).subscribe(x =>
+     this.miracleListProxyV2.taskSet(c.categoryID).subscribe(x =>
     {
      this.taskSet = x.sort((x,y)=>(x.order-y.order));
       console.log("TaskSet GELADEN", x);
@@ -206,7 +206,7 @@ setlistHeigth()
 
   changeDone(t: Task) {
     console.log("Task ÄNDERN", t);
-    this.miracleListProxyV2.changeTask(t, this.communicationService.token).subscribe(
+    this.miracleListProxyV2.changeTask(t).subscribe(
       x => {
         console.log("Task GEÄNDERT", x)
         this.refreshData(true);
@@ -236,7 +236,7 @@ setlistHeigth()
     // Dialog-Ergebnis (Promise) auswerten
     dialog.then((d) => d.result)
       .then((ok) => {
-        this.miracleListProxyV2.deleteTask(t.taskID, this.communicationService.token ).subscribe(
+        this.miracleListProxyV2.deleteTask(t.taskID).subscribe(
           x => {
             console.log("Task GELÖSCHT", t.taskID);
             this.task = null;
@@ -265,7 +265,7 @@ setlistHeigth()
     dialog.then((d) => d.result)
       .then((d) => d.result)
       .then((ok) => {
-        this.miracleListProxyV2.deleteCategory( id,this.communicationService.token).subscribe(
+        this.miracleListProxyV2.deleteCategory( id).subscribe(
           x => {
             console.log("Kategorie GELÖSCHT", id)
             this.displayMode = DisplayMode.TaskSet;
@@ -292,7 +292,7 @@ setlistHeigth()
     t.order = 0;
     t.note = "";
     t.done = false;
-    this.miracleListProxyV2.createTask(t, this.communicationService.token).subscribe(
+    this.miracleListProxyV2.createTask(t ).subscribe(
       x => {
         console.log("Task ERZEUGT", x)
         this.showCategorySet();
@@ -301,7 +301,7 @@ setlistHeigth()
   }
 
   createCategory() {
-    this.miracleListProxyV2.createCategory(this.communicationService.token, this.newCategoryName).subscribe(
+    this.miracleListProxyV2.createCategory(this.newCategoryName).subscribe(
       x => {
         console.log("Kategorie ERZEUGT", x)
         this.category = x;
@@ -311,7 +311,7 @@ setlistHeigth()
   }
 
   getDueTaskSet(showTask: boolean = false) {
-    this.miracleListProxyV2.dueTaskSet(this.communicationService.token).subscribe(x => {
+    this.miracleListProxyV2.dueTaskSet().subscribe(x => {
       console.log("fällige Aufgaben GELADEN", x);
       if (!showTask) this.task = null;
       this.taskSet = null;
@@ -334,7 +334,7 @@ setlistHeigth()
 
   search(showTask: boolean = false) {
     if (!this.searchText) return "";
-    this.miracleListProxyV2.search(this.communicationService.token, this.searchText).subscribe(x => {
+    this.miracleListProxyV2.search(this.searchText).subscribe(x => {
       console.log("suche ERGEBNIS", this.searchText, x);
       if (!showTask) this.task = null;
       this.taskSet = null;
@@ -372,7 +372,7 @@ setlistHeigth()
   // 3. Alle Speichern
   for(var t of this.taskSet) {
 
-   this.miracleListProxyV2.changeTask(t, this.communicationService.token).subscribe(
+   this.miracleListProxyV2.changeTask(t).subscribe(
     x => {
      // console.log("!!Task GEÄNDERT", x, x.order)
     });

@@ -1,8 +1,9 @@
 
+
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import { AppComponent } from './app/app.component';
 
@@ -67,9 +68,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //    require(`cldr-data/main/de/timeZoneNames.json`)
 // );
 
+// 0.6.2-Beta1: HttpInterceptor für Token
 import { LOCALE_ID } from '@angular/core';
-
-
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
+import { HttpInterceptor } from "Services/HttpInterceptor";
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
@@ -83,8 +86,27 @@ import { LOCALE_ID } from '@angular/core';
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
-   MiracleListProxy, MiracleListProxyV2, CommunicationService, { provide: LOCALE_ID, useValue: 'de-DE' }],
-  bootstrap: [StartComponent] // Startkomponente
+   MiracleListProxy, MiracleListProxyV2, 
+   { provide: LOCALE_ID, useValue: 'de-DE' },
+   // { // 0.6.2-Beta1: HttpInterceptor für Token
+   //    provide: HTTP_INTERCEPTORS,
+   //    useClass: HttpClientInterceptor,
+   //    multi: true
+   //  },
+   {
+    provide: CommunicationService,
+    useFactory: (router: Router, zone: NgZone) => new CommunicationService(router, zone),
+    deps: [Router, NgZone]
+   },
+    {
+     provide: Http,
+     useFactory: (communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpInterceptor(communicationService, xhrBackend, requestOptions),
+     deps: [CommunicationService, XHRBackend, RequestOptions]
+    }
+  ],
+
+   bootstrap: [StartComponent] // Startkomponente
+ 
 
 })
 export class AppModule {

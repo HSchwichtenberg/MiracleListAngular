@@ -36,7 +36,7 @@ export class MiracleListProxyV2 {
      * @return Success
      */
     about(): Observable<string[]> {
-        let url_ = this.baseUrl + "/v2/v2/About";
+        let url_ = this.baseUrl + "/v2/About";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = {

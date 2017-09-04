@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 export class CommunicationService {
 
  constructor(private router: Router, private zone: NgZone, )
- { }
+ { 
+  console.log("==== CommunicationService");
+ }
 
  // Client-Navigation per Router
  public navigate(url: string) {
@@ -29,7 +31,7 @@ export class CommunicationService {
 
  // Daten der Benutzeranmeldung
  public username: string = "";
- public token: string = "dev2";
+ public token: string = "dev";
 
  GetPackage() : any
  {
