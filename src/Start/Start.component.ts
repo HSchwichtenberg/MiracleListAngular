@@ -41,7 +41,7 @@ export class StartComponent implements OnInit {
    {
     this.serverStatus = "Server v" + x + " verfügbar!";
     this.miracleListProxyV2.about().subscribe(x=> {
-     this.serverStatusDetails = x.join();
+     this.serverStatusDetails = x.join(" | ");
     });
    }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x; });
 
