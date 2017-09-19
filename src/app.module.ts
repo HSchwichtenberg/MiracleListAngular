@@ -88,7 +88,7 @@ import { HttpInterceptor } from "Services/HttpInterceptor";
   providers: [ // Services / Dependency Injection
    MiracleListProxy, MiracleListProxyV2, 
    { provide: LOCALE_ID, useValue: 'de-DE' },
-   // { // 0.6.2-Beta1: HttpInterceptor für Token
+   // { // HttpInterceptor für HttpClient. Wird bisher nicht benötigt, da MiracleListProxy Http-Dienst verwendet
    //    provide: HTTP_INTERCEPTORS,
    //    useClass: HttpClientInterceptor,
    //    multi: true
