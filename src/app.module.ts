@@ -74,6 +74,14 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
 import { HttpInterceptor } from "Services/HttpInterceptor";
 
+export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) 
+{
+ return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
+}
+
+export function CommunicationServiceFactory(router: Router, zone: NgZone) { return new CommunicationService(router, zone); }
+
+
 @NgModule({
   declarations: [ // Komponenten und Pipes
     AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent,StartComponent
@@ -95,12 +103,12 @@ import { HttpInterceptor } from "Services/HttpInterceptor";
    //  },
    {
     provide: CommunicationService,
-    useFactory: (router: Router, zone: NgZone) => new CommunicationService(router, zone),
+    useFactory: CommunicationServiceFactory,
     deps: [Router, NgZone]
    },
     {
      provide: Http,
-     useFactory: (communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpInterceptor(communicationService, xhrBackend, requestOptions),
+     useFactory: HttpInterceptorFactory,
      deps: [CommunicationService, XHRBackend, RequestOptions]
     }
   ],
