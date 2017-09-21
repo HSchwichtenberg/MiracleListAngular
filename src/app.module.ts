@@ -79,7 +79,8 @@ export function HttpInterceptorFactory(communicationService : CommunicationServi
  return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
 }
 
-export function CommunicationServiceFactory(router: Router, zone: NgZone) { return new CommunicationService(router, zone); }
+export function CommunicationServiceFactory(router: Router, zone: NgZone) 
+{ return new CommunicationService(router, zone); }
 
 
 @NgModule({
