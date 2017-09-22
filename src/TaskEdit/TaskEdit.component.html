@@ -3,7 +3,7 @@
         <h4>Aufgabe</h4>
         <form #taskForm="ngForm">
             <!--Schaltflächen-->
-            <button type="button" title="Änderungen speicchern" [disabled]="!taskForm.form.valid" (click)="submit(taskForm)" class="btn btn-success"><span class="glyphicon  glyphicon-floppy-save"></span> <span class="hidden-xs">Speichern</span></button>
+            <button type="button" title="Änderungen speichern" [disabled]="!taskForm.form.valid" (click)="submit(taskForm)" class="btn btn-success"><span class="glyphicon  glyphicon-floppy-save"></span> <span class="hidden-xs">Speichern</span></button>
             <button type="button" title="Änderungen verwerfen" (click)="cancel()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> <span class="hidden-xs">Abbrechen</span></button>
             <!--Titel-->
             <div class="form-group">
@@ -36,7 +36,7 @@
                 <span class="col-xs-6" style="padding-left: 2px; ">
                 <div class="form-group">
                     <label for="taskDue">Fällig am</label>
-                    <datetime id="taskDue" name="taskDue " [(ngModel)]="task.due" 
+                    <datetime id="taskDue" name="taskDue " [(ngModel)]="task.due"
                     [datepicker]="{autoclose: true, format: 'dd.MM.yyyy'}" [timepicker]="false" >
                     </datetime>
                 </div>
