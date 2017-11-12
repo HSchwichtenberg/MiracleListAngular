@@ -11,8 +11,8 @@ import { Title }  from '@angular/platform-browser';
 export class LoginComponent implements OnInit {
 
  constructor(private miracleListProxy : MiracleListProxy, public communicationService: CommunicationService, private titleService: Title, private zone: NgZone)
- {   
-  
+ {
+
   //  console.log("======= LoginComponent:constructor");
 }
 
@@ -35,14 +35,12 @@ export class LoginComponent implements OnInit {
   console.log("LOGIN",this.name, this.password);
 
   var li = new LoginInfo();
-  li.clientID = "11111111-85f6-4079-ba87-24987637b042"; 
-  //"11111111-85f6-4079-ba87-24987637b042" --> Electron
-  //"11111112-85f6-4079-ba87-24987637b042" --> Web
+  li.clientID = "11111111-1111-1111-1111-111111111111";
   //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
 
   li.username = this.name;
   li.password = this.password;
-  
+
   this.miracleListProxy.login(li).subscribe(x=> {
 
   if (x == null || x.message) {

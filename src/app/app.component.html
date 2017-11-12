@@ -13,9 +13,9 @@
             </li>
 
             <li *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
-                [contextMenu]="categoryMenu" [contextMenuSubject]="c">{{ c.name }}
+                [contextMenu]="categoryMenu" [contextMenuSubject]="c">
+                <span class="badge badge-info" title="{{c.taskSet.length != 1 ?c.taskSet.length + ' Aufgaben' : '1 Aufgabe'}}">{{c.taskSet.length}}</span>{{ c.name }}</li>
 
-                <span class="badge badge-info" title="{{c.taskSet.length}} Aufgaben">{{c.taskSet.length}}</span></li>
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="suche...">
         </ol>
     </div>
