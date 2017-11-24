@@ -31,7 +31,7 @@ function createWindow() {
         icon: favicon,
         webPreferences: {
             nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'electron-preload.js')
         }
     });
     win.setTitle(electron_1.app.getName() + " v" + electron_1.app.getVersion() + " auf " + process.platform);
