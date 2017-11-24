@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
 
     // für vereinfachtes Debugging der TaskEdit-Ansicht
     // this.miracleListProxyV2.task(this.communicationService.token, 6498).subscribe(x=> { this.task = x; this.editTask(x) });
-  
+
     // this.communicationService.navigate("/app/(column3:taskedit/6498)");
   }
 
@@ -116,9 +116,9 @@ this.setlistHeigth();
 // Lösung über CSS hatte viele Probleme mit Bootstrap 3. Daher hier dynamische Berechnung!
 setlistHeigth()
 {
- var abstand : number = 150;
- if (window.innerHeight < 750) abstand = 220; // weil dann unter noch der Footer steht!
- this.listHeight = (window.innerHeight - 150) + "px";
+ var abstand : number = 160;
+ if (window.innerWidth < 750) abstand = 230; // weil dann unten noch der Footer steht!
+ this.listHeight = (window.innerHeight - abstand) + "px";
 }
 
  async refreshData(onlyDueTaskSet: boolean = false) {
