@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen } from "electron";
-import { MiracleListAppMenu } from "./MiracleListAppMenu";
+import { MiracleListAppMenu } from "./electron-menu";
 import * as username from "username";
 import ShowMessageBoxOptions = Electron.MessageBoxOptions;
 import * as fs from "fs";
@@ -17,16 +17,18 @@ function createWindow() {
  console.log("createWindow");
 
  // Create the electron browser window
- writeLog("!!!Electron/Main:createWindow");
+ writeLog("!!! Electron/Main:createWindow");
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
  writeLog("Zeit: " + new Date());
  writeLog("Betriebssystem: " + process.platform);
  writeLog("Sprache: " + app.getLocale());
+ writeLog("Electron-Version: " + process.versions.electron);
+ writeLog("Chrome-Version: " + process.versions.chrome);
  writeLog("Screen: " + width + "x" + height);
  writeLog("Anwendungspfad: " + __dirname);
  writeLog("Aktueller Benutzer: " + username.sync());
  writeLog("User Home Dir: " + app.getPath("documents"));
-
+ //return;
  const favicon: string = path.join(__dirname, 'favicon.ico');
  writeLog("Icon1:" + favicon);
  // const icon: string = path.join(__dirname, 'icon.png');
@@ -45,6 +47,7 @@ function createWindow() {
   }
  });
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
+
 
  // Datenübergabe von Informationen an Renderer mit dynamischen Objekt
  let env: any = new Object();
@@ -85,6 +88,14 @@ function createWindow() {
   console.log("Export: OK!", file);
   event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
  });
+
+ // ggf. Dateiauswahl
+ //  let options = {
+ // title: "Export speichern",
+ // defaultPath: "export.csv",
+// }
+ // let savepath = dialog.showSaveDialog(options);
+
 
  // =================== Traymenü erstellen
 
