@@ -13,6 +13,8 @@ const url = require('url');
 // be closed automatically when the JavaScript object is garbage collected.
 let win: Electron.BrowserWindow;
 
+const logfile: string = 'miraclelist_log.txt';
+
 function createWindow() {
  console.log("createWindow");
 
@@ -48,7 +50,6 @@ function createWindow() {
  });
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
 
-
  // Datenübergabe von Informationen an Renderer mit dynamischen Objekt
  let env: any = new Object();
  env.version = process.versions['electron'];
@@ -73,30 +74,6 @@ function createWindow() {
  const menu = Menu.buildFromTemplate(menuTemplate);
  Menu.setApplicationMenu(menu);
 
- // =================== Reaktion auf Events vom Renderer
- writeLog("Electron/Main:Event Handler erstellen...");
- ipcMain.on('export', (event, arg) => {
-  console.log("export-event", arg);
-  writeLog("export-event!");
-  let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
-  let text = JSON.stringify(arg);
-  console.log("Export-Datei", file);
-  writeLog("export-Datei: " + file);
-  fs.appendFile(file, text, (err) => {
-   if (err) throw err;
-  });
-  console.log("Export: OK!", file);
-  event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
- });
-
- // ggf. Dateiauswahl
- //  let options = {
- // title: "Export speichern",
- // defaultPath: "export.csv",
-// }
- // let savepath = dialog.showSaveDialog(options);
-
-
  // =================== Traymenü erstellen
 
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
@@ -110,7 +87,7 @@ function createWindow() {
       type: 'info',
       title: 'Cross-Plattform-Desktop-Variante der Beispielanwendung MiracleList',
       buttons: ['Ok'],
-      message: '(C) Dr. Holger Schwichtenberg 2017\nDetails siehe Anwendungsmenü!\nSystembenutzer: ' + username.sync() + ''
+      message: '(C) Dr. Holger Schwichtenberg, www.IT-Visions.de\nDetails siehe Anwendungsmenü!\nSystembenutzer: ' + username.sync() + ''
      }
      dialog.showMessageBox(options, function () { })
     }
@@ -138,6 +115,31 @@ function createWindow() {
  catch (err) {
   writeLog("Electron/Main:Tray-Fehler: " + err.message)
  }
+
+  // =================== Reaktion auf Events vom Renderer
+  writeLog("Electron/Main:Event Handler erstellen...");
+  ipcMain.on('export', (event, arg) => {
+   console.log("export-event", arg);
+   writeLog("export-event!");
+   let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
+   let text = JSON.stringify(arg);
+   console.log("Export-Datei", file);
+   writeLog("export-Datei: " + file);
+   fs.appendFile(file, text, (err) => {
+    if (err) throw err;
+   });
+   console.log("Export: OK!", file);
+   event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+  });
+
+  // ggf. Dateiauswahl
+  //  let options = {
+  // title: "Export speichern",
+  // defaultPath: "export.csv",
+ // }
+  // let savepath = dialog.showSaveDialog(options);
+
+
  // =================== Globaler Shortcut
  // TODO: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
 
@@ -180,9 +182,10 @@ app.on('activate', () => {
 
 function writeLog(logtext: string) {
  console.log(logtext);
- logtext = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
- let logfile = path.join(app.getPath("documents"), 'miraclelist_log.txt')
- fs.appendFile(logfile, logtext, (err) => {
+ if (!logfile) return;
+ const logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
+ let logfilepath = path.join(app.getPath("documents"), logfile)
+ fs.appendFile(logfilepath, logtext2, (err) => {
   if (err) throw err;
  });
 }
