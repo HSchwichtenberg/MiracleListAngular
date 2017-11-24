@@ -13,7 +13,7 @@ import * as moment from "moment";
 export class StatusComponent implements OnInit {
  sizeInfo: string;
  serverStatusDetails: any;
- serverStatus: string;
+ serverStatus: string = "...lädt...";
  currentTime: string;
 
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  overlay: Overlay, vcr: ViewContainerRef) {
@@ -35,13 +35,12 @@ export class StatusComponent implements OnInit {
 
  getServerStatus()
  {
+  this.currentTime = moment().format('LTS');
   var intervall  = 1000;
   // console.log("getServerStatus...");
    // Serverstatus ermitteln
    this.miracleListProxy.version().subscribe(x=>
     {
-
-     this.currentTime = moment().format('LTS');
      this.serverStatus =  "Server v" + x + " verfügbar!";
      this.miracleListProxyV2.about().subscribe(x=> {
       this.serverStatusDetails = x.join(" | ");
