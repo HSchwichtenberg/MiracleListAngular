@@ -3,6 +3,7 @@ import { MiracleListProxyV2 } from './../Services/MiracleListProxyV2';
 import { MiracleListProxy } from './../Services/MiracleListProxy';
 import { CommunicationService } from './../Services/CommunicationService';
 import { Component, OnInit, ViewContainerRef, HostListener } from '@angular/core';
+import * as moment from "moment";
 
 @Component({
 	selector: 'Status',
@@ -13,14 +14,15 @@ export class StatusComponent implements OnInit {
  sizeInfo: string;
  serverStatusDetails: any;
  serverStatus: string;
+ currentTime: string;
 
- constru/**
-  *
-  */
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  overlay: Overlay, vcr: ViewContainerRef) {
   overlay.defaultViewContainer = vcr;
   this.calcSizeInfo(window.screen.width);
  this.getServerStatus();
+
+
+
  }
  ngOnInit() { }
 
@@ -33,14 +35,24 @@ export class StatusComponent implements OnInit {
 
  getServerStatus()
  {
+  var intervall  = 1000;
+  // console.log("getServerStatus...");
    // Serverstatus ermitteln
    this.miracleListProxy.version().subscribe(x=>
     {
-     this.serverStatus = "Server v" + x + " verfügbar!";
+
+     this.currentTime = moment().format('LTS');
+     this.serverStatus =  "Server v" + x + " verfügbar!";
      this.miracleListProxyV2.about().subscribe(x=> {
       this.serverStatusDetails = x.join(" | ");
      });
-    }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x; });
+    }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x;
+    intervall = 5000; });
+
+     // alle 5 Sekunden aktualisieren
+ setTimeout(() => {
+  this.getServerStatus();
+   },intervall);
  }
 
 
