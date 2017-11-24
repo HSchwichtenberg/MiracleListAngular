@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const MiracleListAppMenu_1 = require("./MiracleListAppMenu");
 const username = require("username");
@@ -11,11 +12,13 @@ function createWindow() {
     console.log("createWindow");
     writeLog("!!!Electron/Main:createWindow");
     const { width, height } = electron_1.screen.getPrimaryDisplay().workAreaSize;
-    writeLog("OS:" + process.platform);
-    writeLog("Screen:" + width + "x" + height);
-    writeLog("Anwendungspfad:" + __dirname);
-    writeLog("Aktueller Benutzer:" + username.sync());
-    writeLog("User Home Dir:" + electron_1.app.getPath("documents"));
+    writeLog("Zeit: " + new Date());
+    writeLog("Betriebssystem: " + process.platform);
+    writeLog("Sprache: " + electron_1.app.getLocale());
+    writeLog("Screen: " + width + "x" + height);
+    writeLog("Anwendungspfad: " + __dirname);
+    writeLog("Aktueller Benutzer: " + username.sync());
+    writeLog("User Home Dir: " + electron_1.app.getPath("documents"));
     const favicon = path.join(__dirname, 'favicon.ico');
     writeLog("Icon1:" + favicon);
     writeLog("new BrowserWindow()");
@@ -43,7 +46,7 @@ function createWindow() {
     }));
     let contents = win.webContents;
     writeLog("Electron/Main:Anwendungsmenü erstellen...");
-    var menuTemplate = MiracleListAppMenu_1.MiracleListAppMenu.CreateMenu(electron_1.app, win);
+    let menuTemplate = MiracleListAppMenu_1.MiracleListAppMenu.CreateMenu(electron_1.app, win);
     const menu = electron_1.Menu.buildFromTemplate(menuTemplate);
     electron_1.Menu.setApplicationMenu(menu);
     writeLog("Electron/Main:Event Handler erstellen...");

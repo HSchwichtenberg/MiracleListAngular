@@ -7,10 +7,10 @@
  */
 export class MiracleListAppMenu {
 // Menü erstellen
- public static CreateMenu(app : Electron.App, win: Electron.BrowserWindow): Electron.MenuItemOptions[] {
+ public static CreateMenu(app: Electron.App, win: Electron.BrowserWindow): Electron.MenuItemConstructorOptions[] {
   let contents = win.webContents;
   // Menü setzen
-  const menuTemplate: Electron.MenuItemOptions = [{
+  const menuTemplate: Electron.MenuItemConstructorOptions[] = [{
    label: 'Anwendung',
    submenu: [{
     label: 'Über diese Anwendung',
@@ -110,9 +110,9 @@ export class MiracleListAppMenu {
         return 'F12';
        }
       })(),
-      click: function (item, focusedWindow) {
+      click: function (item, focusedWindow: Electron.BrowserWindow) {
        if (focusedWindow) {
-        focusedWindow.toggleDevTools();
+        focusedWindow.webContents.toggleDevTools();
        }
       }
      }

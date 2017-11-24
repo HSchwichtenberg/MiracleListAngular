@@ -19,12 +19,13 @@ function createWindow() {
  // Create the electron browser window
  writeLog("!!!Electron/Main:createWindow");
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
-
- writeLog("OS:" + process.platform);
- writeLog("Screen:" + width + "x" + height);
- writeLog("Anwendungspfad:" + __dirname);
- writeLog("Aktueller Benutzer:" + username.sync());
- writeLog("User Home Dir:" + app.getPath("documents"));
+ writeLog("Zeit: " + new Date());
+ writeLog("Betriebssystem: " + process.platform);
+ writeLog("Sprache: " + app.getLocale());
+ writeLog("Screen: " + width + "x" + height);
+ writeLog("Anwendungspfad: " + __dirname);
+ writeLog("Aktueller Benutzer: " + username.sync());
+ writeLog("User Home Dir: " + app.getPath("documents"));
 
  const favicon: string = path.join(__dirname, 'favicon.ico');
  writeLog("Icon1:" + favicon);

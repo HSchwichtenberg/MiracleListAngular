@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class MiracleListAppMenu {
     static CreateMenu(app, win) {
         let contents = win.webContents;
@@ -86,7 +87,7 @@ class MiracleListAppMenu {
                         })(),
                         click: function (item, focusedWindow) {
                             if (focusedWindow) {
-                                focusedWindow.toggleDevTools();
+                                focusedWindow.webContents.toggleDevTools();
                             }
                         }
                     }

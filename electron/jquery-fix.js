@@ -1,12 +1,13 @@
-if (!window.$) {
+const w = window;
+if (!w.$) {
     console.log("jQuery fix...!");
     if (typeof module === 'object') {
-        window.module = module;
+        w.module = module;
         module = undefined;
     }
-    window.$ = window.jQuery = require('./jquery.min.js');
-    if (window.module)
-        module = window.module;
+    w.$ = w.jQuery = require('./jquery.min.js');
+    if (w.module)
+        module = w.module;
     if (typeof require !== "undefined") {
         console.log("########## require('electron')");
         var electron = require('electron');
