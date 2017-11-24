@@ -1,0 +1,4 @@
+<div style="margin-top: 3px;">Beispielanwendung v{{communicationService.GetPackage().version}} vom {{communicationService.GetPackage().date}}</div>
+<div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
+<div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> </div>
+<div> Serverstatus: {{serverStatus}} Bildschirmbreite: {{this.sizeInfo}}

@@ -6,34 +6,31 @@
  </span>
     <!--  Anzeige dieses Blocks oben nur auf großen Displays -->
     <span class="col-xs-6 col-lg-9 col-sm-7 col-md-8 hidden-xs" style="vertical-align: center">
-    <div style="margin-top: 3px;">Beispielanwendung v{{communicationService.GetPackage().version}} vom {{communicationService.GetPackage().date}}</div>
-    <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
-    <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}} <span title="{{serverStatusDetails}}"> Serverstatus: {{serverStatus}}</span>
-</div>
+<Status></Status>
+
 </span>
-<span class="col-xs-1">
+    <span class="col-xs-1">
 
 <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <span style="font-size: 2.2em" class="glyphicon glyphicon-menu-hamburger icon-primary"></span>
-</a>
-<ul class="dropdown-menu">
-    <li><a (click)="about()">Über MiracleList</a></li>
-    <li><a (click)="export()" *ngIf="communicationService.isElectron() && isLoggedIn">Export</a></li>
-    <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
-    <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
-</ul>
-</li>
-</ul>
-</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a (click)="about()">Über MiracleList</a></li>
+        <li><a (click)="export()" *ngIf="communicationService.isElectron() && isLoggedIn">Export</a></li>
+        <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
+        <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
+    </ul>
+    </li>
+    </ul>
+    </span>
 </div>
 <router-outlet></router-outlet>
 
 <!-- Alternative Anzeige dieses Blocks unten auf kleinen Displays -->
 <div class="row">
     <span class="col-xs-12 hidden-sm hidden-md hidden-lg">
-    <div style="margin-top: 3px;">Beispielanwendung</div>
-    <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
-  <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> Bildschirmbreite: {{this.sizeInfo}} Serverstatus: {{serverStatus}}
+     <Status></Status>
+    </span>
 </div>

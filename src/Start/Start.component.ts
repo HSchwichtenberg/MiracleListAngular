@@ -5,8 +5,6 @@ import {MiracleListProxy} from '../Services/MiracleListProxy';
 import {MiracleListProxyV2} from '../Services/MiracleListProxyV2';
 import {CommunicationService} from '../Services/CommunicationService'
 // für Modalfenster
-import {ViewContainerRef} from '@angular/core';
-import {Overlay} from 'angular2-modal';
 import {Modal} from 'angular2-modal/plugins/bootstrap';
 
 // MomentJS
@@ -23,9 +21,8 @@ declare var Notification: any;
 
 export class StartComponent implements OnInit {
 
- constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService, overlay: Overlay, vcr: ViewContainerRef, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
-  overlay.defaultViewContainer = vcr;
-   this.calcSizeInfo(window.screen.width);
+ constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
+
   console.log("StartComponent:ctor", typeof electron, this.communicationService.getElectronEnv());
  }
 
@@ -36,14 +33,7 @@ export class StartComponent implements OnInit {
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
   console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
 
-  // Serverstatus ermitteln
-  this.miracleListProxy.version().subscribe(x=>
-   {
-    this.serverStatus = "Server v" + x + " verfügbar!";
-    this.miracleListProxyV2.about().subscribe(x=> {
-     this.serverStatusDetails = x.join(" | ");
-    });
-   }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x; });
+
 
   // Electron-IPC-Events behandeln
   if (typeof electron != "undefined") {
@@ -58,7 +48,7 @@ export class StartComponent implements OnInit {
 
    });
    electron.ipcRenderer.on('logout', (event, data) => {
-    this.zone.run(() => { 
+    this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.logout();
     });
@@ -78,34 +68,9 @@ export class StartComponent implements OnInit {
   electron.ipcRenderer.send("export", categorySet);
  }
 
-
  get isLoggedIn(): boolean {
   return (this.communicationService.username != null && this.communicationService.username != "")
  }
-
-sizeInfo : string;
-public serverStatus = "...lade...";
-public serverStatusDetails = "...lade...";
-
-@HostListener('window:resize', ['$event'])
-onResize(event) {
- this.calcSizeInfo(event.target.innerWidth);
-}
-
-calcSizeInfo(width : number)
-{
- var size = width;
- var sizeName = "";
-
-  switch (true) {
-   case (size >= 1170): sizeName = "lg"; break;
-   case (size >= 970): sizeName = "md"; break;
-   case (size >= 750): sizeName = "sm"; break;
-   default: sizeName = "xs"; break;
-  }
-
- this.sizeInfo =  size +  "px (" + sizeName + ")";
-}
 
 mainpage()
 {
@@ -131,7 +96,7 @@ mainpage()
             <h4>Dies ist eine Beispielanwendung für eine  Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
             <div>Version: ${this.communicationService.GetPackage().version} vom ${this.communicationService.GetPackage().date}</div>
-    
+
             <h5>Webadressen:</h5>
             <ul>
               <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -139,7 +104,7 @@ mainpage()
                 <li>Windows-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar</a></li>
                 <li>MacOS-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.zip">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.zip</a></li>
                 <li>Linux-Client: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar</a></li>
-                <li>Quellcode Frontend: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>     
+                <li>Quellcode Frontend: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>
             </ul>
             <h5>Eingesetzte Techniken:</h5>
             <ul>
@@ -177,19 +142,19 @@ mainpage()
    this.communicationService.username = "";
    this.titleService.setTitle("MiracleListClient");
    this.communicationService.navigate(""); // Anmeldeansicht aufrufen
-  
+
    // HTML5 Notification API (NICHT das Electron-API, soll ja auch in normaler Webseite laufen!)
    if (Notification.permission !== "granted")
     {
     Notification.requestPermission();
     }
- 
+
    let myNotification = new Notification('MiracleList', {
      title: "MiracleList",
     icon: "./assets/MiracleListLogo_ohneText.jpg",
     body: 'Sie wurden abgemeldet!'
    })
-  
+
 
   });
 

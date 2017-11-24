@@ -1,3 +1,4 @@
+import { StatusComponent } from './Status/Status.component';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -74,18 +75,18 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
 import { HttpInterceptor } from "Services/HttpInterceptor";
 
-export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) 
+export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router)
 {
  return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
 }
 
-export function CommunicationServiceFactory(router: Router, zone: NgZone) 
+export function CommunicationServiceFactory(router: Router, zone: NgZone)
 { return new CommunicationService(router, zone); }
 
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
-    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent,StartComponent
+    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent
    // PlaygroundComponent
     //, TaskTableComponent
   ],
@@ -95,7 +96,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
-   MiracleListProxy, MiracleListProxyV2, 
+   MiracleListProxy, MiracleListProxyV2,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    // { // HttpInterceptor für HttpClient. Wird bisher nicht benötigt, da MiracleListProxy Http-Dienst verwendet
    //    provide: HTTP_INTERCEPTORS,
@@ -115,7 +116,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
   ],
 
    bootstrap: [StartComponent] // Startkomponente
- 
+
 
 })
 export class AppModule {
