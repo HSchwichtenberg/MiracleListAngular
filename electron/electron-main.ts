@@ -1,9 +1,12 @@
+// Electron-Komponenten
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen } from "electron";
-import { MiracleListAppMenu } from "./electron-menu";
+// NodeJS-Komponenten
 import * as username from "username";
-import ShowMessageBoxOptions = Electron.MessageBoxOptions;
 import * as fs from "fs";
 import * as moment from "moment";
+// Eigene Hilfsklassen
+import { MiracleListAppMenu } from "./electron-appmenu";
+import { MiracleListTrayMenu } from "./electron-traymenu";
 
 const path = require('path');
 const url = require('url');
@@ -16,28 +19,31 @@ let win: Electron.BrowserWindow;
 const logfile: string = 'miraclelist_log.txt';
 
 function createWindow() {
- console.log("createWindow");
-
- // Create the electron browser window
  writeLog("!!! Electron/Main:createWindow");
- const {width, height} = screen.getPrimaryDisplay().workAreaSize;
- writeLog("Zeit: " + new Date());
- writeLog("Betriebssystem: " + process.platform);
- writeLog("Sprache: " + app.getLocale());
- writeLog("Electron-Version: " + process.versions.electron);
- writeLog("Chrome-Version: " + process.versions.chrome);
- writeLog("Screen: " + width + "x" + height);
- writeLog("Anwendungspfad: " + __dirname);
- writeLog("Aktueller Benutzer: " + username.sync());
- writeLog("User Home Dir: " + app.getPath("documents"));
- //return;
- const favicon: string = path.join(__dirname, 'favicon.ico');
- writeLog("Icon1:" + favicon);
- // const icon: string = path.join(__dirname, 'icon.png');
- // writeLog("Icon2:" + icon);
-// const ni = NativeImage.createFromPath(favicon);
 
- writeLog("new BrowserWindow()");
+ // Systeminformationen auslesen und in dynamischem Objectkt speichern
+ const {width, height} = screen.getPrimaryDisplay().workAreaSize;
+ const env =
+  {
+  Zeit: new Date(),
+  OS: process.platform,
+  Sprache: app.getLocale(),
+  ElectronVersion: process.versions.electron,
+  ChromeVersion: process.versions.chrome,
+  Screen: width + "x" + height,
+  Anwendungspfad: __dirname,
+  AktuellerBenutzer: username.sync(),
+  UserHomeDir: app.getPath("documents"),
+  AppVersion: app.getVersion()
+  };
+ writeLog(JSON.stringify(env, null, 4));
+
+ // Icon
+ const favicon: string = path.join(__dirname, 'favicon.ico');
+ writeLog("Icon:" + favicon);
+
+ writeLog("new BrowserWindow()...");
+ // Create the electron browser window
  win = new BrowserWindow({
   width: 900,
   height: 600,
@@ -51,15 +57,9 @@ function createWindow() {
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
 
  // Datenübergabe von Informationen an Renderer mit dynamischen Objekt
- let env: any = new Object();
- env.version = process.versions['electron'];
- env.os = process.platform;
- env.appversion = app.getVersion();
  (<any>win).env = env;
 
  writeLog("Electron/Main:Lade Index.html...");
-
- // and load the index.html of the app.
  win.loadURL(url.format({
   pathname: path.join(__dirname, 'index.html'),
   protocol: 'file:',
@@ -80,37 +80,8 @@ function createWindow() {
  try {
   writeLog("Electron/Main:Traymenü erstellen...");
   let tray = new Tray(favicon);
-  const contextMenu: Electron.Menu = Menu.buildFromTemplate([
-   {
-    label: 'Über diese Anwendung', click: () => {
-     const options: ShowMessageBoxOptions = {
-      type: 'info',
-      title: 'Cross-Plattform-Desktop-Variante der Beispielanwendung MiracleList',
-      buttons: ['Ok'],
-      message: '(C) Dr. Holger Schwichtenberg, www.IT-Visions.de\nDetails siehe Anwendungsmenü!\nSystembenutzer: ' + username.sync() + ''
-     }
-     dialog.showMessageBox(options, function () { })
-    }
-   },
-   {
-    label: 'Verstecken', click: () => { win.minimize(); }
-   },
-   {
-    label: 'Wiederherstellen', click: () => { win.restore(); }
-   },
-   {
-    label: 'Maximieren', click: () => { win.maximize(); }
-   },
-   {
-    label: 'Abmelden', click: () => { contents.send('logout', { msg: '' }); }
-   },
-   {
-    label: 'Beenden', click: () => { app.quit(); }
-   },
-  ]);
-
   tray.setToolTip('MiracleList');
-  tray.setContextMenu(contextMenu);
+  tray.setContextMenu(MiracleListTrayMenu.CreateMenu(win, env));
  }
  catch (err) {
   writeLog("Electron/Main:Tray-Fehler: " + err.message)
@@ -156,6 +127,7 @@ function createWindow() {
  writeLog("Electron/Main:createWindow END");
 }
 
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -189,6 +161,7 @@ function writeLog(logtext: string) {
   if (err) throw err;
  });
 }
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

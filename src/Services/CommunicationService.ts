@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 export class CommunicationService {
 
  constructor(private router: Router, private zone: NgZone, )
- { 
+ {
   console.log("==== CommunicationService");
  }
 
@@ -30,8 +30,8 @@ export class CommunicationService {
  }
 
  // Daten der Benutzeranmeldung
- public username: string = "";
- public token: string = "dev";
+ public username: string = "Holger Schwichtenberg";
+ public token: string = "feee0475-2125-4764-a2f9-c301c87742ec";
 
  GetPackage() : any
  {
@@ -44,7 +44,7 @@ export class CommunicationService {
   var env = (<any>electron.remote.getCurrentWindow()).env;
   return env;
  }
- 
+
  isElectron() : boolean
  {
   return (electron != undefined);
@@ -53,7 +53,7 @@ export class CommunicationService {
 getElectronEnvString(): string {
  if (!this.isElectron()) return "n/a";
   var env = this.getElectronEnv();
-  return (env.version + " auf " + env.os);
+  return (env.ElectronVersion + " auf " + env.OS);
  }
 
  isCordova() : boolean

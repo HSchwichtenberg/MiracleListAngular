@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
  public showDownloads: boolean;
 
  login() {
-  console.log("LOGIN",this.name, this.password);
+  console.log("LOGIN", this.name, this.password);
 
   var li = new LoginInfo();
   li.clientID = "11111111-1111-1111-1111-111111111111";

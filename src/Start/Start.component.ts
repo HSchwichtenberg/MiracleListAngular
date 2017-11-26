@@ -37,7 +37,7 @@ export class StartComponent implements OnInit {
 
   // Electron-IPC-Events behandeln
   if (typeof electron != "undefined") {
-   this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnv().appversion + " auf " + this.communicationService.getElectronEnv().os);
+   this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnvString());
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
    electron.ipcRenderer.on('about', (event, data) => {
@@ -120,6 +120,8 @@ mainpage()
                 <li>0.5: Electron-Client</li>
                 <li>0.6: Cordova-Client, Aufgaben sind sortierbar</li>
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
+                <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
+                <li>0.6.3: Ständige Aktualisierung des Server-Status</li>
             </ul>
             <h5>Systeminfo:</h5>
             <ul>
