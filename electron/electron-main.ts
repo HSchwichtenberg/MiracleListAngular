@@ -21,10 +21,9 @@ const logfile: string = 'miraclelist_log.txt';
 function createWindow() {
  writeLog("!!! Electron/Main:createWindow");
 
- // Systeminformationen auslesen und in dynamischem Objectkt speichern
+ // =================== Systeminformationen auslesen und in dynamischem Objectkt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
- const env =
-  {
+ const env = {
   Zeit: new Date(),
   OS: process.platform,
   Sprache: app.getLocale(),
@@ -38,12 +37,9 @@ function createWindow() {
   };
  writeLog(JSON.stringify(env, null, 4));
 
- // Icon
+ // =================== Renderer-Fenster erzeugen
+ writeLog("Creating BrowserWindow...");
  const favicon: string = path.join(__dirname, 'favicon.ico');
- writeLog("Icon:" + favicon);
-
- writeLog("new BrowserWindow()...");
- // Create the electron browser window
  win = new BrowserWindow({
   width: 900,
   height: 600,
@@ -56,17 +52,16 @@ function createWindow() {
  });
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
 
- // Datenübergabe von Informationen an Renderer mit dynamischen Objekt
+ // ===================  Datenübergabe von Informationen an Renderer mit dynamischen Objekt
  (<any>win).env = env;
 
+  // ===================  Startseite laden
  writeLog("Electron/Main:Lade Index.html...");
  win.loadURL(url.format({
   pathname: path.join(__dirname, 'index.html'),
   protocol: 'file:',
   slashes: true
  }));
-
- let contents = win.webContents;
 
  // =================== Anwendungsmenü erstellen
  writeLog("Electron/Main:Anwendungsmenü erstellen...");

@@ -36,7 +36,7 @@ export class StartComponent implements OnInit {
 
 
   // Electron-IPC-Events behandeln
-  if (typeof electron != "undefined") {
+  if (typeof electron !== "undefined") {
    this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnvString());
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
@@ -69,7 +69,7 @@ export class StartComponent implements OnInit {
  }
 
  get isLoggedIn(): boolean {
-  return (this.communicationService.username != null && this.communicationService.username != "")
+  return (this.communicationService.username != null && this.communicationService.username !== "")
  }
 
 mainpage()

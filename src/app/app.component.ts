@@ -116,7 +116,7 @@ this.setlistHeigth();
 // Lösung über CSS hatte viele Probleme mit Bootstrap 3. Daher hier dynamische Berechnung!
 setlistHeigth()
 {
- var abstand : number = 160;
+ let abstand : number = 160;
  if (window.innerWidth < 750) abstand = 230; // weil dann unten noch der Footer steht!
  this.listHeight = (window.innerHeight - abstand) + "px";
 }
@@ -140,7 +140,7 @@ setlistHeigth()
       //     this.miracleListProxyV2.dueTaskSet(this.communicationService.token).subscribe(x => {
       // this.dueTaskSet = x;
       // Wenn die fälligen Aufgaben gerade auf dem Schirm sind, dann müssen die in Spalte2 auch angezeigt werden
-      if (this.displayMode == DisplayMode.DueTaskSet) this.categorySetWithTaskSet = r2;
+      if (this.displayMode === DisplayMode.DueTaskSet) this.categorySetWithTaskSet = r2;
   }
 
   async showCategorySet() {
@@ -177,25 +177,25 @@ setlistHeigth()
 // Neu ab TS 2.1 mit async/await
   async showTaskSet(c: Category) {
    console.log("TaskSet LADEN...");
-   let x = await this.miracleListProxyV2.taskSet(c.categoryID).toPromise();
-   x = this.neuSortieren(x);
-   this.taskSet = x.sort((x,y)=>(x.order-y.order));
-    console.log("TaskSet GELADEN", x);
+   let e = await this.miracleListProxyV2.taskSet(c.categoryID).toPromise();
+   e = this.neuSortieren(e);
+   this.taskSet = e.sort((x,y)=>(x.order-y.order));
+    console.log("TaskSet GELADEN", e);
   }
 
 // Alte Variante mit Observable / Subscribe
   showTaskSet_alt(c: Category) {
     console.log("TaskSet LADEN...");
-     this.miracleListProxyV2.taskSet(c.categoryID).subscribe(x =>
+     this.miracleListProxyV2.taskSet(c.categoryID).subscribe(e =>
     {
-     this.taskSet = x.sort((x,y)=>(x.order-y.order));
-      console.log("TaskSet GELADEN", x);
+     this.taskSet = e.sort((x,y)=>(x.order-y.order));
+      console.log("TaskSet GELADEN", e);
     });
   }
 
   private getUndoneSubTaskSet(t: Task): Array<SubTask> {
     if (!t && !t.subTaskSet) { return null; }
-    return t.subTaskSet.filter(x => x.done == false);
+    return t.subTaskSet.filter(x => x.done === false);
   }
 
   showTaskDetail(t: Task) {
@@ -248,7 +248,7 @@ setlistHeigth()
   }
 
   deleteCategory(id: number) {
-    this.category = this.categorySet.find(x => x.categoryID == id)
+    this.category = this.categorySet.find(x => x.categoryID === id)
     // Dialog anzeigen
     let dialog = this.modal.confirm()
       .okBtn('Löschen')
@@ -350,9 +350,9 @@ setlistHeigth()
   console.log("!Reorder-Auftrag:", task.title, task.order + "->" + position);
 
   // Schritt 1: IDs verändern
-  for(var t of this.taskSet) {
+  for(let t of this.taskSet) {
    console.log("-- Task:", t.title, t.order);
-   if (t.taskID == task.taskID) {
+   if (t.taskID === task.taskID) {
     console.log("Position setzen", t.title, t.order, position);
     t.order = position;
    } // aktuelles Element
@@ -370,7 +370,7 @@ setlistHeigth()
 
   this.taskSet = this.neuSortieren(this.taskSet);
   // 3. Alle Speichern
-  for(var t of this.taskSet) {
+  for(let t of this.taskSet) {
 
    this.miracleListProxyV2.changeTask(t).subscribe(
     x => {
@@ -382,8 +382,8 @@ setlistHeigth()
  neuSortieren(taskSet: Array<Task>)
  {
   // neu Sortieren
-  var i = 0;
-  for(var t of taskSet.sort((x,y)=>(x.order-y.order))) {
+  let i = 0;
+  for(let t of taskSet.sort((x,y)=>(x.order-y.order))) {
    t.order = i;
    i++;
   }
