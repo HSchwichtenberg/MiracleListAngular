@@ -2,6 +2,12 @@
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
+    "cliOptions": {
+        "exclude": [
+            "bin",
+            "*/tslint.json"
+        ]
+    },
     "rules": {
         "class-name": true,
         "comment-format": [
@@ -22,9 +28,7 @@
         ],
         "member-access": false,
         "member-ordering": [
-            true,
-            "static-before-instance",
-            "variables-before-functions"
+            false
         ],
         "no-arg": true,
         "no-bitwise": true,
@@ -41,7 +45,7 @@
         "no-duplicate-variable": true,
         "no-empty": false,
         "no-eval": true,
-        "no-inferrable-types": true,
+        "no-inferrable-types": false,
         "no-shadowed-variable": true,
         "no-string-literal": false,
         "no-switch-case-fall-through": true,
@@ -51,7 +55,7 @@
         "no-var-keyword": true,
         "object-literal-sort-keys": false,
         "one-line": [
-            true,
+            false,
             "check-open-brace",
             "check-catch",
             "check-else",
@@ -62,15 +66,13 @@
             "single"
         ],
         "radix": true,
-        "semicolon": [
-            "always"
-        ],
+
         "triple-equals": [
             true,
             "allow-null-check"
         ],
         "typedef-whitespace": [
-            true,
+            false,
             {
                 "call-signature": "nospace",
                 "index-signature": "nospace",
@@ -81,7 +83,7 @@
         ],
         "variable-name": false,
         "whitespace": [
-            true,
+            false,
             "check-branch",
             "check-decl",
             "check-operator",
