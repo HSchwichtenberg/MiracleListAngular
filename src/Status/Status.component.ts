@@ -32,18 +32,21 @@ export class StatusComponent implements OnInit {
   this.calcSizeInfo(event.target.innerWidth);
  }
 
+ get isLoggedIn(): boolean {
+  return (this.communicationService.username != null && this.communicationService.username !== "")
+ }
 
  getServerStatus()
  {
   this.currentTime = moment().format('LTS');
-  var intervall  = 1000;
+  let intervall  = 1000;
   // console.log("getServerStatus...");
    // Serverstatus ermitteln
    this.miracleListProxy.version().subscribe(x=>
     {
      this.serverStatus =  "Server v" + x + " verfügbar!";
-     this.miracleListProxyV2.about().subscribe(x=> {
-      this.serverStatusDetails = x.join(" | ");
+     this.miracleListProxyV2.about().subscribe(y=> {
+      this.serverStatusDetails = y.join(" | ");
      });
     }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x;
     intervall = 5000; });
