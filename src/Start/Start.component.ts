@@ -67,8 +67,14 @@ export class StartComponent implements OnInit {
  }
 
  get isElectron(): boolean {
-  return  electron !== undefined
- }
+try{
+
+  return  electron !== undefined;
+}
+catch(ex)
+{
+return false;
+ }}
 
 
  get isLoggedIn(): boolean {

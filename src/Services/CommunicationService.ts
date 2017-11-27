@@ -47,7 +47,13 @@ export class CommunicationService {
 
  isElectron() : boolean
  {
-  return (electron != undefined);
+  try{
+   return  electron !== undefined;
+ }
+ catch(ex)
+ {
+ return false;
+ }
  }
 
 getElectronEnvString(): string {
