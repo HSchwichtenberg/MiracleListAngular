@@ -32,9 +32,11 @@ function electronMain() {
   AppMetrics: app.getAppMetrics(), // früher: getAppMemoryInfo
   ElectronVersion: process.versions.electron,
   ChromeVersion: process.versions.chrome,
+  NodeVersion: process.versions.node,
+  V8Version: process.versions.v8,
   Screen: width + "x" + height,
-  Anwendungspfad: __dirname,
-  Anwendungspfad2: app.getAppPath,
+  Anwendungspfad1: __dirname,
+  Anwendungspfad2: app.getAppPath(),
   AktuellerBenutzer: username.sync(),
   UserHomeDir: app.getPath("documents"),
   AppVersion: app.getVersion(),

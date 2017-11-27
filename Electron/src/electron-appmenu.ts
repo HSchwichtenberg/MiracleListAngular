@@ -1,4 +1,7 @@
 import { app, dialog, shell } from 'electron';
+const os = require('os');
+const path = require('path');
+const fs = require('fs');
 /**
  * Hilfsklasse, die Menübaum für Hauptmenü erstellt
  */
@@ -16,7 +19,7 @@ export class MiracleListAppMenu {
     {
      label: 'Systeminfo',
      click: () => {
-      var options: Electron.MessageBoxOptions = {
+      let options: Electron.MessageBoxOptions = {
        title: "Systeminfo",
        type: 'info',
        buttons: ['OK'],
@@ -31,6 +34,24 @@ export class MiracleListAppMenu {
        shell.openExternal('http://www.miraclelist.de')
      }
     },
+
+    {
+     label: 'Drucken',
+      click: () => {
+
+    win.webContents.printToPDF({}, function (error, data) {
+     const pdfPath = path.join(os.tmpdir(), 'print.pdf')
+     if (error) throw error
+     fs.writeFile(pdfPath, data, function (err) {
+       if (err) {
+         throw err
+       }
+       shell.openExternal('file://' + pdfPath)
+       })
+   })
+  }
+
+
   {
    label: 'Fehler (zum Test)',
     click: () => {

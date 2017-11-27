@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
+const os = require('os');
+const path = require('path');
+const fs = require('fs');
 class MiracleListAppMenu {
     static CreateMenu(win, env) {
         const menuTemplate = [{
@@ -14,7 +17,7 @@ class MiracleListAppMenu {
                     {
                         label: 'Systeminfo',
                         click: () => {
-                            var options = {
+                            let options = {
                                 title: "Systeminfo",
                                 type: 'info',
                                 buttons: ['OK'],
@@ -27,6 +30,22 @@ class MiracleListAppMenu {
                         label: 'Website miraclelist.de',
                         click: () => {
                             electron_1.shell.openExternal('http://www.miraclelist.de');
+                        }
+                    },
+                    {
+                        label: 'Drucken',
+                        click: () => {
+                            win.webContents.printToPDF({}, function (error, data) {
+                                const pdfPath = path.join(os.tmpdir(), 'print.pdf');
+                                if (error)
+                                    throw error;
+                                fs.writeFile(pdfPath, data, function (err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    electron_1.shell.openExternal('file://' + pdfPath);
+                                });
+                            });
                         }
                     },
                     {
