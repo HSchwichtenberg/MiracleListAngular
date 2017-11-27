@@ -6,4 +6,4 @@ $env:_JAVA_OPTIONS="-Xmx512M"
 java
 gradle -v
 "Setze Pfad..."
-if ((get-location).Path -notlike "*MLCordova*") { cd MLCordova }
+if ((get-location).Path -notlike "*Cordova*") { cd Cordova }

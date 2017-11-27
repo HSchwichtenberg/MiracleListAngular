@@ -17,8 +17,8 @@
 # dependencies
 /node_modules
 /electron/node_modules
-/MLCordova/node_modules
-/MLCordova/plugins/*
+/Cordova/node_modules
+/Cordova/plugins/*
 
 # IDEs and editors
 /.idea
