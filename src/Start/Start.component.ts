@@ -66,15 +66,15 @@ export class StartComponent implements OnInit {
   electron.ipcRenderer.send("export", categorySet);
  }
 
- get isElectron(): boolean {
-try{
-
+get isElectron(): boolean {
+ try{
   return  electron !== undefined;
+ }
+ catch(ex)
+ {
+  return false;
+ }
 }
-catch(ex)
-{
-return false;
- }}
 
 
  get isLoggedIn(): boolean {
