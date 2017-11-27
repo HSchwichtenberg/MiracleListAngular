@@ -25,6 +25,12 @@ export class MiracleListAppMenu {
       dialog.showMessageBox(win, options);
      }
     },
+    {
+     label: 'Website miraclelist.de',
+      click: () => {
+       shell.openExternal('http://www.miraclelist.de')
+     }
+    },
   {
    label: 'Fehler (zum Test)',
     click: () => {
@@ -139,7 +145,8 @@ export class MiracleListAppMenu {
       })(),
       click: function (item, focusedWindow) {
        if (focusedWindow) {
-        shell.showItemInFolder(app.getPath("documents"))
+        console.log("Öffne Ordner", app.getPath("documents"));
+        shell.showItemInFolder(app.getPath("documents")+ "/xy");
        }
       }
      },

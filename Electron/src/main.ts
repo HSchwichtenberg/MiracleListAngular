@@ -159,17 +159,18 @@ process.on('uncaughtException',
  function (err: Error) {
 
   writeLog(`!!!uncaughtException`, err );
-  var options: Electron.MessageBoxOptions = {
+  let options: Electron.MessageBoxOptions = {
    title: "Leider ist ein Fehler aufgetreten",
    type: 'info',
    buttons: ['YES', 'NO'],
    message: err.stack,
    detail: 'Soll die Anwendung fortgesetzt werden?'
   };
-  var win = BrowserWindow.getFocusedWindow();
-  var e = dialog.showMessageBox(win, options);
+  let w = BrowserWindow.getFocusedWindow();
+  let e = dialog.showMessageBox(w, options);
   console.log(e);
-  if (e==1) { process.crash();}
+  if (e===1) { app.exit(); //process.crash();
+  }
  }
  )
 

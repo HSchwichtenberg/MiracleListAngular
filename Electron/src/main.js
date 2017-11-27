@@ -101,18 +101,18 @@ electron_1.app.on('activate', () => {
 });
 process.on('uncaughtException', function (err) {
     writeLog(`!!!uncaughtException`, err);
-    var options = {
+    let options = {
         title: "Leider ist ein Fehler aufgetreten",
         type: 'info',
         buttons: ['YES', 'NO'],
         message: err.stack,
         detail: 'Soll die Anwendung fortgesetzt werden?'
     };
-    var win = electron_1.BrowserWindow.getFocusedWindow();
-    var e = electron_1.dialog.showMessageBox(win, options);
+    let w = electron_1.BrowserWindow.getFocusedWindow();
+    let e = electron_1.dialog.showMessageBox(w, options);
     console.log(e);
-    if (e == 1) {
-        process.crash();
+    if (e === 1) {
+        electron_1.app.exit();
     }
 });
 function writeLog(logtext, obj) {

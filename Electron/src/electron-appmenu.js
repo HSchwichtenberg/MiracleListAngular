@@ -24,6 +24,12 @@ class MiracleListAppMenu {
                         }
                     },
                     {
+                        label: 'Website miraclelist.de',
+                        click: () => {
+                            electron_1.shell.openExternal('http://www.miraclelist.de');
+                        }
+                    },
+                    {
                         label: 'Fehler (zum Test)',
                         click: () => {
                             throw new Error('Dies ist nur ein Testfehler');
@@ -91,7 +97,8 @@ class MiracleListAppMenu {
                                 focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
                             }
                         }
-                    }, {
+                    },
+                    {
                         label: 'Developer Tools Ein-/Ausblenden',
                         accelerator: (function () {
                             if (process.platform === 'darwin') {
@@ -107,7 +114,24 @@ class MiracleListAppMenu {
                                 require('devtron').install();
                             }
                         }
-                    }
+                    },
+                    {
+                        label: 'Dokumente anzeigen',
+                        accelerator: (function () {
+                            if (process.platform === 'darwin') {
+                                return 'Ctrl+Command+D';
+                            }
+                            else {
+                                return 'F11';
+                            }
+                        })(),
+                        click: function (item, focusedWindow) {
+                            if (focusedWindow) {
+                                console.log("Öffne Ordner", electron_1.app.getPath("documents"));
+                                electron_1.shell.showItemInFolder(electron_1.app.getPath("documents") + "/xy");
+                            }
+                        }
+                    },
                 ]
             }
         ];
