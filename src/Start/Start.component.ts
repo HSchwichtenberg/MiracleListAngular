@@ -95,6 +95,12 @@ mainpage()
  // this.communicationService.EmitTaskDetailCloseEvent(null);
 }
 
+crash()
+{
+ alert("Diese Funktion bringt jetzt gleich zum Test den Browser zum Absturz!");
+ for(let i = 0; i === i; i++) {}
+}
+
  about() {
   console.log(this.modal);
   this.modal.alert()

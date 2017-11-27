@@ -22,6 +22,16 @@ const logfile: string = 'miraclelist_log.txt';
 function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
+ // =================== Einstellungen auslesen und speichern
+ const settings = require('electron-settings');
+ let erster = settings.get('miraclelist.ersteVerwendung');
+ if (!erster)  erster  = new Date();
+ settings.set('miraclelist.ersteVerwendung', erster);
+ let anzahl = settings.get('miraclelist.anzahlVerwendung');
+ if (!anzahl)  anzahl  = 1;
+ else anzahl++;
+ settings.set('miraclelist.anzahlVerwendung', anzahl);
+
  // =================== Systeminformationen auslesen und in dynamischem Objekt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
  const env = {
@@ -39,7 +49,10 @@ function electronMain() {
   Anwendungspfad2: app.getAppPath(),
   AktuellerBenutzer: username.sync(),
   UserHomeDir: app.getPath("documents"),
+  UserData: app.getPath('userData'),
   AppVersion: app.getVersion(),
+  ErsteVerwendung: erster,
+  AnzahlVerwendungen: anzahl
   };
  writeLog("Systeminfo",env);
 

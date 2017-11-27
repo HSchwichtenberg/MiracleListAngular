@@ -13,6 +13,17 @@ let win;
 const logfile = 'miraclelist_log.txt';
 function electronMain() {
     writeLog("!!! Electron/Main:createWindow");
+    const settings = require('electron-settings');
+    let erster = settings.get('miraclelist.ersteVerwendung');
+    if (!erster)
+        erster = new Date();
+    settings.set('miraclelist.ersteVerwendung', erster);
+    let anzahl = settings.get('miraclelist.anzahlVerwendung');
+    if (!anzahl)
+        anzahl = 1;
+    else
+        anzahl++;
+    settings.set('miraclelist.anzahlVerwendung', anzahl);
     const { width, height } = electron_1.screen.getPrimaryDisplay().workAreaSize;
     const env = {
         Zeit: new Date(),
@@ -29,7 +40,10 @@ function electronMain() {
         Anwendungspfad2: electron_1.app.getAppPath(),
         AktuellerBenutzer: username.sync(),
         UserHomeDir: electron_1.app.getPath("documents"),
+        UserData: electron_1.app.getPath('userData'),
         AppVersion: electron_1.app.getVersion(),
+        ErsteVerwendung: erster,
+        AnzahlVerwendungen: anzahl
     };
     writeLog("Systeminfo", env);
     writeLog("Creating BrowserWindow...");
