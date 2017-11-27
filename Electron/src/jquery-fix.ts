@@ -2,6 +2,8 @@
 
 const w = <any>window;
 
+if (electron)
+{
 if (!w.$) {
     console.log("jQuery fix...!")
     if (typeof module === 'object') {
@@ -13,9 +15,9 @@ if (!w.$) {
 
     if (typeof require !== "undefined") {
         console.log("########## require('electron')");
+        // tslint:disable-next-line:no-var-keyword
         var electron = require('electron');
-        // const ipcRenderer = require('electron');
     }
-
     console.log("jQuery fix END")
+}
 }
