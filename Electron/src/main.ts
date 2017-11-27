@@ -8,6 +8,7 @@ import * as moment from "moment";
 import { MiracleListAppMenu } from "./electron-appmenu";
 import { MiracleListTrayMenu } from "./electron-traymenu";
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path');
 const url = require('url');
 // const NativeImage = require('native-image');
@@ -18,24 +19,27 @@ let win: Electron.BrowserWindow;
 
 const logfile: string = 'miraclelist_log.txt';
 
-function createWindow() {
+function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
- // =================== Systeminformationen auslesen und in dynamischem Objectkt speichern
+ // =================== Systeminformationen auslesen und in dynamischem Objekt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
  const env = {
   Zeit: new Date(),
   OS: process.platform,
   Sprache: app.getLocale(),
+  Speicher: (process.getSystemMemoryInfo().total/1024).toFixed() + "MB",
+  AppMetrics: app.getAppMetrics(), // früher: getAppMemoryInfo
   ElectronVersion: process.versions.electron,
   ChromeVersion: process.versions.chrome,
   Screen: width + "x" + height,
   Anwendungspfad: __dirname,
+  Anwendungspfad2: app.getAppPath,
   AktuellerBenutzer: username.sync(),
   UserHomeDir: app.getPath("documents"),
-  AppVersion: app.getVersion()
+  AppVersion: app.getVersion(),
   };
- writeLog(JSON.stringify(env, null, 4));
+ writeLog("Systeminfo",env);
 
  // =================== Renderer-Fenster erzeugen
  writeLog("Creating BrowserWindow...");
@@ -46,6 +50,7 @@ function createWindow() {
   frame: true, // false für frameless Window
   icon: favicon,
   webPreferences: {
+   devTools: true,
    nodeIntegration: true,
    preload: path.join(__dirname, 'electron-preload.js')
   }
@@ -55,6 +60,11 @@ function createWindow() {
  // ===================  Datenübergabe von Informationen an Renderer mit dynamischen Objekt
  (<any>win).env = env;
 
+ // ==================== Ereignisse
+
+ win.webContents.on('crashed', function(event) { writeLog("!!!crashed"); })
+ win.on('unresponsive', function(event) {  writeLog("!!!unresponsive"); })
+
   // ===================  Startseite laden
  writeLog("Electron/Main:Lade Index.html...");
  win.loadURL(url.format({
@@ -63,14 +73,15 @@ function createWindow() {
   slashes: true
  }));
 
+
+
  // =================== Anwendungsmenü erstellen
  writeLog("Electron/Main:Anwendungsmenü erstellen...");
- let menuTemplate = MiracleListAppMenu.CreateMenu(app, win);
+ let menuTemplate = MiracleListAppMenu.CreateMenu(win, env);
  const menu = Menu.buildFromTemplate(menuTemplate);
  Menu.setApplicationMenu(menu);
 
  // =================== Traymenü erstellen
-
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  try {
   writeLog("Electron/Main:Traymenü erstellen...");
@@ -85,7 +96,7 @@ function createWindow() {
   // =================== Reaktion auf Events vom Renderer
   writeLog("Electron/Main:Event Handler erstellen...");
   ipcMain.on('export', (event, arg) => {
-   console.log("export-event", arg);
+   console.log("!!!export-event", event, arg);
    writeLog("export-event!");
    let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
    let text = JSON.stringify(arg);
@@ -109,8 +120,6 @@ function createWindow() {
  // =================== Globaler Shortcut
  // TODO: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
 
- // Open the DevTools.
- // win.webContents.openDevTools()
 
  // Emitted when the window is closed.
  win.on('closed', () => {
@@ -122,11 +131,10 @@ function createWindow() {
  writeLog("Electron/Main:createWindow END");
 }
 
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', electronMain);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -143,20 +151,35 @@ app.on('activate', () => {
  // dock icon is clicked and there are no other windows open.
  if (win === null) {
   writeLog("Electron/Main:activate");
-  createWindow();
+  electronMain();
  }
 });
 
-function writeLog(logtext: string) {
- console.log(logtext);
+process.on('uncaughtException',
+ function (err: Error) {
+
+  writeLog(`!!!uncaughtException`, err );
+  var options: Electron.MessageBoxOptions = {
+   title: "Leider ist ein Fehler aufgetreten",
+   type: 'info',
+   buttons: ['YES', 'NO'],
+   message: err.stack,
+   detail: 'Soll die Anwendung fortgesetzt werden?'
+  };
+  var win = BrowserWindow.getFocusedWindow();
+  var e = dialog.showMessageBox(win, options);
+  console.log(e);
+  if (e==1) { process.crash();}
+ }
+ )
+
+function writeLog(logtext: string, obj?: any) {
+ console.log(logtext, obj);
  if (!logfile) return;
- const logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
+ let logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
+ if (obj) logtext += JSON.stringify(obj, null, 1);
  let logfilepath = path.join(app.getPath("documents"), logfile)
  fs.appendFile(logfilepath, logtext2, (err) => {
   if (err) throw err;
  });
 }
-
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

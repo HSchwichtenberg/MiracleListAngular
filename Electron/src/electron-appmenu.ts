@@ -1,32 +1,42 @@
+import { app, dialog } from 'electron';
 /**
- * Created by HS on 28.02.2017.
- */
-
-/**
- * Hilfsklasse, die Menübaum erstellt
+ * Hilfsklasse, die Menübaum für Hauptmenü erstellt
  */
 export class MiracleListAppMenu {
 // Menü erstellen
- public static CreateMenu(app: Electron.App, win: Electron.BrowserWindow): Electron.MenuItemConstructorOptions[] {
-  let contents = win.webContents;
-  // Menü setzen
+ public static CreateMenu(win: Electron.BrowserWindow, env: any): Electron.MenuItemConstructorOptions[] {
   const menuTemplate: Electron.MenuItemConstructorOptions[] = [{
    label: 'Anwendung',
    submenu: [{
     label: 'Über diese Anwendung',
     click: () => {
-     console.log("Sende nachricht...");
-     contents.send('about', {msg: 'nachricht'});
-     console.log("Sende nachricht ENDE");
-     // console.log(options.message);
+     win.webContents.send('about', {env: env});
     }
    },
     {
-     label: 'Abmelden',
+     label: 'Systeminfo',
      click: () => {
-      contents.send('logout', {msg: ''});
+      var options: Electron.MessageBoxOptions = {
+       title: "Systeminfo",
+       type: 'info',
+       buttons: ['OK'],
+       message: JSON.stringify(env, null, 1),
+      };
+      dialog.showMessageBox(win, options);
      }
     },
+  {
+   label: 'Fehler (zum Test)',
+    click: () => {
+     throw new Error('Dies ist nur ein Testfehler');
+   }
+  },
+    {
+   label: 'Abmelden',
+    click: () => {
+    win.webContents.send('logout', {msg: ''});
+   }
+  },
     {
      label: 'Beenden',
      click: () => {
@@ -113,6 +123,7 @@ export class MiracleListAppMenu {
       click: function (item, focusedWindow: Electron.BrowserWindow) {
        if (focusedWindow) {
         focusedWindow.webContents.toggleDevTools();
+        require('devtron').install()
        }
       }
      }

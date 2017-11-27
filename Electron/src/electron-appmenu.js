@@ -1,28 +1,44 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const electron_1 = require("electron");
 class MiracleListAppMenu {
-    static CreateMenu(app, win) {
-        let contents = win.webContents;
+    static CreateMenu(win, env) {
         const menuTemplate = [{
                 label: 'Anwendung',
                 submenu: [{
                         label: 'Über diese Anwendung',
                         click: () => {
-                            console.log("Sende nachricht...");
-                            contents.send('about', { msg: 'nachricht' });
-                            console.log("Sende nachricht ENDE");
+                            win.webContents.send('about', { env: env });
+                        }
+                    },
+                    {
+                        label: 'Systeminfo',
+                        click: () => {
+                            var options = {
+                                title: "Systeminfo",
+                                type: 'info',
+                                buttons: ['OK'],
+                                message: JSON.stringify(env, null, 1),
+                            };
+                            electron_1.dialog.showMessageBox(win, options);
+                        }
+                    },
+                    {
+                        label: 'Fehler (zum Test)',
+                        click: () => {
+                            throw new Error('Dies ist nur ein Testfehler');
                         }
                     },
                     {
                         label: 'Abmelden',
                         click: () => {
-                            contents.send('logout', { msg: '' });
+                            win.webContents.send('logout', { msg: '' });
                         }
                     },
                     {
                         label: 'Beenden',
                         click: () => {
-                            app.quit();
+                            electron_1.app.quit();
                         }
                     }
                 ]
@@ -88,6 +104,7 @@ class MiracleListAppMenu {
                         click: function (item, focusedWindow) {
                             if (focusedWindow) {
                                 focusedWindow.webContents.toggleDevTools();
+                                require('devtron').install();
                             }
                         }
                     }
@@ -98,4 +115,4 @@ class MiracleListAppMenu {
     }
 }
 exports.MiracleListAppMenu = MiracleListAppMenu;
-//# sourceMappingURL=electron-menu.js.map
+//# sourceMappingURL=electron-appmenu.js.map

@@ -18,7 +18,7 @@
     </a>
     <ul class="dropdown-menu">
         <li><a (click)="about()">Über MiracleList</a></li>
-        <li><a (click)="export()" *ngIf="communicationService.isElectron() && isLoggedIn">Export</a></li>
+        <li><a (click)="export()" *ngIf="isElectron && isLoggedIn">Export</a></li>
         <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
         <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
     </ul>

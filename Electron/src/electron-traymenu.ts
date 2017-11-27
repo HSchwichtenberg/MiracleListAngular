@@ -3,6 +3,9 @@ import * as username from 'username';
 import { dialog } from 'electron';
 import { Menu } from 'electron';
 
+/**
+ * Hilfsklasse, die Menübaum für Tray-Menü erstellt
+ */
 export class MiracleListTrayMenu {
 public static CreateMenu(win: Electron.BrowserWindow, env: any) {
   const contextMenu: Electron.Menu = Menu.buildFromTemplate([

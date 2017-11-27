@@ -9,6 +9,7 @@ import {Modal} from 'angular2-modal/plugins/bootstrap';
 
 // MomentJS
 import * as moment from 'moment';
+import { get } from 'https';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
@@ -33,31 +34,28 @@ export class StartComponent implements OnInit {
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
   console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
 
-
-
-  // Electron-IPC-Events behandeln
+  // ============= Electron-IPC-Events behandeln
   if (typeof electron !== "undefined") {
-   this.title.setTitle("MiracleList-Desktop-Client v" + this.communicationService.getElectronEnvString());
+   this.title.setTitle("MiracleList-Desktop-Client mit Electron v" + this.communicationService.getElectronEnvString());
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
    electron.ipcRenderer.on('about', (event, data) => {
-    this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
+    // this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.about();
-    });
-
+    // });
    });
    electron.ipcRenderer.on('logout', (event, data) => {
-    this.zone.run(() => {
+    // this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.logout();
-    });
+    // });
    });
    electron.ipcRenderer.on('export-reply', (event, data) => {
-    this.zone.run(() => {
+    // this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      alert(data);
-    });
+    // });
    });
   }
  }
@@ -67,6 +65,11 @@ export class StartComponent implements OnInit {
   console.log("Export", categorySet);
   electron.ipcRenderer.send("export", categorySet);
  }
+
+ get isElectron(): boolean {
+  return  electron !== undefined
+ }
+
 
  get isLoggedIn(): boolean {
   return (this.communicationService.username != null && this.communicationService.username !== "")

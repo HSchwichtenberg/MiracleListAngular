@@ -1,0 +1,8 @@
+{
+    "main": {
+        "sourceDirectory": "H:/MiracleListClient/Electron"
+    },
+    "renderer": {
+        "sourceDirectory": "H:/MiracleListClient/src"
+    }
+}
