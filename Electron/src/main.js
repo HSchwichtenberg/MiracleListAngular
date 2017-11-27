@@ -47,7 +47,21 @@ function electronMain() {
     });
     win.setTitle(electron_1.app.getName() + " v" + electron_1.app.getVersion() + " auf " + process.platform);
     win.env = env;
-    win.webContents.on('crashed', function (event) { writeLog("!!!crashed"); });
+    win.webContents.on('crashed', function (event) {
+        writeLog("!!!crashed", event);
+        const options = {
+            type: 'info',
+            title: 'Renderer Process Crashed',
+            message: 'This process has crashed.',
+            buttons: ['Reload', 'Close']
+        };
+        electron_1.dialog.showMessageBox(options, function (index) {
+            if (index === 0)
+                win.reload();
+            else
+                win.close();
+        });
+    });
     win.on('unresponsive', function (event) { writeLog("!!!unresponsive"); });
     writeLog("Electron/Main:Lade Index.html...");
     win.loadURL(url.format({

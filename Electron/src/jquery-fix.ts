@@ -1,7 +1,5 @@
 //vgl. https://github.com/electron/electron/issues/254 und http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined
 
-if (electron)
-{
 const w = <any>window;
 if (!w.$) {
     console.log("jQuery fix...!")
@@ -19,4 +17,4 @@ if (!w.$) {
     }
     console.log("jQuery fix END")
 }
-}
+

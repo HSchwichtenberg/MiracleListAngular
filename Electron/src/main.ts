@@ -64,7 +64,20 @@ function electronMain() {
 
  // ==================== Ereignisse
 
- win.webContents.on('crashed', function(event) { writeLog("!!!crashed"); })
+ win.webContents.on('crashed', function (event) {
+  writeLog("!!!crashed", event);
+  const options = {
+    type: 'info',
+    title: 'Renderer Process Crashed',
+    message: 'This process has crashed.',
+    buttons: ['Reload', 'Close']
+  }
+  dialog.showMessageBox(options, function (index) {
+    if (index === 0) win.reload()
+    else win.close()
+  })
+});
+
  win.on('unresponsive', function(event) {  writeLog("!!!unresponsive"); })
 
   // ===================  Startseite laden
