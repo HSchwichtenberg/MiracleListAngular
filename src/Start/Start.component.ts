@@ -130,7 +130,7 @@ mainpage()
                 <li>0.6: Cordova-Client, Aufgaben sind sortierbar</li>
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
-                <li>0.6.3: Ständige Aktualisierung des Server-Status</li>
+                <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
             </ul>
             <h5>Systeminfo:</h5>
             <ul>

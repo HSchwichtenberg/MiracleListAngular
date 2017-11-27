@@ -35,8 +35,8 @@ class MiracleListAppMenu {
                     {
                         label: 'Drucken',
                         click: () => {
+                            const pdfPath = path.join(os.tmpdir(), 'print.pdf');
                             win.webContents.printToPDF({}, function (error, data) {
-                                const pdfPath = path.join(os.tmpdir(), 'print.pdf');
                                 if (error)
                                     throw error;
                                 fs.writeFile(pdfPath, data, function (err) {

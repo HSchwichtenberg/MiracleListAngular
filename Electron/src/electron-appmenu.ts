@@ -34,24 +34,21 @@ export class MiracleListAppMenu {
        shell.openExternal('http://www.miraclelist.de')
      }
     },
-
     {
      label: 'Drucken',
       click: () => {
-
-    win.webContents.printToPDF({}, function (error, data) {
-     const pdfPath = path.join(os.tmpdir(), 'print.pdf')
-     if (error) throw error
-     fs.writeFile(pdfPath, data, function (err) {
-       if (err) {
-         throw err
-       }
-       shell.openExternal('file://' + pdfPath)
+       const pdfPath = path.join(os.tmpdir(), 'print.pdf');
+       win.webContents.printToPDF({}, function (error, data) {
+       if (error) throw error
+       fs.writeFile(pdfPath, data, function (err) {
+         if (err) {
+           throw err
+         }
+         shell.openExternal('file://' + pdfPath);
+         })
        })
-   })
-  }
-
-
+     }
+    },
   {
    label: 'Fehler (zum Test)',
     click: () => {

@@ -1,5 +1,5 @@
-const w = window;
 if (electron) {
+    const w = window;
     if (!w.$) {
         console.log("jQuery fix...!");
         if (typeof module === 'object') {
