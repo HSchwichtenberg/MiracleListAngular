@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron';
+import { app, dialog, shell } from 'electron';
 /**
  * Hilfsklasse, die Menübaum für Hauptmenü erstellt
  */
@@ -111,7 +111,8 @@ export class MiracleListAppMenu {
         focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
        }
       }
-     }, {
+     },
+     {
       label: 'Developer Tools Ein-/Ausblenden',
       accelerator: (function () {
        if (process.platform === 'darwin') {
@@ -126,7 +127,22 @@ export class MiracleListAppMenu {
         require('devtron').install()
        }
       }
-     }
+     },
+     {
+      label: 'Dokumente anzeigen',
+      accelerator: (function () {
+       if (process.platform === 'darwin') {
+        return 'Ctrl+Command+D';
+       } else {
+        return 'F11';
+       }
+      })(),
+      click: function (item, focusedWindow) {
+       if (focusedWindow) {
+        shell.showItemInFolder(app.getPath("documents"))
+       }
+      }
+     },
     ]
    } // Ende View Menü
 
