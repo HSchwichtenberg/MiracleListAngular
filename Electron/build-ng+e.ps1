@@ -1,11 +1,9 @@
 $erroractionpreference = "stop"
-if ((get-location).Path -like "*electron*") { cd ".." }
+$lok = Get-Location
+cd $PSScriptRoot\..
 "Übersetze Angular-App für Electron nach /temp_electron ..."
 ng build --output-path=temp_electron --base-href .
-"Kopiere Dateien..."
-cd "Electron"
-copy-item .\package.json ..\temp_electron -Force
-copy-item src\* ..\temp_electron -Force
-"Kopiere Node-Module..."
-copy-item node_modules\* ..\temp_electron\node_modules -Force -Recurse
+Set-Location $lok
+"Erstelle Junction für Node-Module..."
+New-Item -ItemType Junction -Name node_modules -Value $PSScriptRoot\node_modules -Path $PSScriptRoot\..\temp_electron
 .\build-e.ps1

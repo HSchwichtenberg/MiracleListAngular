@@ -1,19 +1,32 @@
 {
-  "name": "miraclelistelectron",
-  "version": "0.6.3-Beta1",
-  "main": "main.js",
-  "dependencies": {
-    "electron-settings": "^3.1.4",
-    "moment": "^2.17.1",
-    "username": "^2.3.0"
-  },
-  "devDependencies": {
-    "@types/node": "^6.0.64",
-    "@types/username": "^1.0.28",
-    "electron": "1.7.9",
-    "electron-webpack": "1.11.0",
-    "electron-webpack-ts": "^1.2.0",
-    "electron-builder": "^19.42.1",
-    "electron-winstaller": "^2.6.3"
-  }
+    "name": "miraclelistelectron",
+    "version": "0.6.3-Beta1",
+    "main": "main.js",
+    "dependencies": {
+        "electron-settings": "^3.1.4",
+        "moment": "^2.17.1",
+        "username": "^2.3.0"
+    },
+    "devDependencies": {
+        "@types/node": "^6.0.64",
+        "@types/username": "^1.0.28",
+        "electron": "1.7.9",
+        "electron-webpack": "1.11.0",
+        "electron-webpack-ts": "^1.2.0",
+        "electron-builder": "^19.42.1",
+        "electron-winstaller": "^2.6.3"
+    },
+    "scripts": {
+        "///": "---------------------------- Skripte für Electron zum Entwickeln w = laufen auf windows m = laufen auf mac",
+        "w-copy-electron": "xcopy src\\* ..\\temp_electron /s /e /y && copy  package.json ..\\temp_electron",
+        "m-copy-electron": "\"node_modules/.bin/copy\" \"/electron/*\" \"temp_electron\"",
+        "m-build-electron": "ng build --output-path=temp_electron --base-href . && npm run m-copy-electron",
+        "w-build-electron": "ng build --output-path=temp_electron --base-href . && npm run w-copy-electron",
+        "m-electron": "npm run m-build-electron && electron temp_electron",
+        "w-electron": "npm run w-build-electron && electron temp_electron",
+        "m-electron-ohnengbuild": "npm run m-copy-electron && electron temp_electron",
+        "w-electron-ohnengbuild": "npm run w-copy-electron && electron temp_electron",
+        "w-electron-deploy": "npm run w-copy-electron && electron-packager temp_electron MiracleListElectron --platform=win32 --arch=x64 --out=dist_electron/ --overwrite --icon=src/assets/favicon.ico  --asar",
+        "w-electron-deploy-run": "npm run w-electron-deploy && start cmd /c \"dist_electron\\MiracleListElectron-win32-x64\\MiracleListElectron.exe\""
+    }
 }
