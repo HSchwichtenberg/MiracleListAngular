@@ -19,6 +19,7 @@
 /electron/node_modules
 /Cordova/node_modules
 /Cordova/plugins/*
+*/node_modules/*
 
 # IDEs and editors
 /.idea
