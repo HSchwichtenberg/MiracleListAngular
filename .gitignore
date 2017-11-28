@@ -15,11 +15,8 @@
 *.map
 
 # dependencies
-/node_modules
-/electron/node_modules
-/Cordova/node_modules
 /Cordova/plugins/*
-*/node_modules/*
+node_modules/
 
 # IDEs and editors
 /.idea
