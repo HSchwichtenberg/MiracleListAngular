@@ -38,7 +38,7 @@ export class StartComponent implements OnInit {
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
    electron.ipcRenderer.on('about', (event : string, data: any) => {
-     this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
+     this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe https://github.com/angular/zone.js/issues/537
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.about();
      });
