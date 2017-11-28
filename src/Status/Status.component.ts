@@ -13,6 +13,7 @@ import * as moment from "moment";
 export class StatusComponent implements OnInit {
  sizeInfo: string;
  serverStatusDetails: any;
+ serverAvailable?: boolean = null;
  serverStatus: string = "...lädt...";
  currentTime: string;
 
@@ -39,19 +40,19 @@ export class StatusComponent implements OnInit {
  getServerStatus()
  {
   this.currentTime = moment().format('LTS');
-  let intervall  = 1000;
+  let intervall  = 10000;
   // console.log("getServerStatus...");
    // Serverstatus ermitteln
-   this.miracleListProxy.version().subscribe(x=>
+   this.miracleListProxyV2.about().subscribe(x=>
     {
-     this.serverStatus =  "Server v" + x + " verfügbar!";
-     this.miracleListProxyV2.about().subscribe(y=> {
-      this.serverStatusDetails = y.join(" | ");
-     });
+     this.serverAvailable = true;
+     this.serverStatusDetails = x;
+     this.serverStatus =  "Server verfügbar!";
     }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x;
+    this.serverAvailable = false;
     intervall = 5000; });
-
-     // alle 5 Sekunden aktualisieren
+console.log(this.serverStatusDetails);
+     // alle x Sekunden aktualisieren
  setTimeout(() => {
   this.getServerStatus();
    },intervall);

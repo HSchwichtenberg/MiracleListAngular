@@ -1,4 +1,5 @@
 <div style="margin-top: 3px;">Beispielanwendung v{{communicationService.GetPackage().version}} vom {{communicationService.GetPackage().date}}</div>
 <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
 <div> <span *ngIf="isLoggedIn" id="LoggedInUser">Angemeldeter Benutzer: {{this.communicationService.username}}</span> </div>
-<div title="{{this.serverStatusDetails}}">Status ({{this.currentTime}}): {{serverStatus}} / Bildschirm: {{this.sizeInfo}}</div>
+
+<div><span class="badge" [ngStyle]="{'margin-bottom':'3px','background-color': this.serverAvailable ? '#468847' : '#b94a48'}" [title]="currentTime + ' : ' + serverStatusDetails">{{serverStatus}} </span> Bildschirm: {{this.sizeInfo}}</div>
