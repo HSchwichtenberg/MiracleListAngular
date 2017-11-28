@@ -18,12 +18,12 @@ function electronMain() {
     if (!erster)
         erster = new Date();
     settings.set('miraclelist.ersteVerwendung', erster);
-    let anzahl = settings.get('miraclelist.anzahlVerwendung');
+    let anzahl = settings.get('miraclelist.anzahlVerwendungen');
     if (!anzahl)
         anzahl = 1;
     else
         anzahl++;
-    settings.set('miraclelist.anzahlVerwendung', anzahl);
+    settings.set('miraclelist.anzahlVerwendungen', anzahl);
     const { width, height } = electron_1.screen.getPrimaryDisplay().workAreaSize;
     const env = {
         Zeit: new Date(),

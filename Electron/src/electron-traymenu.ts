@@ -1,5 +1,4 @@
 import { app } from 'electron';
-import * as username from 'username';
 import { dialog } from 'electron';
 import { Menu } from 'electron';
 

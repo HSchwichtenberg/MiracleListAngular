@@ -21,9 +21,7 @@ declare var Notification: any;
 })
 
 export class StartComponent implements OnInit {
-
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
-
   console.log("StartComponent:ctor", typeof electron, this.communicationService.getElectronEnv());
  }
 
@@ -39,19 +37,19 @@ export class StartComponent implements OnInit {
    this.title.setTitle("MiracleList-Desktop-Client mit Electron v" + this.communicationService.getElectronEnvString());
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
-   electron.ipcRenderer.on('about', (event, data) => {
+   electron.ipcRenderer.on('about', (event : string, data: any) => {
     // this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.about();
     // });
    });
-   electron.ipcRenderer.on('logout', (event, data) => {
+   electron.ipcRenderer.on('logout', (event : string, data: any) => {
     // this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.logout();
     // });
    });
-   electron.ipcRenderer.on('export-reply', (event, data) => {
+   electron.ipcRenderer.on('export-reply', (event : string, data: any) => {
     // this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      alert(data);
@@ -171,9 +169,6 @@ crash()
     icon: "./assets/MiracleListLogo_ohneText.jpg",
     body: 'Sie wurden abgemeldet!'
    })
-
-
   });
-
  }
 }

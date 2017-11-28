@@ -13,10 +13,8 @@ const path = require('path');
 const url = require('url');
 // const NativeImage = require('native-image');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+// Das Fenster-Objekt muss global sein!
 let win: Electron.BrowserWindow;
-
 const logfile: string = 'miraclelist_log.txt';
 
 function electronMain() {
@@ -24,13 +22,14 @@ function electronMain() {
 
  // =================== Einstellungen auslesen und speichern
  const settings = require('electron-settings');
+
  let erster = settings.get('miraclelist.ersteVerwendung');
  if (!erster)  erster  = new Date();
  settings.set('miraclelist.ersteVerwendung', erster);
- let anzahl = settings.get('miraclelist.anzahlVerwendung');
+ let anzahl = settings.get('miraclelist.anzahlVerwendungen');
  if (!anzahl)  anzahl  = 1;
  else anzahl++;
- settings.set('miraclelist.anzahlVerwendung', anzahl);
+ settings.set('miraclelist.anzahlVerwendungen', anzahl);
 
  // =================== Systeminformationen auslesen und in dynamischem Objekt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
@@ -65,8 +64,8 @@ function electronMain() {
   frame: true, // false für frameless Window
   icon: favicon,
   webPreferences: {
-   devTools: true,
-   nodeIntegration: true,
+   devTools: true, // false für Blockieren der DevTools!
+   nodeIntegration: true, // false: Renderer hat keinen Zugang zu Node- und Electron-APIs
    preload: path.join(__dirname, 'electron-preload.js')
   }
  });
@@ -123,7 +122,7 @@ function electronMain() {
 
   // =================== Reaktion auf Events vom Renderer
   writeLog("Electron/Main:Event Handler erstellen...");
-  ipcMain.on('export', (event, arg) => {
+  ipcMain.on('export', (event: string, arg: any) => {
    console.log("!!!export-event", event, arg);
    writeLog("export-event!");
    let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
