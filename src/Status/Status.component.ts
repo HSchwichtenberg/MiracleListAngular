@@ -20,10 +20,7 @@ export class StatusComponent implements OnInit {
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  overlay: Overlay, vcr: ViewContainerRef) {
   overlay.defaultViewContainer = vcr;
   this.calcSizeInfo(window.screen.width);
- this.getServerStatus();
-
-
-
+  this.getServerStatus();
  }
  ngOnInit() { }
 
@@ -58,12 +55,10 @@ console.log(this.serverStatusDetails);
    },intervall);
  }
 
-
-
 calcSizeInfo(width : number)
 {
- var size = width;
- var sizeName = "";
+ let size = width;
+ let sizeName = "";
 
   switch (true) {
    case (size >= 1170): sizeName = "lg"; break;
