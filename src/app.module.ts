@@ -1,6 +1,5 @@
 import { StatusComponent } from './Status/Status.component';
 
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
