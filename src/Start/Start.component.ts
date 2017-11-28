@@ -38,22 +38,22 @@ export class StartComponent implements OnInit {
 
    console.log("!!!! Registriere mehrere electron-Event-Handler...");
    electron.ipcRenderer.on('about', (event : string, data: any) => {
-    // this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
+     this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe http://stackoverflow.com/questions/41254904/angular-2-change-detection-breaks-down-with-electron
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.about();
-    // });
+     });
    });
    electron.ipcRenderer.on('logout', (event : string, data: any) => {
-    // this.zone.run(() => {
+     this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      this.logout();
-    // });
+     });
    });
    electron.ipcRenderer.on('export-reply', (event : string, data: any) => {
-    // this.zone.run(() => {
+     this.zone.run(() => {
      console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
      alert(data);
-    // });
+     });
    });
   }
  }
