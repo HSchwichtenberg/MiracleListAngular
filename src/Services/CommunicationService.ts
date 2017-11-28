@@ -58,8 +58,8 @@ export class CommunicationService {
 
 getElectronEnvString(): string {
  if (!this.isElectron()) return "n/a";
-  var env = this.getElectronEnv();
-  return (env.ElectronVersion + " auf " + env.OS);
+  let env = this.getElectronEnv();
+  return (env.AppVersion + " auf " + env.OS);
  }
 
  isCordova() : boolean
