@@ -15,6 +15,7 @@ const url = require('url');
 
 // Das Fenster-Objekt muss global sein!
 let win: Electron.BrowserWindow;
+let tray: Electron.Tray;
 const logfile: string = 'miraclelist_log.txt';
 
 function electronMain() {
@@ -112,7 +113,7 @@ function electronMain() {
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  try {
   writeLog("Electron/Main:Traymenü erstellen...");
-  let tray = new Tray(favicon);
+  tray = new Tray(favicon);
   tray.setToolTip('MiracleList');
   tray.setContextMenu(MiracleListTrayMenu.CreateMenu(win, env));
  }
