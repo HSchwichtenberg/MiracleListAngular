@@ -48,12 +48,13 @@ function electronMain() {
     };
     writeLog("Systeminfo", env);
     writeLog("Creating BrowserWindow...");
-    const favicon = path.join(__dirname, 'icon.ico');
+    console.log(__dirname + '/img/icon.png');
+    const icon = electron_1.nativeImage.createFromPath(__dirname + '/img/icon.png');
     win = new electron_1.BrowserWindow({
         width: 900,
         height: 600,
         frame: true,
-        icon: favicon,
+        icon: icon,
         show: false,
         backgroundColor: '#ffdd86',
         webPreferences: {
@@ -64,10 +65,6 @@ function electronMain() {
     });
     win.setTitle(electron_1.app.getName() + " v" + electron_1.app.getVersion() + " auf " + process.platform);
     win.env = env;
-    win.on('ready-to-show', () => {
-        win.show();
-        win.focus();
-    });
     win.webContents.on('crashed', function (event) {
         writeLog("!!!crashed", event);
         const options = {
@@ -120,6 +117,10 @@ function electronMain() {
     });
     win.on('closed', () => {
         win = null;
+    });
+    win.on('ready-to-show', () => {
+        win.show();
+        win.focus();
     });
     writeLog("Electron/Main:createWindow END");
 }

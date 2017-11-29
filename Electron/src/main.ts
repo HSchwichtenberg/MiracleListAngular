@@ -1,5 +1,5 @@
 // Electron-Komponenten
-import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen } from "electron";
+import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen, nativeImage } from "electron";
 // NodeJS-Komponenten
 import * as username from "username";
 import * as fs from "fs";
@@ -59,17 +59,18 @@ function electronMain() {
 
  // =================== Renderer-Fenster erzeugen
  writeLog("Creating BrowserWindow...");
- const favicon: string = path.join(__dirname, 'icon.ico');
+ console.log(__dirname + '/img/icon.png');
+ const icon = nativeImage.createFromPath(__dirname + '/img/icon.png')
  win = new BrowserWindow({
   width: 900,
   height: 600,
   frame: true, // false für frameless Window
-  icon: favicon,
+  icon: icon,
   show: false,
   backgroundColor: '#ffdd86', // == rgba(255, 221, 134, 1)
   webPreferences: {
    devTools: true, // false für Blockieren der DevTools!
-   nodeIntegration: true, // false: Renderer hat keinen Zugang zu Node- und Electron-APIs
+   nodeIntegration: true, // false: Renderer hätte hat keinen Zugang zu Node- und Electron-APIs
    preload: path.join(__dirname, 'electron-preload.js')
   }
  });
@@ -77,13 +78,6 @@ function electronMain() {
 
  // ===================  Datenübergabe von Informationen an Renderer mit dynamischen Objekt
   (<any>win).env = env;
-
- // Ladeeffekte unsichtbar machen, indem wir erst jetzt das Fenster anzeigen
- win.on('ready-to-show', () =>
- {
-  win.show();
-  win.focus();
- });
 
  // ==================== Ereignisse
  win.webContents.on('crashed', function (event) {
@@ -165,12 +159,22 @@ function electronMain() {
   // when you should delete the corresponding element.
   win = null;
  });
- writeLog("Electron/Main:createWindow END");
-}
+
+
+  // Ladeeffekte unsichtbar machen, indem wir erst jetzt das Fenster anzeigen
+  win.on('ready-to-show', () =>
+  {
+   win.show();
+   win.focus();
+  });
+
+  writeLog("Electron/Main:createWindow END");
+} // End electronMain
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+// Startcode festlegen
 app.on('ready', electronMain);
 
 
