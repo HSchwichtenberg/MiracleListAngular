@@ -12,16 +12,18 @@ export class MiracleListAppMenu {
    label: 'Anwendung',
    submenu: [{
     label: 'Über diese Anwendung',
+    accelerator: 'CmdOrCtrl+I',
     click: () => {
      win.webContents.send('about', {env: env});
     }
    },
     {
      label: 'Systeminfo',
+     accelerator: 'CmdOrCtrl+S',
      click: () => {
       let options: Electron.MessageBoxOptions = {
        title: "Systeminfo",
-       type: 'info',
+        type: 'info',
        buttons: ['OK'],
        message: JSON.stringify(env, null, 1),
       };
@@ -36,6 +38,7 @@ export class MiracleListAppMenu {
     },
     {
      label: 'Drucken',
+     accelerator: 'CmdOrCtrl+D',
       click: () => {
        const pdfPath = path.join(os.tmpdir(), 'print.pdf');
        win.webContents.printToPDF({}, function (error, data) {

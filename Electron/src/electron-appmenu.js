@@ -10,12 +10,14 @@ class MiracleListAppMenu {
                 label: 'Anwendung',
                 submenu: [{
                         label: 'Über diese Anwendung',
+                        accelerator: 'CmdOrCtrl+I',
                         click: () => {
                             win.webContents.send('about', { env: env });
                         }
                     },
                     {
                         label: 'Systeminfo',
+                        accelerator: 'CmdOrCtrl+S',
                         click: () => {
                             let options = {
                                 title: "Systeminfo",
@@ -34,6 +36,7 @@ class MiracleListAppMenu {
                     },
                     {
                         label: 'Drucken',
+                        accelerator: 'CmdOrCtrl+D',
                         click: () => {
                             const pdfPath = path.join(os.tmpdir(), 'print.pdf');
                             win.webContents.printToPDF({}, function (error, data) {
