@@ -19,10 +19,12 @@
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}/temp_electron/",
+            "program": "${workspaceRoot}/temp_electron/main.js",
             "runtimeExecutable": "${workspaceRoot}/electron/node_modules/.bin/electron",
             "windows": {
-                "runtimeExecutable": "${workspaceRoot}/electron//node_modules/.bin/electron.cmd"
+                "runtimeExecutable": "${workspaceRoot}/electron/node_modules/.bin/electron.cmd"
             },
+            "sourceMaps": true,
             "args": ["."]
         }
     ]
