@@ -116,7 +116,7 @@ function electronMain() {
  // siehe auch https://github.com/electron/electron/blob/master/docs/api/tray.md
  try {
   writeLog("Electron/Main:Traymenü erstellen...");
-  tray = new Tray(favicon);
+  tray = new Tray(icon);
   tray.setToolTip('MiracleList');
   tray.setContextMenu(MiracleListTrayMenu.CreateMenu(win, env));
  }

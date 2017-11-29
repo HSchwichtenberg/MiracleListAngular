@@ -10,7 +10,7 @@
         "**/*.js": { "when": "$(basename).ts" },
         "**/*.js.map": true,
         "dist*": true,
-        "temp*": true,
+        //"temp*": true,
         "node_modules": true,
         "Electron/node_modules": true,
         "Cordova/node_modules": true,

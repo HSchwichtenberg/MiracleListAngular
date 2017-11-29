@@ -32,6 +32,7 @@ export class MiracleListAppMenu {
     },
     {
      label: 'Website miraclelist.de',
+     accelerator: 'CmdOrCtrl+W',
       click: () => {
        shell.openExternal('http://www.miraclelist.de')
      }

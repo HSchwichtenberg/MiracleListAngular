@@ -30,6 +30,7 @@ class MiracleListAppMenu {
                     },
                     {
                         label: 'Website miraclelist.de',
+                        accelerator: 'CmdOrCtrl+W',
                         click: () => {
                             electron_1.shell.openExternal('http://www.miraclelist.de');
                         }

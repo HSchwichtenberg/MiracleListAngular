@@ -93,7 +93,7 @@ function electronMain() {
     electron_1.Menu.setApplicationMenu(menu);
     try {
         writeLog("Electron/Main:Traymenü erstellen...");
-        tray = new electron_1.Tray(favicon);
+        tray = new electron_1.Tray(icon);
         tray.setToolTip('MiracleList');
         tray.setContextMenu(electron_traymenu_1.MiracleListTrayMenu.CreateMenu(win, env));
     }

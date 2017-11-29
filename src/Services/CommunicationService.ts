@@ -30,8 +30,8 @@ export class CommunicationService {
  }
 
  // Daten der Benutzeranmeldung
- public username: string = "Holger Schwichtenberg";
- public token: string = "feee0475-2125-4764-a2f9-c301c87742ec";
+ public username: string; // = "test";
+ public token: string; // = "test";
 
  GetPackage() : any
  {
@@ -40,8 +40,8 @@ export class CommunicationService {
  }
  // Liefert das vom Electron Main Prozess übergebe env-Objekt
   getElectronEnv(): any {
-  if (typeof electron == "undefined") return "n/a";
-  var env = (<any>electron.remote.getCurrentWindow()).env;
+  if (! this.isElectron()) return "n/a";
+  let env = (<any>electron.remote.getCurrentWindow()).env;
   return env;
  }
 
@@ -70,7 +70,7 @@ getElectronEnvString(): string {
 
   getCordovaEnvString(): string {
    if (!this.isCordova()) return "n/a";
-   var env = (<any>window).device;
+   let env = (<any>window).device;
    return (env.version + " auf " + env.platform);
  }
 }
