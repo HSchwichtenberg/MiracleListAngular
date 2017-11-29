@@ -4,7 +4,7 @@ cd $PSScriptRoot
 "Kopiere package.json für Electron-Main-Process..."
 copy-item .\package.json ..\temp_electron -Force -Verbose
 "Kopiere JS/TS für Electron-Main-Process..."
-copy-item src\* ..\temp_electron -Force -Verbose
+copy-item src\* ..\temp_electron -Force -Verbose -Recurse
 
 if (-not (test-path $PSScriptRoot\..\temp_electron\node_modules))
 {
