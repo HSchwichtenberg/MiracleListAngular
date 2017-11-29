@@ -11,12 +11,13 @@ import { MiracleListTrayMenu } from "./electron-traymenu";
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path');
 const url = require('url');
-// const NativeImage = require('native-image');
 
-// Das Fenster-Objekt muss global sein!
+// Konfiguration
+const logfile: string = 'miraclelist_log.txt';
+
+// Das Fenster- und das Tray-Objekt müssen global sein!
 let win: Electron.BrowserWindow;
 let tray: Electron.Tray;
-const logfile: string = 'miraclelist_log.txt';
 
 function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
@@ -58,12 +59,14 @@ function electronMain() {
 
  // =================== Renderer-Fenster erzeugen
  writeLog("Creating BrowserWindow...");
- const favicon: string = path.join(__dirname, 'favicon.ico');
+ const favicon: string = path.join(__dirname, 'icon.ico');
  win = new BrowserWindow({
   width: 900,
   height: 600,
   frame: true, // false für frameless Window
   icon: favicon,
+  show: false,
+  backgroundColor: '#ffdd86', // == rgba(255, 221, 134, 1)
   webPreferences: {
    devTools: true, // false für Blockieren der DevTools!
    nodeIntegration: true, // false: Renderer hat keinen Zugang zu Node- und Electron-APIs
@@ -73,10 +76,16 @@ function electronMain() {
  win.setTitle(app.getName() + " v" + app.getVersion() + " auf " + process.platform);
 
  // ===================  Datenübergabe von Informationen an Renderer mit dynamischen Objekt
- (<any>win).env = env;
+  (<any>win).env = env;
+
+ // Ladeeffekte unsichtbar machen, indem wir erst jetzt das Fenster anzeigen
+ win.on('ready-to-show', () =>
+ {
+  win.show();
+  win.focus();
+ });
 
  // ==================== Ereignisse
-
  win.webContents.on('crashed', function (event) {
   writeLog("!!!crashed", event);
   const options = {
@@ -163,6 +172,8 @@ function electronMain() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', electronMain);
+
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
