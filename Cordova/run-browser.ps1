@@ -1,4 +1,4 @@
-cd $PSScriptRoot\..
+cd $PSScriptRoot\
 "-------> Übersetzen..."
 cordova build browser
 "-------> Starten..."
