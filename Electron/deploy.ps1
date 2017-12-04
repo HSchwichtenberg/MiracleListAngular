@@ -2,7 +2,7 @@ $erroractionpreference = "stop"
 $lok = Get-Location
 cd $PSScriptRoot\..
 "--> Angular-Produktions-Build für Electron nach temp_electron..."
-#ng build --target=production --environment=prod --output-path=temp_electron --base-href .
+ng build --target=production --environment=prod --output-path=temp_electron --base-href .
 & "$PSScriptRoot\copy-electronmain.ps1"
 cd $PSScriptRoot\..
 "--> Electron-Paket erstellen..."

@@ -19,5 +19,12 @@
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-whitelist": "1",
         "cordova-windows": "~5.0.0"
+    },
+    "scripts": {
+        "build-cordova": "ng build --base-href ./ --output-path Cordova/www/",
+        "build-cordova-prod": "ng build --target=production --environment=prod --output-path Cordova/www/",
+        "c-browser": "cd MLCordova && cordova run browser",
+        "c-win": "cd MLCordova && cordova run windows",
+        "c-android": "cd MLCordova && cordova run android -device"
     }
 }
