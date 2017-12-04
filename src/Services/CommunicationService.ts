@@ -64,13 +64,14 @@ getElectronEnvString(): string {
 
  isCordova() : boolean
  {
-   console.log("--> Cordova=",(<any>window).device);
-   return ((<any>window).device != undefined);
+   console.log("--> Cordova=",(<any>window).cordova);
+   return ((<any>window).cordova !== undefined);
  }
 
   getCordovaEnvString(): string {
    if (!this.isCordova()) return "n/a";
    let env = (<any>window).device;
-   return (env.version + " auf " + env.platform);
+   let cordova = (<any>window).cordova;
+   return (cordova.version + " auf " + env.platform + " " + env.version + " (" + env.manufacturer + " " + env.model + ")");
  }
 }

@@ -31,6 +31,9 @@ export class StartComponent implements OnInit {
   console.log("Version: " + this.communicationService.GetPackage().version + " vom " + this.communicationService.GetPackage().date);
   console.log("Sprache: " + (<any>moment().localeData())._abbr);
   console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
+  console.log("Electron?: " + this.isElectron);
+  console.log("Cordova?: " + this.isCordovaApp + "/" + this.isCordovaApp2);
+  console.log("URL: " + document.URL);
 
   // ============= Electron-IPC-Events behandeln
   if (typeof electron !== "undefined") {
@@ -74,6 +77,20 @@ get isElectron(): boolean {
  }
 }
 
+get isCordovaApp(): boolean {
+ return (<any>window).isCordovaApp;
+}
+
+
+get isCordovaApp2(): boolean {
+ try{
+  return  (<any>window).cordova !== undefined;
+ }
+ catch(ex)
+ {
+  return false;
+ }
+}
 
  get isLoggedIn(): boolean {
   return (this.communicationService.username != null && this.communicationService.username !== "")
@@ -97,6 +114,12 @@ crash()
 {
  alert("Diese Funktion bringt jetzt gleich zum Test den Browser zum Absturz!");
  for(let i = 0; i === i; i++) {}
+}
+
+exit()
+{
+ if (this.communicationService.isCordova) {  (<any>navigator).app.exitApp(); }
+ // if (this.communicationService.isElectron) { app.quit(); }
 }
 
  about() {

@@ -18,10 +18,11 @@
     </a>
     <ul class="dropdown-menu">
         <li><a (click)="about()">Über MiracleList</a></li>
-        <li><a (click)="export()" *ngIf="isElectron && isLoggedIn">Export</a></li>
+        <li><a (click)="export()" *ngIf="(isElectron || isCordovaApp) && isLoggedIn">Export</a></li>
         <li><a (click)="crash()">Absturz verursachen</a></li>
         <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
         <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
+        <li><a (click)="exit()" *ngIf="(isCordovaApp)">Beenden</a></li>
     </ul>
     </li>
     </ul>
