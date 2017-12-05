@@ -10,7 +10,8 @@
         ],
         "plugins": {
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-device": {}
+            "cordova-plugin-device": {},
+            "cordova-plugin-file": {}
         }
     },
     "dependencies": {
@@ -18,6 +19,7 @@
         "cordova-browser": "^4.1.0",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-whitelist": "1",
+        "cordova-plugin-file": "^5.0.0",
         "cordova-windows": "~5.0.0"
     },
     "scripts": {
