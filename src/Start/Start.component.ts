@@ -87,47 +87,70 @@ export class StartComponent implements OnInit {
 
   async export() {
     if (!(this.isElectron || this.isCordovaApp)) return;
+    // Daten für den Export vom Server einlesen
     let categorySet = await this.miracleListProxy
       .categorySet(this.communicationService.token)
       .toPromise();
-    console.log("Export", categorySet);
+    console.log("Starte Export", categorySet);
 
     if (this.isElectron) {
+     // ========= Export für Electron -> Nachricht an Main Process
       electron.ipcRenderer.send("export", categorySet);
     }
-    if (this.isCordovaApp) {
-      let text : string = JSON.stringify(categorySet);
-
-console.log("Documents: ",  cordova.file.documentsDirectory);
-console.log("externalDataDirectory: ",  cordova.file.externalDataDirectory);
-console.log("dataDirectory: ",  cordova.file.dataDirectory);
-console.log("tempDirectory : ",  cordova.file.tempDirectory );
-
-try {
-let root = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
-if (window.device.platform === 'Android') root = cordova.file.dataDirectory;
-
-window.resolveLocalFileSystemURL(root,
-        (dir : DirectoryEntry) => {
-          console.log("Verzeichnis:", dir);
-          dir.getFile("export.json", { create: true }, (file : FileEntry) => {
-           console.log("Datei:", file);
-            file.createWriter((fileWriter : FileWriter) => {
-              fileWriter.seek(fileWriter.length);
-              let blob : Blob = new Blob([text], { type: "text/plain" });
-              fileWriter.write(blob);
-              alert("Export gespeichert in: " + file.fullPath);
-            }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
-          });
-        }
-      );
-
+    if (this.isCordovaApp)
+    {  // ========= Export für Cordova mit Plug-In "File"
+    let inhalt : string = JSON.stringify(categorySet);
+    try {
+     const filename = "miraclelistexport.txt";
+     let path = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
+     if (window.device.platform === 'Android') path = cordova.file.dataDirectory;
+     window.resolveLocalFileSystemURL(path,
+         (dirEntry : DirectoryEntry) => {
+           dirEntry.getFile(filename, { create: true }, (fileEntry : FileEntry) => {
+            console.log("Speichern in Datei:", fileEntry);
+             fileEntry.createWriter((fileWriter : FileWriter) => {
+               fileWriter.seek(fileWriter.length);
+               let blob : Blob = new Blob([inhalt], { type: "text/plain" });
+               fileWriter.write(blob); // Text speichern
+               fileEntry.file( function (file: File) { // Metadaten lesen
+                alert("Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL); });
+             }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
+           });  // end getFile
+         }); // end resolveLocalFileSystemURL
      } catch (error ) {
-
       alert("Fehler beim Exportieren: " + error.name + ":"  +error.messsage)
      }
-    }
-  }
+    } // end isCordovaApp
+   } // end export()
+
+ReadExportFile()
+{
+ try {
+  let root = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
+  if (window.device.platform === 'Android') root = cordova.file.dataDirectory;
+
+  window.resolveLocalFileSystemURL(root,
+          (dir : DirectoryEntry) => {
+                  dir.getFile("miraclelistexport", { create: true }, (file : FileEntry) => {
+                file.file(function (f : File) {
+                let reader = new FileReader();
+
+                        reader.onloadend = function() {
+                            console.log("Successful file read: " + this.result);
+                           alert("Datei :" + file.nativeURL + " vom: " + (new Date(f.lastModifiedDate)) + " Größe: " + f.size + " im Ordner: " + dir.nativeURL + " Inhalt: " + this.result);
+                        };
+
+                        reader.readAsText(f);
+                       },(err: FileError) => { alert("Fehler beim Lesen: " + err.code); });
+
+              }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
+            });
+
+       } catch (error ) {
+
+        alert("Fehler beim Importieren: " + error.name + ":"  +error.messsage)
+       }
+      }
 
   get isElectron(): boolean {
     try {
