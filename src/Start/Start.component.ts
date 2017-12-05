@@ -1,137 +1,200 @@
-import {Title} from '@angular/platform-browser';
-import {Component, OnInit, NgZone, HostListener} from '@angular/core';
+import { Title } from "@angular/platform-browser";
+import { Component, OnInit, NgZone, HostListener } from "@angular/core";
 // Dienste
-import {MiracleListProxy} from '../Services/MiracleListProxy';
-import {MiracleListProxyV2} from '../Services/MiracleListProxyV2';
-import {CommunicationService} from '../Services/CommunicationService'
+import { MiracleListProxy } from "../Services/MiracleListProxy";
+import { MiracleListProxyV2 } from "../Services/MiracleListProxyV2";
+import { CommunicationService } from "../Services/CommunicationService";
 // für Modalfenster
-import {Modal} from 'angular2-modal/plugins/bootstrap';
+import { Modal } from "angular2-modal/plugins/bootstrap";
 
 // MomentJS
-import * as moment from 'moment';
-import { get } from 'https';
+import * as moment from "moment";
+import { get } from "https";
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
 declare var Notification: any;
 
 @Component({
- selector: 'Start',
- templateUrl: './Start.component.html'
+  selector: "Start",
+  templateUrl: "./Start.component.html"
 })
-
 export class StartComponent implements OnInit {
- constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService, public modal: Modal, private titleService: Title, private zone: NgZone, private title: Title) {
-  console.log("StartComponent:ctor", typeof electron, this.communicationService.getElectronEnv());
- }
-
- ngOnInit() {
-  console.log("======= StartComponent:ngOnInit");
-  console.log("Anwendung: " + this.communicationService.GetPackage().name);
-  console.log("Version: " + this.communicationService.GetPackage().version + " vom " + this.communicationService.GetPackage().date);
-  console.log("Sprache: " + (<any>moment().localeData())._abbr);
-  console.log("StartComponent:ngOnInit", typeof electron, this.communicationService.getElectronEnv());
-  console.log("Electron?: " + this.isElectron);
-  console.log("Cordova?: " + this.isCordovaApp + "/" + this.isCordovaApp2);
-  console.log("URL: " + document.URL);
-
-  // ============= Electron-IPC-Events behandeln
-  if (typeof electron !== "undefined") {
-   this.title.setTitle("MiracleList-Desktop-Client mit Electron v" + this.communicationService.getElectronEnvString());
-
-   console.log("!!!! Registriere mehrere electron-Event-Handler...");
-   electron.ipcRenderer.on('about', (event : string, data: any) => {
-     this.zone.run(() => {  // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe https://github.com/angular/zone.js/issues/537
-     console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
-     this.about();
-     });
-   });
-   electron.ipcRenderer.on('logout', (event : string, data: any) => {
-     this.zone.run(() => {
-     console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
-     this.logout();
-     });
-   });
-   electron.ipcRenderer.on('export-reply', (event : string, data: any) => {
-     this.zone.run(() => {
-     console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
-     alert(data);
-     });
-   });
+  constructor(
+    private miracleListProxy: MiracleListProxy,
+    private miracleListProxyV2: MiracleListProxyV2,
+    public communicationService: CommunicationService,
+    public modal: Modal,
+    private titleService: Title,
+    private zone: NgZone,
+    private title: Title
+  ) {
+    console.log(
+      "StartComponent:ctor",
+      typeof electron,
+      this.communicationService.getElectronEnv()
+    );
   }
- }
 
- async export() {
-  let categorySet = await this.miracleListProxy.categorySet(this.communicationService.token).toPromise();
-  console.log("Export", categorySet);
-  electron.ipcRenderer.send("export", categorySet);
- }
+  ngOnInit() {
+    console.log("======= StartComponent:ngOnInit");
+    console.log("Anwendung: " + this.communicationService.GetPackage().name);
+    console.log(
+      "Version: " +
+        this.communicationService.GetPackage().version +
+        " vom " +
+        this.communicationService.GetPackage().date
+    );
+    console.log("Sprache: " + (<any>moment().localeData())._abbr);
+    console.log(
+      "StartComponent:ngOnInit",
+      typeof electron,
+      this.communicationService.getElectronEnv()
+    );
+    console.log("Electron?: " + this.isElectron);
+    console.log("Cordova?: " + this.isCordovaApp + "/" + this.isCordovaApp2);
+    console.log("URL: " + document.URL);
 
-get isElectron(): boolean {
- try{
-  return  electron !== undefined;
- }
- catch(ex)
- {
-  return false;
- }
-}
+    // ============= Electron-IPC-Events behandeln
+    if (typeof electron !== "undefined") {
+      this.title.setTitle(
+        "MiracleList-Desktop-Client mit Electron v" +
+          this.communicationService.getElectronEnvString()
+      );
 
-get isCordovaApp(): boolean {
- return (<any>window).isCordovaApp;
-}
-
-
-get isCordovaApp2(): boolean {
- try{
-  return  (<any>window).cordova !== undefined;
- }
- catch(ex)
- {
-  return false;
- }
-}
-
- get isLoggedIn(): boolean {
-  return (this.communicationService.username != null && this.communicationService.username !== "")
- }
-
-mainpage()
-{
- if (!this.communicationService.isElectron()) // geht so nicht in Electron
-  {
- console.log("GOTO mainpage");
- window.location.reload();
+      console.log("!!!! Registriere mehrere electron-Event-Handler...");
+      electron.ipcRenderer.on("about", (event: string, data: any) => {
+        this.zone.run(() => {
+          // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe https://github.com/angular/zone.js/issues/537
+          console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
+          this.about();
+        });
+      });
+      electron.ipcRenderer.on("logout", (event: string, data: any) => {
+        this.zone.run(() => {
+          console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
+          this.logout();
+        });
+      });
+      electron.ipcRenderer.on("export-reply", (event: string, data: any) => {
+        this.zone.run(() => {
+          console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
+          alert("Export gespeichert in: " + data);
+        });
+      });
+    }
   }
-  else
-   {
-    // TODO: fehlt noch siehe https://github.com/electron/electron/blob/master/docs/api/app.md
-   }
- // this.communicationService.EmitTaskDetailCloseEvent(null);
-}
 
-crash()
-{
- alert("Diese Funktion bringt jetzt gleich zum Test den Browser zum Absturz!");
- for(let i = 0; i === i; i++) {}
-}
+  async export() {
+    if (!(this.isElectron || this.isCordovaApp)) return;
+    let categorySet = await this.miracleListProxy
+      .categorySet(this.communicationService.token)
+      .toPromise();
+    console.log("Export", categorySet);
 
-exit()
-{
- if (this.communicationService.isCordova) {  (<any>navigator).app.exitApp(); }
- // if (this.communicationService.isElectron) { app.quit(); }
-}
+    if (this.isElectron) {
+      electron.ipcRenderer.send("export", categorySet);
+    }
+    if (this.isCordovaApp) {
+      let text : string = JSON.stringify(categorySet);
 
- about() {
-  console.log(this.modal);
-  this.modal.alert()
-   .size('lg')
-   .showClose(true)
-   .title('Über die Anwendung MiracleList')
-   .body(`
+console.log("Documents: ",  cordova.file.documentsDirectory);
+console.log("externalDataDirectory: ",  cordova.file.externalDataDirectory);
+console.log("dataDirectory: ",  cordova.file.dataDirectory);
+console.log("tempDirectory : ",  cordova.file.tempDirectory );
+
+try {
+let root = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
+if (window.device.platform === 'Android') root = cordova.file.dataDirectory;
+
+window.resolveLocalFileSystemURL(root,
+        (dir : DirectoryEntry) => {
+          console.log("Verzeichnis:", dir);
+          dir.getFile("export.json", { create: true }, (file : FileEntry) => {
+           console.log("Datei:", file);
+            file.createWriter((fileWriter : FileWriter) => {
+              fileWriter.seek(fileWriter.length);
+              let blob : Blob = new Blob([text], { type: "text/plain" });
+              fileWriter.write(blob);
+              alert("Export gespeichert in: " + file.fullPath);
+            }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
+          });
+        }
+      );
+
+     } catch (error ) {
+
+      alert("Fehler beim Exportieren: " + error.name + ":"  +error.messsage)
+     }
+    }
+  }
+
+  get isElectron(): boolean {
+    try {
+      return electron !== undefined;
+    } catch (ex) {
+      return false;
+    }
+  }
+
+  get isCordovaApp(): boolean {
+    return (<any>window).isCordovaApp;
+  }
+
+  get isCordovaApp2(): boolean {
+    try {
+      return (<any>window).cordova !== undefined;
+    } catch (ex) {
+      return false;
+    }
+  }
+
+  get isLoggedIn(): boolean {
+    return (
+      this.communicationService.username != null &&
+      this.communicationService.username !== ""
+    );
+  }
+
+  mainpage() {
+    if (!this.communicationService.isElectron()) {
+      // geht so nicht in Electron
+      console.log("GOTO mainpage");
+      window.location.reload();
+    } else {
+      // TODO: fehlt noch siehe https://github.com/electron/electron/blob/master/docs/api/app.md
+    }
+    // this.communicationService.EmitTaskDetailCloseEvent(null);
+  }
+
+  crash() {
+    alert(
+      "Diese Funktion bringt jetzt gleich zum Test den Browser zum Absturz!"
+    );
+    for (let i = 0; i === i; i++) {}
+  }
+
+  exit() {
+    if (this.communicationService.isCordova) {
+      (<any>navigator).app.ex();
+    }
+    // if (this.communicationService.isElectron) { app.quit(); }
+  }
+
+  about() {
+    console.log(this.modal);
+    this.modal
+      .alert()
+      .size("lg")
+      .showClose(true)
+      .title("Über die Anwendung MiracleList")
+      .body(
+        `
             <h4>Dies ist eine Beispielanwendung für eine  Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: ${this.communicationService.GetPackage().version} vom ${this.communicationService.GetPackage().date}</div>
+            <div>Version: ${
+              this.communicationService.GetPackage().version
+            } vom ${this.communicationService.GetPackage().date}</div>
 
             <h5>Webadressen:</h5>
             <ul>
@@ -161,37 +224,51 @@ exit()
             </ul>
             <h5>Systeminfo:</h5>
             <ul>
-                <li>Angemelderter Benutzer: ${this.isLoggedIn ? this.communicationService.username + " (Token:" + this.communicationService.token + ")" : ""}</li>
+                <li>Angemelderter Benutzer: ${
+                  this.isLoggedIn
+                    ? this.communicationService.username +
+                      " (Token:" +
+                      this.communicationService.token +
+                      ")"
+                    : ""
+                }</li>
                 <li>Browser: ${navigator.userAgent}</li>
-                     <li>Bildschirmauflösung: ${window.innerWidth}x${window.innerHeight}</li>
+                     <li>Bildschirmauflösung: ${window.innerWidth}x${
+          window.innerHeight
+        }</li>
                 <li>Electron-Version: ${this.communicationService.getElectronEnvString()}</li>
                 <li>Cordova-Version: ${this.communicationService.getCordovaEnvString()}</li>
-                <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())._abbr + " / Browser: " + window.navigator.language}</li>
+                <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())
+                  ._abbr +
+                  " / Browser: " +
+                  window.navigator.language}</li>
             </ul>`
-   )
-   .open();
- }
+      )
+      .open();
+  }
 
- logout() { // Abmelden wird sowohl von Webseite als auch Electron gerufen
-  console.log("logout");
-  this.miracleListProxy.logoff(this.communicationService.token).subscribe(x => {
-   console.log("logoff: OK!")
-   this.communicationService.token = "";
-   this.communicationService.username = "";
-   this.titleService.setTitle("MiracleListClient");
-   this.communicationService.navigate(""); // Anmeldeansicht aufrufen
+  logout() {
+    // Abmelden wird sowohl von Webseite als auch Electron gerufen
+    console.log("logout");
+    this.miracleListProxy
+      .logoff(this.communicationService.token)
+      .subscribe(x => {
+        console.log("logoff: OK!");
+        this.communicationService.token = "";
+        this.communicationService.username = "";
+        this.titleService.setTitle("MiracleListClient");
+        this.communicationService.navigate(""); // Anmeldeansicht aufrufen
 
-   // HTML5 Notification API (NICHT das Electron-API, soll ja auch in normaler Webseite laufen!)
-   if (Notification.permission !== "granted")
-    {
-    Notification.requestPermission();
-    }
+        // HTML5 Notification API (NICHT das Electron-API, soll ja auch in normaler Webseite laufen!)
+        if (Notification.permission !== "granted") {
+          Notification.requestPermission();
+        }
 
-   let myNotification = new Notification('MiracleList', {
-     title: "MiracleList",
-    icon: "./assets/MiracleListLogo_ohneText.jpg",
-    body: 'Sie wurden abgemeldet!'
-   })
-  });
- }
+        let myNotification = new Notification("MiracleList", {
+          title: "MiracleList",
+          icon: "./assets/MiracleListLogo_ohneText.jpg",
+          body: "Sie wurden abgemeldet!"
+        });
+      });
+  }
 }
