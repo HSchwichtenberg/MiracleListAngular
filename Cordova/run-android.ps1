@@ -1,5 +1,3 @@
 cd $PSScriptRoot
-"-------> Übersetzen für android..."
-cordova build android
-"-------> Starten..."
+"-------> Starten auf Android..."
 cordova run android
