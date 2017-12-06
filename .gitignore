@@ -16,6 +16,7 @@
 
 # dependencies
 /Cordova/plugins/*
+/Cordova/platforms/*
 node_modules/
 
 # IDEs and editors

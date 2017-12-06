@@ -6,6 +6,7 @@
         "platforms": [
             "android",
             "browser",
+            "ios",
             "windows"
         ],
         "plugins": {
@@ -17,16 +18,18 @@
     "dependencies": {
         "cordova-android": "^6.2.3",
         "cordova-browser": "^4.1.0",
+        "cordova-ios": "^4.4.0",
         "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-whitelist": "1",
         "cordova-plugin-file": "^5.0.0",
+        "cordova-plugin-whitelist": "1",
         "cordova-windows": "~5.0.0"
     },
     "scripts": {
-        "build-cordova": "ng build --base-href ./ --output-path Cordova/www/",
-        "build-cordova-prod": "ng build --target=production --environment=prod --output-path Cordova/www/",
-        "c-browser": "cd MLCordova && cordova run browser",
-        "c-win": "cd MLCordova && cordova run windows",
-        "c-android": "cd MLCordova && cordova run android -device"
+        "build-ng": "cd .. && ng build --base-href ./ --output-path Cordova/www/ && cd Cordova",
+        "build-ng-prod": "cd .. && ng build --target=production --environment=prod --output-path Cordova/www/ && cd Cordova",
+        "browser": "cordova run browser",
+        "win": "cordova run windows",
+        "android": "cordova run android",
+        "ios": "cordova run ios"
     }
 }
