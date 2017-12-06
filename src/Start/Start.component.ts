@@ -199,8 +199,14 @@ ReadExportFile()
 
   exit() {
     if (this.communicationService.isCordova) {
-      (<any>navigator).app.ex();
-    }
+      (<any>navigator).app.exitApp();
+    // navigator.app.exitApp(); // geht nur, wenn man die  "..MiracleListClient\node_modules\@types\cordova\index.d.ts"  erweitert um
+                              // interface Navigator {
+                              //     app: {
+                              //         exitApp: () => any;
+                              //     }
+                              // }
+     }
     // if (this.communicationService.isElectron) { app.quit(); }
   }
 
