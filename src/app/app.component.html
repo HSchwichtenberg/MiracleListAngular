@@ -1,6 +1,6 @@
 <div class="row">
     <!-- ### Spalte 1: Kategorien-->
-    <div class="col-xs-4 col-md-3 col-lg-2 WLPanel" *ngIf="categorySet" [ngClass]="{'hidden-sm hidden-xs': this.task}">
+    <div *ngIf="categorySet" class="WLPanel col-xs-4 col-sm-4 col-md-3 col-lg-2" [ngClass]="{'hidden-sm hidden-xs': this.task}">
         <!-- ---------- Überschrift Spalte 1-->
         <h4>{{categorySet.length+1}} Kategorien</h4>
         <!-- ---------- neue Kategorie eingeben-->
@@ -20,7 +20,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Aufgabenliste-->
-    <div *ngIf="taskSet" [ngClass]="{'WLPanel col-xs-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel': task}" style="padding-left:5px;padding-right: 2px;">
+    <div *ngIf="taskSet" [ngClass]="{'WLPanel col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel': task}" style="padding-left:5px;padding-right: 2px;">
         <!-- ---------- Überschrift Spalte 2-->
         <h4>{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
@@ -38,7 +38,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Suchergebnisse/fällige Termine (fallweise einblendet. tlw. Codeduplikat :-( ))-->
-    <div [ngClass]="{'col-xs-8 col-md-9 col-lg-10 WLPanel scroll': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel scroll': task}" *ngIf="categorySetWithTaskSet" [style.height]="this.listHeight">
+    <div [ngClass]="{'col-xs-8 col-sm-8 col-md-9 col-lg-10 WLPanel scroll': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel scroll': task}" *ngIf="categorySetWithTaskSet" [style.height]="this.listHeight">
         <h4>Suchergebnisse in {{categorySetWithTaskSet.length}} Kategorien</h4>
         <div *ngFor="let c of categorySetWithTaskSet">
             <h5><a (click)="selectCategory(c?.categoryID)">{{c.name}}</a></h5>
@@ -73,7 +73,7 @@
   </template>
     </context-menu>
     <!-- ### Spalte 3: Aufgabendetails-->
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 WLPanel" [hidden]="!task">
+    <div class="WLPanel col-xs-12 col-sm-6 col-md-4 col-lg-4" [hidden]="!task">
         <router-outlet name="column3">
             <!--View:
         <TaskView [task]="task"></TaskView>
