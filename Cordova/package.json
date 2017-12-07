@@ -12,7 +12,8 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-device": {},
-            "cordova-plugin-file": {}
+            "cordova-plugin-file": {},
+            "cordova-plugin-dialogs": {}
         }
     },
     "dependencies": {
@@ -20,6 +21,7 @@
         "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-device": "^1.1.6",
+        "cordova-plugin-dialogs": "^1.3.4",
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-whitelist": "1",
         "cordova-windows": "~5.0.0"

@@ -113,7 +113,18 @@ export class StartComponent implements OnInit {
                let blob : Blob = new Blob([inhalt], { type: "text/plain" });
                fileWriter.write(blob); // Text speichern
                fileEntry.file( function (file: File) { // Metadaten lesen
-                alert("Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL); });
+
+                const message = "Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL;
+                alert(message);
+
+                navigator.notification.alert(
+                 message,                // message
+                 null,                   // callback
+                 'Dateisystemexport',    // title
+                 'OK'                  // buttonName
+                );
+});
+
              }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
            });  // end getFile
          }); // end resolveLocalFileSystemURL

@@ -12,6 +12,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.miraclelist"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "de.itvisions.miraclelist"
         }
     },
     "dependent_plugins": {}
