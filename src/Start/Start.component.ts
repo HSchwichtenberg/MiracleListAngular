@@ -261,7 +261,8 @@ ReadExportFile()
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
-            </ul>
+                <li>0.6.4: Dateisystemexport in Cordova-App</li>
+                  </ul>
             <h5>Systeminfo:</h5>
             <ul>
                 <li>Angemelderter Benutzer: ${
