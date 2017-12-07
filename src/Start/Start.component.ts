@@ -115,8 +115,8 @@ export class StartComponent implements OnInit {
                fileEntry.file( function (file: File) { // Metadaten lesen
 
                 const message = "Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL;
-                alert(message);
-
+                // alert(message); // wäre häßlich
+                navigator.notification.beep(2);
                 navigator.notification.alert(
                  message,                // message
                  null,                   // callback
