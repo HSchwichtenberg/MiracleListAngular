@@ -20,7 +20,7 @@
         </ol>
     </div>
     <!-- ### Spalte 2: Aufgabenliste-->
-    <div *ngIf="taskSet" [ngClass]="{'WLPanel col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6 WLPanel': task}" style="padding-left:5px;padding-right: 2px;">
+    <div *ngIf="taskSet" class="WLPanel" [ngClass]="{'col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6': task}" style="padding-left:5px;padding-right: 2px;">
         <!-- ---------- Überschrift Spalte 2-->
         <h4>{{taskSet.length}} Aufgaben in Kategorie {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
