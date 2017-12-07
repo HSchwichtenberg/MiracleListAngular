@@ -36,10 +36,10 @@
 
 Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit `npm install` wiederherstellen!
 
-Dieser Befehl muss 2x ausgeführt werden
+Dieser Befehl muss 3x ausgeführt werden
 - im Hauptverzeichnis
-- im Verzeichnis /electron für die speziellen Node-Pakete für electron
-
+- im Verzeichnis /Electron für die speziellen Node-Pakete für Electron
+- im Verzeichnis /Cordova für die speziellen Node-Pakete für Cordova
 --------------------------------------------------------
 
 # Hilfe zum Electron-Client
@@ -61,9 +61,9 @@ Pakete erstellen: `npm run w-electron-deployallprod`
 
 Cordova global installieren: `install -g cordova`
 
-Angular-Webanwendung ins Verzeichnis "MLCordova/www" übersetzen: `npm run build-cordova` 
+Angular-Webanwendung ins Verzeichnis "Cordova/www" übersetzen: `npm run build-cordova` 
 
-Verzeichnis wechseln `cd .\MLCordova\`
+Verzeichnis wechseln `cd .\Cordova\`
 
 Platform hinzufügen: `cordova platform add android` usw.
 
