@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.miraclelist" version="0.6.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="de.itvisions.miraclelist" version="0.6.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MiracleList Cordova</name>
     <description>
-        MiracleList Cordova Client
+        Cordova-Client für die Aufgabenverwaltung "MiracleList"
     </description>
     <author email="buero@IT-Visions.de" href="http://www.IT-Visions.de">
         Dr. Holger Schwichtenberg
