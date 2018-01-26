@@ -5,11 +5,16 @@ import { MiracleListProxy } from "../Services/MiracleListProxy";
 import { MiracleListProxyV2 } from "../Services/MiracleListProxyV2";
 import { CommunicationService } from "../Services/CommunicationService";
 // für Modalfenster
-import { Modal } from "angular2-modal/plugins/bootstrap";
+import { ViewContainerRef } from '@angular/core';
+import { Overlay } from 'ngx-modialog';
+import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 // MomentJS
 import * as moment from "moment";
 import { get } from "https";
+
+// Übersetzung
+// import {TranslateService} from '@ngx-translate/core';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
@@ -28,13 +33,21 @@ export class StartComponent implements OnInit {
     private titleService: Title,
     private zone: NgZone,
     private title: Title
+    // ,private translate: TranslateService
   ) {
     console.log(
       "StartComponent:ctor",
       typeof electron,
       this.communicationService.getElectronEnv()
     );
+       // this language will be used as a fallback when a translation isn't found in the current language
+   // translate.setDefaultLang('en');
+
+   // the lang to use, if the lang isn't available, it will use the current loader to get them
+  // translate.use('en');
+
   }
+
 
   ngOnInit() {
     console.log("======= StartComponent:ngOnInit");
@@ -113,7 +126,6 @@ export class StartComponent implements OnInit {
                let blob : Blob = new Blob([inhalt], { type: "text/plain" });
                fileWriter.write(blob); // Text speichern
                fileEntry.file( function (file: File) { // Metadaten lesen
-
                 const message = "Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL;
                 // alert(message); // wäre häßlich
                 navigator.notification.beep(2);
@@ -123,8 +135,7 @@ export class StartComponent implements OnInit {
                  'Dateisystemexport',    // title
                  'OK'                  // buttonName
                 );
-});
-
+               });
              }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
            });  // end getFile
          }); // end resolveLocalFileSystemURL

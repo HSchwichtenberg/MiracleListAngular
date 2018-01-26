@@ -12,10 +12,9 @@ import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 // Kommunikation
 import { CommunicationService } from "../Services/CommunicationService";
 
-// Dialog
-import { ViewContainerRef } from '@angular/core';
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
+// Dialog (neu ab 0.6.5 für Angular 5)
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule, Modal, bootstrap4Mode } from 'ngx-modialog/plugins/bootstrap';
 
 enum DisplayMode { TaskSet = 0, DueTaskSet = 1, Search = 2 };
 
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit {
   constructor(private miracleListProxy: MiracleListProxy,
    private miracleListProxyV2: MiracleListProxyV2,
    private communicationService: CommunicationService,
-    private overlay: Overlay, private vcr: ViewContainerRef, public modal: Modal,
+    public modal: Modal,
     private ChangeDetectorRef: ChangeDetectorRef,  // für Dialoge,
     private route: ActivatedRoute, // für Ansprung per Route
   ) {
@@ -71,8 +70,6 @@ export class AppComponent implements OnInit {
     // }
     // }, err => {     this.communicationService.token = "";
     // console.log("SERVER FEHLER!", err); alert("SERVER FEHLER!");  } );
-
-    overlay.defaultViewContainer = vcr; // für Dialoge
 
     // Ereignisbehandlung für Event von TaskView/TaskEdit
     communicationService.TaskListUpdateEvent.subscribe(
@@ -234,7 +231,7 @@ setlistHeigth()
       .open();
 
     // Dialog-Ergebnis (Promise) auswerten
-    dialog.then((d) => d.result)
+    dialog.result.then((d) => d.result)
       .then((ok) => {
         this.miracleListProxyV2.deleteTask(t.taskID).subscribe(
           x => {
@@ -262,7 +259,7 @@ setlistHeigth()
       .open();
 
     // Dialog-Ergebnis (Promise) auswerten
-    dialog.then((d) => d.result)
+    dialog.result.then((d) => d.result)
       .then((d) => d.result)
       .then((ok) => {
         this.miracleListProxyV2.deleteCategory( id).subscribe(

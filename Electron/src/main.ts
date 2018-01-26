@@ -104,8 +104,6 @@ function electronMain() {
   slashes: true
  }));
 
-
-
  // =================== Anwendungsmenü erstellen
  writeLog("Electron/Main:Anwendungsmenü erstellen...");
  let menuTemplate = MiracleListAppMenu.CreateMenu(win, env);
@@ -176,8 +174,6 @@ function electronMain() {
 // Some APIs can only be used after this event occurs.
 // Startcode festlegen
 app.on('ready', electronMain);
-
-
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

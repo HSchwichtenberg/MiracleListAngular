@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const os = require('os');
@@ -7,7 +7,7 @@ const fs = require('fs');
 class MiracleListAppMenu {
     static CreateMenu(win, env) {
         const menuTemplate = [{
-                label: 'Anwendung',
+                label: 'App',
                 submenu: [{
                         label: 'Über diese Anwendung',
                         accelerator: 'CmdOrCtrl+I',
@@ -73,7 +73,7 @@ class MiracleListAppMenu {
                 ]
             },
             {
-                label: 'Bearbeiten',
+                label: 'Edit',
                 submenu: [{
                         label: 'Undo',
                         accelerator: 'CmdOrCtrl+Z',
@@ -103,7 +103,7 @@ class MiracleListAppMenu {
                     }]
             },
             {
-                label: 'Ansicht',
+                label: 'View',
                 submenu: [
                     {
                         label: 'Zwischem Vollbildmodus und normalen Modus wechseln. ',
