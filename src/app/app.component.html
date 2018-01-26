@@ -2,13 +2,13 @@
     <!-- ### Spalte 1: Kategorien-->
     <div *ngIf="categorySet" class="WLPanel col-xs-4 col-sm-4 col-md-3 col-lg-2" [ngClass]="{'hidden-sm hidden-xs': this.task}">
         <!-- ---------- Überschrift Spalte 1-->
-        <h4>{{categorySet.length+1}} <span i18n>Categories</span></h4>
+        <h4>{{categorySet.length+1}} <span>Categories</span></h4>
         <!-- ---------- neue Kategorie eingeben-->
-        <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" i18n-placeholder placeholder="new Category...">
+        <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="new Category...">
 
         <!-- ---------- Kategorieliste ausgeben-->
         <ol class="list-group scroll" [style.height]="this.listHeight">
-            <li (click)="getDueTaskSet()" class="list-group-item" [style.background-color]="displayMode == 1 ? '#E0EEFA' : 'white'"><span i18n>Due Tasks</span>
+            <li (click)="getDueTaskSet()" class="list-group-item" [style.background-color]="displayMode == 1 ? '#E0EEFA' : 'white'"><span>Due Tasks</span>
                 <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
             </li>
 
@@ -16,15 +16,15 @@
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">
                 <span class="badge badge-info" title="{{c.taskSet.length != 1 ?c.taskSet.length + ' Aufgaben' : '1 Aufgabe'}}">{{c.taskSet.length}}</span>{{ c.name }}</li>
 
-            <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="suche...">
+            <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="search...">
         </ol>
     </div>
     <!-- ### Spalte 2: Aufgabenliste-->
     <div *ngIf="taskSet" class="WLPanel" [ngClass]="{'col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6': task}" style="padding-left:5px;padding-right: 2px;">
         <!-- ---------- Überschrift Spalte 2-->
-        <h4>{{taskSet.length}} <span i18n>Tasks in</span> {{category.name}}</h4>
+        <h4>{{taskSet.length}} <span>Tasks in</span> {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
-        <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" i18n-placeholder placeholder="neue Aufgabe...">
+        <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="new Task...">
         <!-- ---------- Aufgabenliste ausgeben-->
         <ol class="list-group scroll" dnd-sortable-container [sortableData]="taskSet" [style.height]="this.listHeight">
             <!-- ---------- eine Aufgabe im Block ausgeben mit Kontextmenü und Sortierbarkeit -->
@@ -32,7 +32,7 @@
                 [contextMenu]="taskMenu" [contextMenuSubject]="t">
                 <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control MLcheckbox"> <b>{{ t.title }} </b>
                 <span class="badge badge-important" title="Wichtigkeit: {{t.importance | importance}}">{{t.importance | importance}}</span><br>
-                <div i18n>{{getUndoneSubTaskSet(t).length}} due Subtasks</div>
+                <div>{{getUndoneSubTaskSet(t).length}} due Subtasks</div>
                 <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}">due {{t.due | amTimeAgo}}</div>
             </li>
         </ol>
@@ -66,10 +66,10 @@
     <!-- ############################## Kontextmenü für Aufgaben in Spalte 2-->
     <context-menu #taskMenu>
         <ng-template contextMenuItem let-item (execute)="editTask($event.item)">
-            <span class="glyphicon glyphicon-pencil " aria-hidden="true"></span> <b i18n>Edit Task:</b> {{item.title}}
+            <span class="glyphicon glyphicon-pencil " aria-hidden="true"></span> <b>Edit Task:</b> {{item.title}}
         </ng-template>
         <ng-template contextMenuItem let-item (execute)="deleteTask($event.item)">
-            <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> <b i18n>Remove Tasks:</b> {{item.title}}
+            <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> <b>Remove Tasks:</b> {{item.title}}
         </ng-template>
     </context-menu>
     <!-- ### Spalte 3: Aufgabendetails-->

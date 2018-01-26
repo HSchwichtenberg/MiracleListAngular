@@ -52,7 +52,7 @@ import {DndModule} from 'ng2-dnd';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Mehrsprachigkeit
-// import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
 // // Sonstiges
 //import { PlaygroundComponent } from './playground/playground.component';
@@ -100,7 +100,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
     BrowserModule, FormsModule,
     ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
     ,HttpClientModule // ab 0.6.5 für Angular 5
-    // ,TranslateModule.forRoot()
+    ,TranslateModule.forRoot() // ab 0.6.6 für Übersetzung
     //GridModule
   ],
   providers: [ // Services / Dependency Injection

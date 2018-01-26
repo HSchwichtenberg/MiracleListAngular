@@ -14,7 +14,7 @@ import * as moment from "moment";
 import { get } from "https";
 
 // Übersetzung
-// import {TranslateService} from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
@@ -33,18 +33,39 @@ export class StartComponent implements OnInit {
     private titleService: Title,
     private zone: NgZone,
     private title: Title
-    // ,private translate: TranslateService
+    ,private translate: TranslateService
   ) {
     console.log(
       "StartComponent:ctor",
       typeof electron,
       this.communicationService.getElectronEnv()
     );
+
+    translate.setTranslation('en', {
+     HELLO: 'hello {{value}}'
+ });
+
+ translate.setTranslation('de', {
+  HELLO: 'hallo {{value}}'
+});
+
+
+
        // this language will be used as a fallback when a translation isn't found in the current language
-   // translate.setDefaultLang('en');
+   translate.setDefaultLang('en');
 
    // the lang to use, if the lang isn't available, it will use the current loader to get them
-  // translate.use('en');
+  translate.use('en');
+
+  translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
+   console.log(res);
+   //=> 'hello world'
+});
+translate.use('de');
+translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
+ console.log(res);
+ //=> 'hello world'
+});
 
   }
 
