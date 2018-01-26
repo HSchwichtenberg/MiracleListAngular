@@ -29,7 +29,7 @@
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
                 <li>0.6.4: Dateisystemexport in Cordova-App</li>
-                <li>0.6.5: Umstellung auf Angular 5.0</li>
+                <li>0.6.5: Umstellung auf Angular 5.2.2</li>
 </ul>
 
 --------------------------------------------------------
