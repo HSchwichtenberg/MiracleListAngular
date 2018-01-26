@@ -1,6 +1,6 @@
 {
     "name": "miraclelistelectron",
-    "version": "0.6.4-Beta1",
+    "version": "0.6.5-Beta1",
     "main": "main.js",
     "dependencies": {
         "electron-settings": "^3.1.4",
