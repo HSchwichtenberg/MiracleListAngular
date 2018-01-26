@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http'; // ab angular 5
+import { HttpClientModule, HttpClient } from '@angular/common/http'; // ab 0.6.5 für angular 5
 import { AppComponent } from './app/app.component';
 
 // Proxy
@@ -21,7 +21,7 @@ import {LineBreakPipe} from "./Util/LineBreakPipe"
 import {ImportancePipe} from "./Util/ImportancePipe"
 // Kontextmenü (Angular-Modul)
 //alt: import { ContextMenuModule } from './Util/angular2-contextmenu/angular2-contextmenu';
-// neu: Umstellung auf Angular 5 (https://github.com/isaacplmann/ngx-contextmenu)
+// neu: ab 0.6.5 für angular 5 (https://github.com/isaacplmann/ngx-contextmenu)
 import { ContextMenuModule } from 'ngx-contextmenu'
 
 // Datetime-Direktive
@@ -80,7 +80,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
 import { HttpInterceptor } from "Services/HttpInterceptor";
 
-// Entfernt Angular 5
+// Entfernt ab 0.6.5 für Angular 5
 // export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router)
 // {
 //  return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
@@ -99,7 +99,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
   imports: [ // Angular-Module
     BrowserModule, FormsModule,
     ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
-    ,HttpClientModule // ab Angular 5
+    ,HttpClientModule // ab 0.6.5 für Angular 5
     // ,TranslateModule.forRoot()
     //GridModule
   ],
@@ -107,7 +107,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
    MiracleListProxy, MiracleListProxyV2,
    HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
-   { // HttpInterceptor für HttpClient. wird an Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
+   { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
       provide: HTTP_INTERCEPTORS,
       useClass: HttpClientInterceptor,
       multi: true
@@ -117,7 +117,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
     useFactory: CommunicationServiceFactory,
     deps: [Router, NgZone]
    },
-    // { bis Angular 5
+    // { bis 0.6.5 für Angular < 5
     //  provide: Http,
     //  useFactory: HttpInterceptorFactory,
     //  deps: [CommunicationService, XHRBackend, RequestOptions]
