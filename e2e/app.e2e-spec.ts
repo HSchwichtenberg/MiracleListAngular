@@ -10,6 +10,7 @@ describe('miracle-list-client App', function () {
     page = new MiracleListClientPage();
   });
 
+  //  Testcode mit Page Object
   it('Inhalt der Anmeldeseite', () => {
     page.navigateTo();
     expect(page.getHeadline()).toEqual('Benutzeranmeldung');
@@ -21,17 +22,17 @@ describe('miracle-list-client App', function () {
 
     it('Kompletter Anmeldevorgang', function () {
       browser.get('/');
-      var e1 = element(by.css('start h2'));
-      expect(e1.getText()).toBe('Benutzeranmeldung');
-     
-     // teste Formular
+      var headline = element(by.css('start h2'));
+      expect(headline.getText()).toBe('Benutzeranmeldung');
+
+     // teste Formular ohne Page Object
      element(by.id('name')).sendKeys(anmeldename);
      element(by.id('password')).sendKeys(kennwort);
      element(by.id('Anmelden')).click().then(
-     ()=>{ 
+     ()=>{
 
     // hat sich die URL nun verändert?
-    expect(browser.getCurrentUrl())  
+    expect(browser.getCurrentUrl())
      .toBe( browser.baseUrl + '/app');});
 
     // ========== Zugriff auf Modell geht noch nicht in Angular 2 :-(
@@ -40,7 +41,7 @@ describe('miracle-list-client App', function () {
 
     // Prüfe, ob Benutzername auf dem Bildschirm steht
     var e2 = element(by.id("LoggedInUser"));
-    expect(e2.getText()).toEqual("Angemeldeter Benutzer: " + anmeldename);
+    expect(e2.getText()).toEqual("Current User: " + anmeldename);
 
     });
   });
