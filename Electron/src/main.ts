@@ -1,5 +1,7 @@
 // Electron-Komponenten
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen, nativeImage } from "electron";
+import { settings } from "electron-settings";
+
 // NodeJS-Komponenten
 import * as username from "username";
 import * as fs from "fs";
@@ -23,7 +25,6 @@ function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
  // =================== Einstellungen auslesen und speichern
- const settings = require('electron-settings');
 
  let erster = settings.get('miraclelist.ersteVerwendung');
  if (!erster)  erster  = new Date();
