@@ -6,6 +6,7 @@ module.exports = function(config) {
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', '@angular/cli'],
         plugins: [
+         require('karma-junit-reporter'),
             require('karma-jasmine-jquery'),
             require('karma-jasmine'),
             require('karma-jasmine-html-reporter'),
@@ -34,7 +35,7 @@ module.exports = function(config) {
         angularCli: {
             environment: 'dev'
         },
-        reporters: config.angularCli && config.angularCli.codeCoverage ? ['progress', 'coverage-istanbul', 'junit'] : ['progress', 'kjhtml'],
+        reporters: config.angularCli && config.angularCli.codeCoverage ? ['progress', 'coverage-istanbul', 'junit'] : ['progress', 'kjhtml', 'junit'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -43,10 +44,10 @@ module.exports = function(config) {
         singleRun: false,
           // the default configuration
     junitReporter: {
-     outputDir: '', // results will be saved as $outputDir/$browserName.xml
-     outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
+     outputDir: 'testresults', // results will be saved as $outputDir/$browserName.xml
+     outputFile: 'unitests.xml', // if included, results will be saved as $outputDir/$browserName/$outputFile
      suite: '', // suite will become the package name attribute in xml testsuite element
-     useBrowserName: true, // add browser name to report and classes names
+     useBrowserName: false, // add browser name to report and classes names
      nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
      classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
      properties: {}, // key value pair of properties to add to the <properties> section of the report
