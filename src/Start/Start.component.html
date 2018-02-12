@@ -1,0 +1,39 @@
+<div class="row" style="background: white; margin-bottom: 10px">
+
+    <span class="col-xs-10 col-sm-4 col-md-3 col-lg-2">
+
+<img (click)="mainpage()" src="./assets/MiracleListLogo.jpg">
+ </span>
+    <!--  Anzeige dieses Blocks oben nur auf großen Displays -->
+    <span class="col-xs-6 col-lg-9 col-sm-7 col-md-8 hidden-xs" style="vertical-align: center">
+<Status></Status>
+
+</span>
+    <span class="col-xs-1">
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span style="font-size: 2.2em" class="glyphicon glyphicon-menu-hamburger icon-primary"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a (click)="about()">Über MiracleList</a></li>
+        <li><a (click)="export()" *ngIf="(isElectron || isCordovaApp) && isLoggedIn">Export</a></li>
+        <li><a (click)="ReadExportFile()">Dateiinfo</a></li>
+        <li><a (click)="crash()">Absturz verursachen</a></li>
+        <!--<li><a [routerLink]="['/table']" *ngIf="isLoggedIn">Aufgabentabelle</a></li>-->
+        <li><a (click)="logout()" *ngIf="isLoggedIn">Abmelden</a></li>
+        <li><a (click)="exit()" *ngIf="(isCordovaApp)">Beenden</a></li>
+    </ul>
+    </li>
+    </ul>
+    </span>
+</div>
+<router-outlet></router-outlet>
+
+<!-- Alternative Anzeige dieses Blocks unten auf kleinen Displays -->
+<div class="row">
+    <span class="col-xs-12 hidden-sm hidden-md hidden-lg">
+     <Status></Status>
+    </span>
+</div>

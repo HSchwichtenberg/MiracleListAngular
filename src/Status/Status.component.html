@@ -1,0 +1,5 @@
+<div style="margin-top: 3px;" i18n>Sample Application v{{communicationService.GetPackage().version}} / {{communicationService.GetPackage().date}}</div>
+<div i18n>Author: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
+<div> <span *ngIf="isLoggedIn" id="LoggedInUser" i18n>Current User: {{this.communicationService.username}}</span> </div>
+
+<div><span class="badge" [ngStyle]="{'margin-bottom':'3px','background-color': this.serverAvailable ? '#468847' : '#b94a48'}" [title]="currentTime + ' : ' + serverStatusDetails">{{serverStatus}} </span> <span i18n>Screen:</span> {{this.sizeInfo}}</div>

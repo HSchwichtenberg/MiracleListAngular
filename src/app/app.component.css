@@ -1,0 +1,12 @@
+.MLcheckbox {
+    width: 30px;
+    height: 30px;
+}
+
+.MLselected {
+    background-color: #E0EEFA !important;
+}
+
+.scroll {
+    overflow-y: auto;
+}
