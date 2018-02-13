@@ -6,6 +6,7 @@ module.exports = function(config) {
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', '@angular/cli'],
         plugins: [
+         require('karma-phantomjs-launcher'),
          require('karma-junit-reporter'),
             require('karma-jasmine-jquery'),
             require('karma-jasmine'),
@@ -40,7 +41,7 @@ module.exports = function(config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['Chrome'],
+        browsers: ['Chrome', 'PhantomJS'],
         singleRun: false,
           // the default configuration
     junitReporter: {
