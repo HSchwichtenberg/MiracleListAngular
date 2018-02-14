@@ -6,12 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { MiracleListProxy } from "Services/MiracleListProxy";
 // import { HttpClient, HttpHandler } from "@angular/common/http"; --> nicht gebraucht, da Fake-Poxy verwendet!
 import { CommunicationService } from "Services/CommunicationService";
-import { Router, Routes } from "@angular/router";
-import { RoutingModule } from "Util/RoutingModule";
+import { Routes } from "@angular/router";
+// import { RoutingModule } from "Util/RoutingModule";
 import { AppModule } from "app.module";
 import { APP_BASE_HREF } from "@angular/common";
-import {Location} from '@angular/common';
-import {RouterTestingModule} from "@angular/router/testing";
+import { Location } from '@angular/common';
+import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "app/app.component";
 import { TaskViewComponent } from "TaskView/TaskView.Component";
 import { TaskEditComponent } from "TaskEdit/TaskEdit.Component";
@@ -23,7 +23,7 @@ const LOGINERRORTEXT = "Login Error";
 
 /** Fake-Proxy, der nur die eine verwendete Methode implementiert */
 class MiracleListFakeProxy {
- login(loginInfo?: LoginInfo | null | undefined): Observable<LoginInfo>  {
+ login(loginInfo?: LoginInfo | null | undefined): Observable<LoginInfo> {
   var r = new LoginInfo();
 
   if (loginInfo.username === "test" && loginInfo.password === 'test') {
@@ -38,58 +38,60 @@ class MiracleListFakeProxy {
   return Observable.create(observer => {
    observer.next(r);
    observer.complete();
-});
+  });
  }
 }
 
-export function CommunicationServiceFactory(router: Router, zone: NgZone)
-{ return new CommunicationService(router, zone); }
+export function CommunicationServiceFactory(router: Router, zone: NgZone) { return new CommunicationService(router, zone); }
 
 describe('AppComponent Test', () => {
 
  const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'app', component: AppComponent,
+  {
+   path: 'app', component: AppComponent,
    children: [
     { path: 'taskview/:id', component: TaskViewComponent, outlet: "column3" },
     { path: 'taskedit/:id', component: TaskEditComponent, outlet: "column3" }
    ]
   }];
-  
- let comp:    LoginComponent;
+
+ let comp: LoginComponent;
  let fixture: ComponentFixture<LoginComponent>;
- let de:      DebugElement;
- let el:      HTMLElement;
+ let de: DebugElement;
+ let el: HTMLElement;
  let location: Location;
  let router: Router;
 
  beforeEach(() => {
-   TestBed.configureTestingModule({
-     declarations: [ LoginComponent  ], // declare the test component
-     imports: [AppModule, FormsModule, RouterTestingModule.withRoutes(routes)], // used Angular Modules
-     providers: [ // Services / Dependency Injection
-      { provide: MiracleListProxy,
-       useClass: MiracleListFakeProxy},      
-      // HttpClient, HttpHandler, --> nicht gebraucht, da Fake-Poxy verwendet!
-      {
-       provide: CommunicationService,
-       useFactory: CommunicationServiceFactory,
-       deps: [Router, NgZone]
-      }, {provide: APP_BASE_HREF, useValue : '/' }] 
-   });
+  TestBed.configureTestingModule({
+   declarations: [LoginComponent], // declare the test component
+   imports: [AppModule, FormsModule, RouterTestingModule.withRoutes(routes)], // used Angular Modules
+   providers: [ // Services / Dependency Injection
+    {
+     provide: MiracleListProxy,
+     useClass: MiracleListFakeProxy
+    },
+    // HttpClient, HttpHandler, --> nicht gebraucht, da Fake-Poxy verwendet!
+    {
+     provide: CommunicationService,
+     useFactory: CommunicationServiceFactory,
+     deps: [Router, NgZone]
+    }, { provide: APP_BASE_HREF, useValue: '/' }]
+  });
 
-   fixture = TestBed.createComponent(LoginComponent);
+  fixture = TestBed.createComponent(LoginComponent);
 
-   comp = fixture.componentInstance; // BannerComponent test instance
+  comp = fixture.componentInstance; // BannerComponent test instance
 
-   router = TestBed.get(Router);
-   // query for the title <h1> by CSS element selector
+  router = TestBed.get(Router);
+  // query for the title <h1> by CSS element selector
 
  });
 
  it('should display title', () => {
   fixture.detectChanges();
-   el = fixture.debugElement.query(By.css('h2')).nativeElement;
+  el = fixture.debugElement.query(By.css('h2')).nativeElement;
   expect(el.textContent).toContain("Benutzeranmeldung");
  });
 
@@ -102,11 +104,11 @@ describe('AppComponent Test', () => {
  });
 
  it('should missing password cause error', () => {
-  checkError("test","");
+  checkError("test", "");
  });
 
  it('should missing name cause error', () => {
-  checkError("","test");
+  checkError("", "test");
  });
 
  it('routing', fakeAsync(() => {
@@ -140,8 +142,7 @@ describe('AppComponent Test', () => {
   expect(location.path()).toBe('');
  }));
 
- function checkError(name:string, password:string)
- {
+ function checkError(name: string, password: string) {
   fixture.detectChanges();
   comp.name = name;
   comp.password = password;
@@ -151,9 +152,8 @@ describe('AppComponent Test', () => {
 
  }
 
- function content(id:string, content:string)
- {
-  var errorMsg = fixture.debugElement.query(By.css('#'+id)).nativeElement;
+ function content(id: string, content: string) {
+  var errorMsg = fixture.debugElement.query(By.css('#' + id)).nativeElement;
   expect(errorMsg.textContent).toContain(content);
  }
 
