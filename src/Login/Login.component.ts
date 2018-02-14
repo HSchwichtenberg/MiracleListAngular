@@ -3,6 +3,9 @@ import { CommunicationService } from '../Services/CommunicationService'
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
 import { Title }  from '@angular/platform-browser';
+
+import { isDevMode } from '@angular/core';
+
 @Component({
  selector: 'Login',
  templateUrl: './Login.component.html'
@@ -40,12 +43,9 @@ if (!this.name || !this.password)
  return;
 }
 
-
-//TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
 this.errorMsg = "OK";
-//this.communicationService.navigate("/app"); // Ansicht aufrufen
 var li = new LoginInfo();
-li.clientID = "11111111-1111-1111-1111-111111111111";
+li.clientID = this.communicationService.clientID;
 li.username = this.name;
 li.password = this.password;
 

@@ -1,13 +1,25 @@
 import { Task } from './MiracleListProxy';
-import { Injectable, EventEmitter, NgZone } from '@angular/core';
+import { Injectable, EventEmitter, NgZone, isDevMode } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class CommunicationService {
 
+  // Daten der Benutzeranmeldung
+  public username: string = "test";
+  public token: string = "test";
+  public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+ 
+  
  constructor(private router: Router, private zone: NgZone, )
  {
   console.log("==== CommunicationService");
+
+  if (isDevMode)
+{
+ this.username = "test";
+ this.token = "test";
+}
  }
 
  // Client-Navigation per Router
@@ -29,9 +41,6 @@ export class CommunicationService {
   this.TaskDetailCloseEvent.emit(t);
  }
 
- // Daten der Benutzeranmeldung
- public username: string = "test";
- public token: string = "test";
 
  GetPackage() : any
  {
