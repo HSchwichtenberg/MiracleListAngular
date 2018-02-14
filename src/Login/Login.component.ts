@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   // Startaktion
   // console.log("======= LoginComponent:ngOnInit");
   this.zone.run(() => {
-
      this.showDownloads = !(this.communicationService.isCordova() || this.communicationService.isElectron());
   });
   }
@@ -34,20 +33,25 @@ export class LoginComponent implements OnInit {
  login() {
   console.log("LOGIN", this.name, this.password);
 
-  var li = new LoginInfo();
-  li.clientID = "11111111-1111-1111-1111-111111111111";
-  //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
 
-if (!li.username || li.password )
-{
+
+ 
+if (!this.name || !this.password)
+ {
  this.errorMsg = "Benutzername und Kennwort müssen ausgefüllt sein!";
  return;
 }
 
-  li.username = this.name;
-  li.password = this.password;
 
-  this.miracleListProxy.login(li).subscribe(x=> {
+//TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+this.errorMsg = "OK";
+//this.communicationService.navigate("/app"); // Ansicht aufrufen
+var li = new LoginInfo();
+li.clientID = "11111111-1111-1111-1111-111111111111";
+li.username = this.name;
+li.password = this.password;
+
+ this.miracleListProxy.login(li).subscribe(x=> {
 
   if (x == null || x.message) {
    console.log("login NICHT ERFOLGREICH",x);
@@ -58,6 +62,7 @@ if (!li.username || li.password )
    console.log("login ERFOLGREICH",x);
    this.communicationService.token = x.token;
    this.communicationService.username = this.name;
+   this.errorMsg = "OK";
    this.communicationService.navigate("/app"); // Ansicht aufrufen
    this.titleService.setTitle(`MiracleListClient [${this.name}]` );
   }
