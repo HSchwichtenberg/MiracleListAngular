@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MiracleListProxy } from "Services/MiracleListProxy";
 // import { HttpClient, HttpHandler } from "@angular/common/http"; --> nicht gebraucht, da Fake-Poxy verwendet!
 import { CommunicationService } from "Services/CommunicationService";
-import { Routes } from "@angular/router";
+import { Router, Routes } from "@angular/router";
 // import { RoutingModule } from "Util/RoutingModule";
 import { AppModule } from "app.module";
 import { APP_BASE_HREF } from "@angular/common";
@@ -89,13 +89,13 @@ describe('AppComponent Test', () => {
 
  });
 
- it('should display title', () => {
+ it('title', () => {
   fixture.detectChanges();
   el = fixture.debugElement.query(By.css('h2')).nativeElement;
   expect(el.textContent).toContain("Benutzeranmeldung");
  });
 
- it('should name and password be empty', () => {
+ it('name and password be empty', () => {
   fixture.detectChanges();
   var tb1 = fixture.debugElement.query(By.css('#name')).nativeElement;
   expect(tb1.value).toEqual("");
@@ -103,11 +103,11 @@ describe('AppComponent Test', () => {
   expect(tb2.value).toEqual("");
  });
 
- it('should missing password cause error', () => {
+ it('missing password cause error', () => {
   checkError("test", "");
  });
 
- it('should missing name cause error', () => {
+ it('missing name cause error', () => {
   checkError("", "test");
  });
 
