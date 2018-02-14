@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
  login() {
   console.log("LOGIN", this.name, this.password);
 
-
-
  
 if (!this.name || !this.password)
  {
