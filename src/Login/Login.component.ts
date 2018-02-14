@@ -38,6 +38,12 @@ export class LoginComponent implements OnInit {
   li.clientID = "11111111-1111-1111-1111-111111111111";
   //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
 
+if (!li.username || li.password )
+{
+ this.errorMsg = "Benutzername und Kennwort müssen ausgefüllt sein!";
+ return;
+}
+
   li.username = this.name;
   li.password = this.password;
 
