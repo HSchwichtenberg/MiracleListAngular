@@ -28,11 +28,11 @@ import { ContextMenuModule } from 'ngx-contextmenu'
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 // eigene Komponenten
-import { TaskEditComponent } from './TaskEdit/TaskEdit.Component'
-import { TaskViewComponent } from './TaskView/TaskView.Component'
-import { SubTaskListComponent } from './SubTaskList/SubTaskList.Component'
-import { LoginComponent } from './Login/Login.Component'
-import { StartComponent } from './Start/Start.Component'
+import { TaskEditComponent } from './TaskEdit/TaskEdit.component'
+import { TaskViewComponent } from './TaskView/TaskView.component'
+import { SubTaskListComponent } from './SubTaskList/SubTaskList.component'
+import { LoginComponent } from './Login/Login.component'
+import { StartComponent } from './Start/Start.component'
 
 // Routing
 import { Router } from '@angular/router'
@@ -125,6 +125,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
     //i18n
     { provide: LOCALE_ID, useValue: 'en' }
   ],
+  exports: [LoginComponent],
 
    bootstrap: [StartComponent] // Startkomponente
 

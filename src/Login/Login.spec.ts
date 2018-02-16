@@ -49,11 +49,8 @@ describe('AppComponent Test', () => {
  const routes: Routes = [
   { path: '', component: LoginComponent },
   {
-   path: 'app', component: AppComponent,
-   children: [
-    { path: 'taskview/:id', component: TaskViewComponent, outlet: "column3" },
-    { path: 'taskedit/:id', component: TaskEditComponent, outlet: "column3" }
-   ]
+   path: 'app', component: AppComponent
+  
   }];
 
  let comp: LoginComponent;
@@ -65,7 +62,7 @@ describe('AppComponent Test', () => {
 
  beforeEach(() => {
   TestBed.configureTestingModule({
-   declarations: [LoginComponent], // declare the test component
+   declarations: [], // declare the test component
    imports: [AppModule, FormsModule, RouterTestingModule.withRoutes(routes)], // used Angular Modules
    providers: [ // Services / Dependency Injection
     {
