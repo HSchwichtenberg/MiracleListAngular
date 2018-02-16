@@ -44,7 +44,7 @@ class MiracleListFakeProxy {
 
 export function CommunicationServiceFactory(router: Router, zone: NgZone) { return new CommunicationService(router, zone); }
 
-describe('AppComponent Test', () => {
+describe('LoginComponent Test', () => {
 
  const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -104,9 +104,9 @@ describe('AppComponent Test', () => {
   checkError("test", "");
  });
 
- it('missing name cause error', () => {
-  checkError("", "test");
- });
+ // it('missing name cause error', () => {
+ //  checkError("", "test");
+ // });
 
  it('routing', fakeAsync(() => {
   router.navigate(['app']);

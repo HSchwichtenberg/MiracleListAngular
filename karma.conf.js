@@ -19,7 +19,7 @@ module.exports = function(config) {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
         files: [
-
+         './node_modules/web-animations-js/web-animations.min.js', // https://github.com/ariya/phantomjs/issues/14222
 
             { pattern: './src/test.ts', watched: false }
         ],
