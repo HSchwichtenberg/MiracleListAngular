@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  API_BASE_URL: 'https://miraclelistbackend-staging.azurewebsites.net',
+  API_BASE_URL: 'https://miraclelistbackend.azurewebsites.net',
 };
