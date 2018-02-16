@@ -104,9 +104,9 @@ describe('LoginComponent Test', () => {
   checkError("test", "");
  });
 
- // it('missing name cause error', () => {
- //  checkError("", "test");
- // });
+ it('missing name cause error', () => {
+  checkError("", "test");
+ });
 
  it('routing', fakeAsync(() => {
   router.navigate(['app']);
