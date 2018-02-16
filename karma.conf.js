@@ -43,6 +43,13 @@ module.exports = function(config) {
         autoWatch: true,
         browsers: ['Chrome', 'PhantomJS'],
         singleRun: false,
+
+        // https://github.com/jasmine/jasmine/issues/1413
+        captureTimeout: 210000,
+browserDisconnectTolerance: 3, 
+browserDisconnectTimeout : 210000,
+browserNoActivityTimeout : 210000,
+
           // the default configuration
     junitReporter: {
      outputDir: 'testresults', // results will be saved as $outputDir/$browserName.xml
