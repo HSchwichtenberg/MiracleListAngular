@@ -90,8 +90,6 @@ import { environment } from './environments/environment';
 export function CommunicationServiceFactory(router: Router, zone: NgZone)
 { return new CommunicationService(router, zone); }
 
-export const API_BASE_URL_ENV: string = environment.API_BASE_URL; // "https://miraclelistbackend-staging.azurewebsites.net";
-
 @NgModule({
   declarations: [ // Komponenten und Pipes
     AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent
@@ -107,8 +105,8 @@ export const API_BASE_URL_ENV: string = environment.API_BASE_URL; // "https://mi
   ],
   providers: [ // Services / Dependency Injection
    MiracleListProxy, MiracleListProxyV2,
-   { provide: API_BASE_URL, useValue: API_BASE_URL_ENV},
-   { provide: API_BASE_URLv2, useValue: API_BASE_URL_ENV},
+   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+   { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
    HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
