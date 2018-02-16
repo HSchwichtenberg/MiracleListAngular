@@ -8,8 +8,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http'; // ab 0.6.5
 import { AppComponent } from './app/app.component';
 
 // Proxy
-import { MiracleListProxy } from './Services/MiracleListProxy';
-import { MiracleListProxyV2 } from './Services/MiracleListProxyV2';
+import { MiracleListProxy, API_BASE_URL  } from './Services/MiracleListProxy';
+import { MiracleListProxyV2, API_BASE_URL as API_BASE_URLv2 } from './Services/MiracleListProxyV2';
 // MomentJS
 import * as moment from 'moment';
 import 'moment/locale/en-gb';
@@ -78,7 +78,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import { LOCALE_ID } from '@angular/core';
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
-import { HttpInterceptor } from "Services/HttpInterceptor";
+import { HttpInterceptor } from "./Services/HttpInterceptor";
+import { environment } from './environments/environment';
 
 // Entfernt ab 0.6.5 für Angular 5
 // export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router)
@@ -89,6 +90,7 @@ import { HttpInterceptor } from "Services/HttpInterceptor";
 export function CommunicationServiceFactory(router: Router, zone: NgZone)
 { return new CommunicationService(router, zone); }
 
+export const API_BASE_URL_ENV: string = environment.API_BASE_URL; // "https://miraclelistbackend-staging.azurewebsites.net";
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
@@ -105,6 +107,8 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
   ],
   providers: [ // Services / Dependency Injection
    MiracleListProxy, MiracleListProxyV2,
+   { provide: API_BASE_URL, useValue: API_BASE_URL_ENV},
+   { provide: API_BASE_URLv2, useValue: API_BASE_URL_ENV},
    HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
