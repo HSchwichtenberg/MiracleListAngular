@@ -87,8 +87,34 @@ import { environment } from './environments/environment';
 //  return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
 // }
 
-export function CommunicationServiceFactory(router: Router, zone: NgZone)
-{ return new CommunicationService(router, zone); }
+export function CommunicationServiceFactory(router: Router, zone: NgZone, http: HttpClient)
+{ 
+return new CommunicationService(router, zone, http); 
+}
+
+// export function getURL(http : HttpClient)
+// {
+//  // var promise = http.get('assets/config.json').toPromise();
+//  // promise.then(config => this.devServer = config["API_BASE_URL"]);
+//  // return promise;
+
+// var name  = "API_BASE_URL";
+
+//   var baseURL: string;
+
+//   http.get('assets/config.json').subscribe(
+//    x=> {
+//     baseURL = x[name];
+//     console.log(`GetConfig: ${name} aus Config=${baseURL}`);
+//    if (baseURL) return baseURL;
+//    baseURL = environment[name];
+//    console.log(`GetConfig: ${name} aus Environemnt=${baseURL}`);
+//    return baseURL;
+//    }
+
+//    );
+//    return "";
+//  }
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
@@ -104,10 +130,13 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
-   MiracleListProxy, MiracleListProxyV2,
-   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-   { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-   HttpClientModule,
+
+     { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+    { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+
+   // { provide: API_BASE_URL, useFactory: getURL,  deps: [HttpClient]}, // Wert für Token aus Einstellung holen
+   // { provide: API_BASE_URLv2, useFactory:  getURL,  deps: [HttpClient]}, // Wert für Token aus Einstellung holen
+   MiracleListProxy, MiracleListProxyV2, HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
       provide: HTTP_INTERCEPTORS,
@@ -117,7 +146,7 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
    {
     provide: CommunicationService,
     useFactory: CommunicationServiceFactory,
-    deps: [Router, NgZone]
+    deps: [Router, NgZone, HttpClient]
    },
     // { bis 0.6.5 für Angular < 5
     //  provide: Http,
@@ -135,6 +164,8 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
 })
 export class AppModule {
 
+
+
 /**
  *
  */
@@ -146,5 +177,4 @@ constructor() {
  moment.locale("de-de");
 
 }
-
 }

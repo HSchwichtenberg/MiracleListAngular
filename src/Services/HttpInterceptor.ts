@@ -43,6 +43,7 @@ export class HttpInterceptor extends Http {
 
  // keine Funktion aktuell. Könnte aber die Url verändern :-)
  private updateUrl(req: string) {
+  req = req.replace("miraclelistbackend",this.communicationService.GetURL())
   return req;
  }
 

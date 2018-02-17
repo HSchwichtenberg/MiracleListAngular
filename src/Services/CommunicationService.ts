@@ -1,6 +1,8 @@
 import { Task } from './MiracleListProxy';
-import { Injectable, EventEmitter, NgZone, isDevMode } from '@angular/core';
+import { Injectable, EventEmitter, NgZone, isDevMode, Injector } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment.prod';
 
 @Injectable()
 export class CommunicationService {
@@ -11,15 +13,39 @@ export class CommunicationService {
   public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
  
   
- constructor(private router: Router, private zone: NgZone, )
+ constructor(private router: Router, private zone: NgZone, private http : HttpClient  )
  {
-  console.log("==== CommunicationService");
+  console.log("==== CommunicationService", this.http);
 
   if (isDevMode)
 {
  this.username = "test";
  this.token = "test";
 }
+ }
+
+ public GetURL()
+{
+ // var promise = http.get('assets/config.json').toPromise();
+ // promise.then(config => this.devServer = config["API_BASE_URL"]);
+ // return promise;
+
+var name  = "API_BASE_URL";
+
+  var baseURL: string;
+
+ this.http.get('assets/config.json').subscribe(
+   x=> {
+    baseURL = x[name];
+    console.log(`GetConfig: ${name} aus Config=${baseURL}`);
+   if (baseURL) return baseURL;
+   baseURL = environment[name];
+   console.log(`GetConfig: ${name} aus Environemnt=${baseURL}`);
+   return baseURL;
+   }
+
+   );
+   return "";
  }
 
  // Client-Navigation per Router
