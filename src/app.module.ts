@@ -93,14 +93,15 @@ export function CommunicationServiceFactory(router: Router, zone: NgZone)
 return new CommunicationService(router, zone); 
 }
 
+// Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
 export function init_app(appLoadService: AppLoadService) {
  return () => appLoadService.initializeApp();
 }
-
+// Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
 export function get_settings(appLoadService: AppLoadService) {
  return () => appLoadService.getSettings();
 }
-
+// holte URL aus statischem Mitglieder, dass von AppLoadService gesetzt wurde
 export  function getURL()
 {
  console.log("getURL: " + AppLoadService.URL);
@@ -122,8 +123,8 @@ export  function getURL()
   ],
   providers: [ // Services / Dependency Injection
    AppLoadService,
-   { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true },
-   { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },
+   { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }, // für das Laden der Konfigurationsdatei
+   { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
   //   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
   // { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
     

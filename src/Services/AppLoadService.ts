@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../environments/environment';
-// import { APP_SETTINGS } from '../settings';
  
 @Injectable()
 export class AppLoadService {
