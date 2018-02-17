@@ -128,7 +128,7 @@ export  function getURL()
   //   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
   // { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
     
-    { provide: API_BASE_URL, useValue: getURL}, // Wert für Token aus Konfiguration holen
+    { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
     { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
    MiracleListProxy, MiracleListProxyV2, HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
