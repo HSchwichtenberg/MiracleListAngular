@@ -1,7 +1,7 @@
 import { StatusComponent } from './Status/Status.component';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NgZone } from '@angular/core';
+import { NgModule, NgZone, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http'; // ab 0.6.5 für angular 5
@@ -80,6 +80,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
 import { HttpInterceptor } from "./Services/HttpInterceptor";
 import { environment } from './environments/environment';
+import { AppLoadService } from 'Services/AppLoadService';
 
 // Entfernt ab 0.6.5 für Angular 5
 // export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router)
@@ -87,34 +88,24 @@ import { environment } from './environments/environment';
 //  return new HttpInterceptor(communicationService, xhrBackend, requestOptions)
 // }
 
-export function CommunicationServiceFactory(router: Router, zone: NgZone, http: HttpClient)
+export function CommunicationServiceFactory(router: Router, zone: NgZone)
 { 
-return new CommunicationService(router, zone, http); 
+return new CommunicationService(router, zone); 
 }
 
-// export function getURL(http : HttpClient)
-// {
-//  // var promise = http.get('assets/config.json').toPromise();
-//  // promise.then(config => this.devServer = config["API_BASE_URL"]);
-//  // return promise;
+export function init_app(appLoadService: AppLoadService) {
+ return () => appLoadService.initializeApp();
+}
 
-// var name  = "API_BASE_URL";
+export function get_settings(appLoadService: AppLoadService) {
+ return () => appLoadService.getSettings();
+}
 
-//   var baseURL: string;
-
-//   http.get('assets/config.json').subscribe(
-//    x=> {
-//     baseURL = x[name];
-//     console.log(`GetConfig: ${name} aus Config=${baseURL}`);
-//    if (baseURL) return baseURL;
-//    baseURL = environment[name];
-//    console.log(`GetConfig: ${name} aus Environemnt=${baseURL}`);
-//    return baseURL;
-//    }
-
-//    );
-//    return "";
-//  }
+export  function getURL()
+{
+ console.log("getURL: " + AppLoadService.URL);
+ return AppLoadService.URL;
+}
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
@@ -130,12 +121,14 @@ return new CommunicationService(router, zone, http);
     //GridModule
   ],
   providers: [ // Services / Dependency Injection
-
-     { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-    { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-
-   // { provide: API_BASE_URL, useFactory: getURL,  deps: [HttpClient]}, // Wert für Token aus Einstellung holen
-   // { provide: API_BASE_URLv2, useFactory:  getURL,  deps: [HttpClient]}, // Wert für Token aus Einstellung holen
+   AppLoadService,
+   { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true },
+   { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },
+  //   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+  // { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+    
+    { provide: API_BASE_URL, useValue: getURL}, // Wert für Token aus Konfiguration holen
+    { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
    MiracleListProxy, MiracleListProxyV2, HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
@@ -164,7 +157,7 @@ return new CommunicationService(router, zone, http);
 })
 export class AppModule {
 
-
+public static baseUrl = "";
 
 /**
  *

@@ -13,9 +13,9 @@ export class CommunicationService {
   public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
  
   
- constructor(private router: Router, private zone: NgZone, private http : HttpClient  )
+ constructor(private router: Router, private zone: NgZone )
  {
-  console.log("==== CommunicationService", this.http);
+  console.log("==== CommunicationService");
 
   if (isDevMode)
 {
@@ -24,29 +24,7 @@ export class CommunicationService {
 }
  }
 
- public GetURL()
-{
- // var promise = http.get('assets/config.json').toPromise();
- // promise.then(config => this.devServer = config["API_BASE_URL"]);
- // return promise;
 
-var name  = "API_BASE_URL";
-
-  var baseURL: string;
-
- this.http.get('assets/config.json').subscribe(
-   x=> {
-    baseURL = x[name];
-    console.log(`GetConfig: ${name} aus Config=${baseURL}`);
-   if (baseURL) return baseURL;
-   baseURL = environment[name];
-   console.log(`GetConfig: ${name} aus Environemnt=${baseURL}`);
-   return baseURL;
-   }
-
-   );
-   return "";
- }
 
  // Client-Navigation per Router
  public navigate(url: string) {
