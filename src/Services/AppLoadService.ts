@@ -24,24 +24,31 @@ export class AppLoadService {
  
   getSettings(): Promise<any> {
     console.log(`getSettings:: before http.get call`);
-    
-    const promise = this.httpClient.get('assets/config.json')
+    var name = "API_BASE_URL";
+    AppLoadService.URL =environment[name];
+    console.log(`GetConfig: ${name} aus Environment=${   AppLoadService.URL}`);
+    const promise = this.httpClient.get('assets/settings.json')
       .toPromise()
       .then(settings => {
         console.log(`Settings from API: `, settings);
 
-  var name = "API_BASE_URL";
-       var  baseURL = settings[name];
-        console.log(`GetConfig: ${name} aus Config=${baseURL}`);
-        if (!baseURL){
-        baseURL = environment["name"];
-        console.log(`GetConfig: ${name} aus Environment=${baseURL}`);
-        }
-        AppLoadService.URL = baseURL;
-        console.log(`APP_SETTINGS: `,  AppLoadService.URL);
+
+        AppLoadService.URL = settings[name];
+        console.log(`GetConfig: ${name} aus Config=${AppLoadService.URL}`);
+      
+        console.log(`APP_SETTINGS: `, settings);
  
         return settings;
-      });
+      }).catch(function(e) {  return null });
+      // .finally(
+      //  function() {  
+      //   if (!baseURL){
+      //    baseURL = environment["name"];
+      //    console.log(`GetConfig: ${name} aus Environment=${baseURL}`);
+      //    }
+      //    AppLoadService.URL = baseURL;
+      //   }
+      // );
  
     return promise;
   }
