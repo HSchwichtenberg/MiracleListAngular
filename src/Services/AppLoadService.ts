@@ -26,8 +26,8 @@ export class AppLoadService {
     console.log(`getSettings:: before http.get call`);
     var name = "API_BASE_URL";
     AppLoadService.URL =environment[name];
-    console.log(`GetConfig: ${name} aus Environment=${   AppLoadService.URL}`);
-    const promise = this.httpClient.get('assets/settings.json')
+    console.log(`GetConfig: ${name} aus Environment=${AppLoadService.URL}`);
+    const promise = this.httpClient.get('assets/settings')
       .toPromise()
       .then(settings => {
         console.log(`Settings from API: `, settings);
