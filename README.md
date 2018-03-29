@@ -62,20 +62,20 @@ Pakete erstellen: `npm run w-electron-deployallprod`
 
 Cordova global installieren: `install -g cordova`
 
-Angular-Webanwendung ins Verzeichnis "Cordova/www" übersetzen: `npm run build-cordova` 
+Verzeichnis wechseln `cd ./Cordova/`
 
-Verzeichnis wechseln `cd .\Cordova\`
+Angular-Webanwendung ins Verzeichnis "Cordova/www" übersetzen: `npm run build-ng` oder `npm run build-ng-prod`
 
 Platform hinzufügen: `cordova platform add android` usw.
 
 Übersetzen: `cordova build android` usw.
 
-Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android -device` usw. 
+Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android -device` usw.
 
-Geräteliste: `cordova run android --list` 
+Geräteliste: `cordova run android --list`
 
 Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
- 
+
 # Angular-CLI
 
 Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.
