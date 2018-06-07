@@ -2,7 +2,7 @@
 <img align="right" src="/src/assets/MiracleListLogo.jpg">
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung mit Aufgabenkategorien, Aufgaben und Unteraufgaben.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.6.5-Beta4 vom 07.06.2018</div>
+            <div>Version: 0.6.6-Beta1 vom 08.06.2018</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -31,6 +31,7 @@
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
                 <li>0.6.4: Dateisystemexport in Cordova-App</li>
                 <li>0.6.5: Umstellung auf Angular 5.2.2</li>
+                   <li>0.6.6: Umstellung auf Angular 6.0.4</li>
 </ul>
 
 --------------------------------------------------------
