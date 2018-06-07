@@ -11,8 +11,8 @@
     "rules": {
         "class-name": true,
         "comment-format": [
-            true,
-            "check-space"
+            true
+
         ],
         "curly": false,
         "eofline": false,

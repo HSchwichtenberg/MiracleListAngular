@@ -2,8 +2,7 @@ import { Task } from './MiracleListProxy';
 import { Injectable, EventEmitter, NgZone, isDevMode, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment.prod';
-//import * as electron from 'electron';
+import { environment } from '../environments/environment.prod';
 
 @Injectable()
 export class CommunicationService {
