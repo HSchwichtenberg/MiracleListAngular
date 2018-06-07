@@ -116,7 +116,7 @@ window.resolveLocalFileSystemURL(root,
               fileWriter.seek(fileWriter.length);
               let blob : Blob = new Blob([text], { type: "text/plain" });
               fileWriter.write(blob);
-              alert("Export gespeichert in: " + file.fullPath);
+              alert("Export gespeichert in: " + file.nativeURL);
             }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
           });
         }
