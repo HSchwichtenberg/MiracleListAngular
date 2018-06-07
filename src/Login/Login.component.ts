@@ -36,15 +36,15 @@ export class LoginComponent implements OnInit {
  login() {
   console.log("LOGIN", this.name, this.password);
 
- 
+
 if (!this.name || !this.password)
  {
  this.errorMsg = "Benutzername und Kennwort müssen ausgefüllt sein!";
  return;
 }
 
-this.errorMsg = "OK";
-var li = new LoginInfo();
+this.errorMsg = "";
+let li = new LoginInfo();
 li.clientID = this.communicationService.clientID;
 li.username = this.name;
 li.password = this.password;

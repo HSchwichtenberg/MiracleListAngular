@@ -48,10 +48,12 @@ Dieser Befehl muss 3x ausgeführt werden
 
 Voraussetzungen:
 `npm install electron`
-for use from cli
-`npm install electron-packager -g`
-for use in npm scripts
 `npm install --save-dev electron-packager`
+
+Globale Installation der Tools:
+`npm install electron -g`
+`npm install electron-packager -g`
+
 
 Übersetzen und starten: `npm run w-electron` (w für AUSFÜHRUNG auf Windows, m für Mac)
 

@@ -25,15 +25,17 @@ function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
  // =================== Einstellungen auslesen und speichern
-
- let erster = settings.get('miraclelist.ersteVerwendung');
+ let erster: Date;
+ let anzahl: number;
+ if (settings) {
+   erster = settings.get('miraclelist.ersteVerwendung');
  if (!erster)  erster  = new Date();
  settings.set('miraclelist.ersteVerwendung', erster);
- let anzahl = settings.get('miraclelist.anzahlVerwendungen');
+  anzahl = settings.get('miraclelist.anzahlVerwendungen');
  if (!anzahl)  anzahl  = 1;
  else anzahl++;
  settings.set('miraclelist.anzahlVerwendungen', anzahl);
-
+}
  // =================== Systeminformationen auslesen und in dynamischem Objekt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
  const env = {
@@ -127,16 +129,16 @@ function electronMain() {
   writeLog("Electron/Main:Event Handler erstellen...");
   ipcMain.on('export', (event: string, arg: any) => {
    console.log("!!!export-event", event, arg);
-   writeLog("export-event!");
+   writeLog("Export Event!");
    let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
    let text = JSON.stringify(arg);
-   console.log("Export-Datei", file);
-   writeLog("export-Datei: " + file);
+      writeLog("Export to file: " + file);
    fs.appendFile(file, text, (err) => {
     if (err) throw err;
    });
    console.log("Export: OK!", file);
-   event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+   win.webContents.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+   console.log("Message send!");
   });
 
   // ggf. Dateiauswahl
@@ -215,7 +217,8 @@ process.on('uncaughtException',
  )
 
 function writeLog(logtext: string, obj?: any) {
- console.log(logtext, obj);
+ if (obj) console.log(logtext, obj);
+ else console.log(logtext);
  if (!logfile) return;
  let logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
  if (obj) logtext += JSON.stringify(obj, null, 1);
