@@ -18,6 +18,7 @@
         "electron-winstaller": "^2.6.3"
     },
     "scripts": {
+     "restore": "npm install --no-bin-links",
         "///": "---------------------------- Skripte für Electron zum Entwickeln w = laufen auf windows m = laufen auf mac",
         "w-copy-electron": "xcopy src\\* ..\\temp_electron /s /e /y && copy  package.json ..\\temp_electron",
         "m-copy-electron": "\"node_modules/.bin/copy\" \"/electron/*\" \"temp_electron\"",

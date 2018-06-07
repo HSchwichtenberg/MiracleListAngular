@@ -11,6 +11,7 @@
 /temp*
 /tmp
 
+
 # map-files
 *.map
 
@@ -42,6 +43,7 @@ node_modules/
 npm-debug.log
 testem.log
 /typings
+/testresults
 
 # e2e
 /e2e/*.js

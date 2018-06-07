@@ -7,9 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "de.itvisions.miraclelist"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "de.itvisions.miraclelist"
     },
@@ -18,7 +15,14 @@
     },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "de.itvisions.miraclelist"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
+    }
+  }
 }

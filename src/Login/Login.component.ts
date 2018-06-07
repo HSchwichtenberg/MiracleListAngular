@@ -3,6 +3,9 @@ import { CommunicationService } from '../Services/CommunicationService'
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
 import { Title }  from '@angular/platform-browser';
+
+import { isDevMode } from '@angular/core';
+
 @Component({
  selector: 'Login',
  templateUrl: './Login.component.html'
@@ -20,7 +23,6 @@ export class LoginComponent implements OnInit {
   // Startaktion
   // console.log("======= LoginComponent:ngOnInit");
   this.zone.run(() => {
-
      this.showDownloads = !(this.communicationService.isCordova() || this.communicationService.isElectron());
   });
   }
@@ -34,14 +36,20 @@ export class LoginComponent implements OnInit {
  login() {
   console.log("LOGIN", this.name, this.password);
 
-  var li = new LoginInfo();
-  li.clientID = "11111111-1111-1111-1111-111111111111";
-  //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+ 
+if (!this.name || !this.password)
+ {
+ this.errorMsg = "Benutzername und Kennwort müssen ausgefüllt sein!";
+ return;
+}
 
-  li.username = this.name;
-  li.password = this.password;
+this.errorMsg = "OK";
+var li = new LoginInfo();
+li.clientID = this.communicationService.clientID;
+li.username = this.name;
+li.password = this.password;
 
-  this.miracleListProxy.login(li).subscribe(x=> {
+ this.miracleListProxy.login(li).subscribe(x=> {
 
   if (x == null || x.message) {
    console.log("login NICHT ERFOLGREICH",x);
@@ -52,6 +60,7 @@ export class LoginComponent implements OnInit {
    console.log("login ERFOLGREICH",x);
    this.communicationService.token = x.token;
    this.communicationService.username = this.name;
+   this.errorMsg = "OK";
    this.communicationService.navigate("/app"); // Ansicht aufrufen
    this.titleService.setTitle(`MiracleListClient [${this.name}]` );
   }
