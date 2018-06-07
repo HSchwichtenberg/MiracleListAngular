@@ -1,6 +1,6 @@
 {
     "name": "io.cordova.miraclelist",
-    "version": "0.6.5-Beta1",
+    "version": "0.6.5-Beta4",
     "displayName": "MiracleListCordova",
     "cordova": {
         "platforms": [

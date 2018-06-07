@@ -38,5 +38,5 @@
     <engine name="ios" spec="^4.4.0" />
     <engine name="windows" spec="~5.0.0" />
     <engine name="browser" spec="^5.0.3" />
-    <engine name="android" spec="^7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
