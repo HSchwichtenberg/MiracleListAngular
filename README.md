@@ -1,6 +1,6 @@
 # MiracleListClient
 <img align="right" src="/src/assets/MiracleListLogo.jpg">
- <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
+ <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung mit Aufgabenkategorien, Aufgaben und Unteraufgaben.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
             <div>Version: 0.6.5-Beta4 vom 07.06.2018</div>
             <h5>Webadressen:</h5>
