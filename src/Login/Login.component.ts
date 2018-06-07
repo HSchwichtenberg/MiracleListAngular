@@ -3,7 +3,6 @@ import { CommunicationService } from '../Services/CommunicationService'
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
 import { Title }  from '@angular/platform-browser';
-
 import { isDevMode } from '@angular/core';
 
 @Component({

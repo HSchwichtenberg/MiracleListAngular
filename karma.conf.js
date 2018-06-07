@@ -4,7 +4,7 @@
 module.exports = function(config) {
     config.set({
         basePath: '',
-        frameworks: ['jasmine-jquery', 'jasmine', '@angular/cli'],
+        frameworks: ['jasmine-jquery', 'jasmine', '@angular-devkit/build-angular'],
         plugins: [
          require('karma-phantomjs-launcher'),
          require('karma-junit-reporter'),
@@ -13,7 +13,7 @@ module.exports = function(config) {
             require('karma-jasmine-html-reporter'),
             require('karma-coverage-istanbul-reporter'),
             require('karma-chrome-launcher'),
-            require('@angular/cli/plugins/karma')
+            require('@angular-devkit/build-angular/plugins/karma')
         ],
         client: {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -21,21 +21,19 @@ module.exports = function(config) {
         files: [
          './node_modules/web-animations-js/web-animations.min.js', // https://github.com/ariya/phantomjs/issues/14222
 
-            { pattern: './src/test.ts', watched: false }
+            
         ],
         preprocessors: {
-            './src/test.ts': ['@angular/cli']
+            
         },
         mime: {
             'text/x-typescript': ['ts', 'tsx']
         },
         coverageIstanbulReporter: {
-            reports: ['html', 'lcovonly'],
+            dir: require('path').join(__dirname, 'coverage'), reports: ['html', 'lcovonly'],
             fixWebpackSourcePaths: true
         },
-        angularCli: {
-            environment: 'dev'
-        },
+        
         reporters: config.angularCli && config.angularCli.codeCoverage ? ['progress', 'coverage-istanbul', 'junit'] : ['progress', 'kjhtml', 'junit'],
         port: 9876,
         colors: true,

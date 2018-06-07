@@ -3,6 +3,7 @@ import { Injectable, EventEmitter, NgZone, isDevMode, Injector } from '@angular/
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment.prod';
+//import * as electron from 'electron';
 
 @Injectable()
 export class CommunicationService {
@@ -11,8 +12,8 @@ export class CommunicationService {
   public username: string = "test";
   public token: string = "test";
   public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
- 
-  
+
+
  constructor(private router: Router, private zone: NgZone )
  {
   console.log("==== CommunicationService");
@@ -85,8 +86,8 @@ getElectronEnvString(): string {
    if (!this.isCordova()) return "n/a";
    let cordova = window.cordova;
    let device = window.device;
-   return (cordova.version + " auf " + device.platform + " " 
-   + device.version + " (" + device.manufacturer + " " 
+   return (cordova.version + " auf " + device.platform + " "
+   + device.version + " (" + device.manufacturer + " "
    + device.model + ")");
  }
 }

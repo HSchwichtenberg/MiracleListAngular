@@ -1,7 +1,7 @@
 // HttpInterceptor für Http zum Injizieren des Authentifizierungstokens durch Ableiten von der Http-Klasse
 // für die MiracleListProxy-Klasse, die NSwagGenerator erzeugt
 // Diese Klasse HttpInterceptor wird dann in app.module.ts per DI anstelle von Http verwendet
-// läuft ab Angular 2.0 
+// läuft ab Angular 2.0
 // https://scotch.io/@kashyapmukkamala/using-http-interceptor-with-angular2
 
 import { CommunicationService } from './CommunicationService';
