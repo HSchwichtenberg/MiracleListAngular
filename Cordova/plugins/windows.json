@@ -12,6 +12,9 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "MiracleListCordova"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "MiracleList Cordova"
         }
     },
     "dependent_plugins": {}

@@ -1,4 +1,4 @@
-import { Overlay } from 'angular2-modal';
+
 import { MiracleListProxyV2 } from './../Services/MiracleListProxyV2';
 import { MiracleListProxy } from './../Services/MiracleListProxy';
 import { CommunicationService } from './../Services/CommunicationService';
@@ -16,9 +16,10 @@ export class StatusComponent implements OnInit {
  serverAvailable?: boolean = null;
  serverStatus: string = "...lädt...";
  currentTime: string;
+ serverStatusCount: number = 0;
 
- constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  overlay: Overlay, vcr: ViewContainerRef) {
-  overlay.defaultViewContainer = vcr;
+ constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService) {
+
   this.calcSizeInfo(window.screen.width);
   this.getServerStatus();
  }
@@ -37,6 +38,7 @@ export class StatusComponent implements OnInit {
  getServerStatus()
  {
   this.currentTime = moment().format('LTS');
+  this.serverStatusCount++;
   let intervall  = 10000;
   // console.log("getServerStatus...");
    // Serverstatus ermitteln
@@ -44,15 +46,16 @@ export class StatusComponent implements OnInit {
     {
      this.serverAvailable = true;
      this.serverStatusDetails = x;
-     this.serverStatus =  "Server verfügbar!";
+     this.serverStatus =  "Server OK!";
     }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x;
     this.serverAvailable = false;
     intervall = 5000; });
-console.log(this.serverStatusDetails);
+
+console.log("Serverstatus #" + this.serverStatusCount +":",this.serverStatusDetails);
      // alle x Sekunden aktualisieren
- setTimeout(() => {
-  this.getServerStatus();
-   },intervall);
+ // setTimeout(() => {
+ //  this.getServerStatus();
+ //   },intervall);
  }
 
 calcSizeInfo(width : number)

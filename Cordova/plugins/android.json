@@ -1,18 +1,24 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
     },
-    "installed_plugins": {
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.cordova.miraclelist"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.cordova.miraclelist"
-        }
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
     },
-    "dependent_plugins": {}
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "de.itvisions.miraclelist"
+    }
+  },
+  "dependent_plugins": {}
 }

@@ -9,7 +9,7 @@ export class MiracleListAppMenu {
 // Menü erstellen
  public static CreateMenu(win: Electron.BrowserWindow, env: any): Electron.MenuItemConstructorOptions[] {
   const menuTemplate: Electron.MenuItemConstructorOptions[] = [{
-   label: 'Anwendung',
+   label: 'App',
    submenu: [{
     label: 'Über diese Anwendung',
     accelerator: 'CmdOrCtrl+I',
@@ -74,7 +74,7 @@ export class MiracleListAppMenu {
    ]
   },
    {
-    label: 'Bearbeiten',
+    label: 'Edit',
     submenu: [{
      label: 'Undo',
      accelerator: 'CmdOrCtrl+Z',
@@ -105,7 +105,7 @@ export class MiracleListAppMenu {
    } // Ende Edit Menü
    ,
    {
-    label: 'Ansicht',
+    label: 'View',
     submenu: [
      // {
      // label: 'Reload',

@@ -1,5 +1,7 @@
 // Electron-Komponenten
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen, nativeImage } from "electron";
+import { settings } from "electron-settings";
+
 // NodeJS-Komponenten
 import * as username from "username";
 import * as fs from "fs";
@@ -23,7 +25,6 @@ function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
  // =================== Einstellungen auslesen und speichern
- const settings = require('electron-settings');
 
  let erster = settings.get('miraclelist.ersteVerwendung');
  if (!erster)  erster  = new Date();
@@ -104,8 +105,6 @@ function electronMain() {
   slashes: true
  }));
 
-
-
  // =================== Anwendungsmenü erstellen
  writeLog("Electron/Main:Anwendungsmenü erstellen...");
  let menuTemplate = MiracleListAppMenu.CreateMenu(win, env);
@@ -176,8 +175,6 @@ function electronMain() {
 // Some APIs can only be used after this event occurs.
 // Startcode festlegen
 app.on('ready', electronMain);
-
-
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

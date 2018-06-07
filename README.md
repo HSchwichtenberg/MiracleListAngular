@@ -2,7 +2,7 @@
 <img align="right" src="/src/assets/MiracleListLogo.jpg">
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.6.3-Beta2 vom 28.11.2017</div>
+            <div>Version: 0.6.5-Beta1 vom 26.01.2018</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -14,8 +14,8 @@
             </ul>
             <h5>Eingesetzte Techniken:</h5>
             <ul>
-                <li>Backend: .NET Core, C#, ASP.NET Core WebAPI, Entity Framework Core, SQL Azure, Azure Web App, Swagger</li>
-                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, angular2-contextmenu, angular2-modal</li>
+                <li>Backend: .NET Core, C#, ASP.NET Core WebAPI, Entity Framework Core, SQL Azure, Azure Web App, Swagger, Application Insights</li>
+                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, ngx-contextmenu, ngx-modal, ngx-translate</li>
             </ul></h5>
              <h5>Versionsgeschichte:</h5>
             <ul>
@@ -28,6 +28,8 @@
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
+                <li>0.6.4: Dateisystemexport in Cordova-App</li>
+                <li>0.6.5: Umstellung auf Angular 5.2.2</li>
 </ul>
 
 --------------------------------------------------------
@@ -35,10 +37,10 @@
 
 Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit `npm install` wiederherstellen!
 
-Dieser Befehl muss 2x ausgeführt werden
+Dieser Befehl muss 3x ausgeführt werden
 - im Hauptverzeichnis
-- im Verzeichnis /electron für die speziellen Node-Pakete für electron
-
+- im Verzeichnis /Electron für die speziellen Node-Pakete für Electron
+- im Verzeichnis /Cordova für die speziellen Node-Pakete für Cordova
 --------------------------------------------------------
 
 # Hilfe zum Electron-Client
@@ -60,20 +62,20 @@ Pakete erstellen: `npm run w-electron-deployallprod`
 
 Cordova global installieren: `install -g cordova`
 
-Angular-Webanwendung ins Verzeichnis "MLCordova/www" übersetzen: `npm run build-cordova` 
+Verzeichnis wechseln `cd ./Cordova/`
 
-Verzeichnis wechseln `cd .\MLCordova\`
+Angular-Webanwendung ins Verzeichnis "Cordova/www" übersetzen: `npm run build-ng` oder `npm run build-ng-prod`
 
 Platform hinzufügen: `cordova platform add android` usw.
 
 Übersetzen: `cordova build android` usw.
 
-Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android -device` usw. 
+Starten: `cordova run browser` oder `cordova run windows` oder `cordova run android -device` usw.
 
-Geräteliste: `cordova run android --list` 
+Geräteliste: `cordova run android --list`
 
 Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
- 
+
 # Angular-CLI
 
 Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.

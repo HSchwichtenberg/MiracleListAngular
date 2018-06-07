@@ -1,4 +1,5 @@
 $erroractionpreference = "stop"
+$lok = Get-Location
 & "$PSScriptRoot\build-ng.ps1"
 if (-not(test-path $PSScriptRoot\www)) {
  Write-Warning "Kein WWW-Verzeichnis vorhanden!";

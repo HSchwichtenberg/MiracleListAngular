@@ -30,8 +30,8 @@ export class CommunicationService {
  }
 
  // Daten der Benutzeranmeldung
- public username: string; // = "test";
- public token: string; // = "test";
+ public username: string = "test";
+ public token: string = "test";
 
  GetPackage() : any
  {
@@ -70,8 +70,10 @@ getElectronEnvString(): string {
 
   getCordovaEnvString(): string {
    if (!this.isCordova()) return "n/a";
-   let env = (<any>window).device;
-   let cordova = (<any>window).cordova;
-   return (cordova.version + " auf " + env.platform + " " + env.version + " (" + env.manufacturer + " " + env.model + ")");
+   let cordova = window.cordova;
+   let device = window.device;
+   return (cordova.version + " auf " + device.platform + " " 
+   + device.version + " (" + device.manufacturer + " " 
+   + device.model + ")");
  }
 }

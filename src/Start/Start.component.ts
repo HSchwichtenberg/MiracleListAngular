@@ -5,11 +5,16 @@ import { MiracleListProxy } from "../Services/MiracleListProxy";
 import { MiracleListProxyV2 } from "../Services/MiracleListProxyV2";
 import { CommunicationService } from "../Services/CommunicationService";
 // für Modalfenster
-import { Modal } from "angular2-modal/plugins/bootstrap";
+import { ViewContainerRef } from '@angular/core';
+import { Overlay } from 'ngx-modialog';
+import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 // MomentJS
 import * as moment from "moment";
 import { get } from "https";
+
+// Übersetzung
+import {TranslateService} from '@ngx-translate/core';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
@@ -28,13 +33,42 @@ export class StartComponent implements OnInit {
     private titleService: Title,
     private zone: NgZone,
     private title: Title
+    ,private translate: TranslateService
   ) {
     console.log(
       "StartComponent:ctor",
       typeof electron,
       this.communicationService.getElectronEnv()
     );
+
+    translate.setTranslation('en', {
+     HELLO: 'hello {{value}}'
+ });
+
+ translate.setTranslation('de', {
+  HELLO: 'hallo {{value}}'
+});
+
+
+
+       // this language will be used as a fallback when a translation isn't found in the current language
+   translate.setDefaultLang('en');
+
+   // the lang to use, if the lang isn't available, it will use the current loader to get them
+  translate.use('en');
+
+  translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
+   console.log(res);
+   //=> 'hello world'
+});
+translate.use('de');
+translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
+ console.log(res);
+ //=> 'hello world'
+});
+
   }
+
 
   ngOnInit() {
     console.log("======= StartComponent:ngOnInit");
@@ -87,14 +121,17 @@ export class StartComponent implements OnInit {
 
   async export() {
     if (!(this.isElectron || this.isCordovaApp)) return;
+    // Daten für den Export vom Server einlesen
     let categorySet = await this.miracleListProxy
       .categorySet(this.communicationService.token)
       .toPromise();
-    console.log("Export", categorySet);
+    console.log("Starte Export", categorySet);
 
     if (this.isElectron) {
+     // ========= Export für Electron -> Nachricht an Main Process
       electron.ipcRenderer.send("export", categorySet);
     }
+<<<<<<< HEAD
     if (this.isCordovaApp) {
       let text : string = JSON.stringify(categorySet);
 
@@ -122,12 +159,71 @@ window.resolveLocalFileSystemURL(root,
         }
       );
 
+=======
+    if (this.isCordovaApp)
+    {  // ========= Export für Cordova mit Plug-In "File"
+    let inhalt : string = JSON.stringify(categorySet);
+    try {
+     const filename = "miraclelistexport.txt";
+     let path = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
+     if (window.device.platform === 'Android') path = cordova.file.dataDirectory;
+     window.resolveLocalFileSystemURL(path,
+         (dirEntry : DirectoryEntry) => {
+           dirEntry.getFile(filename, { create: true }, (fileEntry : FileEntry) => {
+            console.log("Speichern in Datei:", fileEntry);
+             fileEntry.createWriter((fileWriter : FileWriter) => {
+               fileWriter.seek(fileWriter.length);
+               let blob : Blob = new Blob([inhalt], { type: "text/plain" });
+               fileWriter.write(blob); // Text speichern
+               fileEntry.file( function (file: File) { // Metadaten lesen
+                const message = "Export gespeichert in Datei :" + fileEntry.nativeURL + " vom: " + (new Date(file.lastModifiedDate)) + " Größe: " + file.size + " im Ordner: " + dirEntry.nativeURL;
+                // alert(message); // wäre häßlich
+                navigator.notification.beep(2);
+                navigator.notification.alert(
+                 message,                // message
+                 null,                   // callback
+                 'Dateisystemexport',    // title
+                 'OK'                  // buttonName
+                );
+               });
+             }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
+           });  // end getFile
+         }); // end resolveLocalFileSystemURL
+>>>>>>> e96a58dc309d574bb2844002c508a782ee6b5732
      } catch (error ) {
-
       alert("Fehler beim Exportieren: " + error.name + ":"  +error.messsage)
      }
-    }
-  }
+    } // end isCordovaApp
+   } // end export()
+
+ReadExportFile()
+{
+ try {
+  let root = cordova.file.documentsDirectory; // das geht auf Windows, iOS u.a.
+  if (window.device.platform === 'Android') root = cordova.file.dataDirectory;
+
+  window.resolveLocalFileSystemURL(root,
+          (dir : DirectoryEntry) => {
+                  dir.getFile("miraclelistexport", { create: true }, (file : FileEntry) => {
+                file.file(function (f : File) {
+                let reader = new FileReader();
+
+                        reader.onloadend = function() {
+                            console.log("Successful file read: " + this.result);
+                           alert("Datei :" + file.nativeURL + " vom: " + (new Date(f.lastModifiedDate)) + " Größe: " + f.size + " im Ordner: " + dir.nativeURL + " Inhalt: " + this.result);
+                        };
+
+                        reader.readAsText(f);
+                       },(err: FileError) => { alert("Fehler beim Lesen: " + err.code); });
+
+              }, (err: FileError) => { alert("Fehler beim Exportieren: " + err.code); })
+            });
+
+       } catch (error ) {
+
+        alert("Fehler beim Importieren: " + error.name + ":"  +error.messsage)
+       }
+      }
 
   get isElectron(): boolean {
     try {
@@ -176,8 +272,14 @@ window.resolveLocalFileSystemURL(root,
 
   exit() {
     if (this.communicationService.isCordova) {
-      (<any>navigator).app.ex();
-    }
+      (<any>navigator).app.exitApp();
+    // navigator.app.exitApp(); // geht nur, wenn man die  "..MiracleListClient\node_modules\@types\cordova\index.d.ts"  erweitert um
+                              // interface Navigator {
+                              //     app: {
+                              //         exitApp: () => any;
+                              //     }
+                              // }
+     }
     // if (this.communicationService.isElectron) { app.quit(); }
   }
 
@@ -221,7 +323,8 @@ window.resolveLocalFileSystemURL(root,
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
-            </ul>
+                <li>0.6.4: Dateisystemexport in Cordova-App</li>
+                  </ul>
             <h5>Systeminfo:</h5>
             <ul>
                 <li>Angemelderter Benutzer: ${

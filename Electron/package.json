@@ -1,6 +1,6 @@
 {
     "name": "miraclelistelectron",
-    "version": "0.6.3-Beta2",
+    "version": "0.6.5-Beta1",
     "main": "main.js",
     "dependencies": {
         "electron-settings": "^3.1.4",
@@ -10,7 +10,8 @@
     "devDependencies": {
         "@types/node": "^6.0.64",
         "@types/username": "^1.0.28",
-        "electron": "1.7.9",
+        "electron": "1.7.11",
+        "electron-settings": "3.1.4",
         "electron-webpack": "1.11.0",
         "electron-webpack-ts": "^1.2.0",
         "electron-builder": "^19.42.1",

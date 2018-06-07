@@ -3,9 +3,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // Eigene Module
-import { TaskEditComponent } from "../TaskEdit/TaskEdit.Component";
-import { TaskViewComponent } from "../TaskView/TaskView.Component";
-import { LoginComponent } from "../Login/Login.Component";
+import { TaskEditComponent } from "../TaskEdit/TaskEdit.component";
+import { TaskViewComponent } from "../TaskView/TaskView.component";
+import { LoginComponent } from "../Login/Login.component";
 import { AppComponent } from "../app/app.component";
 // import { PlaygroundComponent } from './../playground/playground.component';
 // import { TaskTableComponent } from '../TaskTable/TaskTable.component';
