@@ -64,7 +64,7 @@ export class StartComponent implements OnInit {
 translate.use('de');
 translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
  console.log(res);
- //=> 'hello world'
+ // => 'hello world'
 });
 
   }
