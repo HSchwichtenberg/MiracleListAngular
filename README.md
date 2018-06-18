@@ -37,7 +37,7 @@
 --------------------------------------------------------
 # Package Restore
 
-Die notwendigen NPM-Module (ca. 500 MB) sind nicht enthalten. Sie müssen diese mit `npm install` wiederherstellen!
+Die notwendigen NPM-Module (ca. 800 MB) sind nicht enthalten. Sie müssen diese mit `npm install` wiederherstellen!
 
 Dieser Befehl muss 3x ausgeführt werden
 - im Hauptverzeichnis
