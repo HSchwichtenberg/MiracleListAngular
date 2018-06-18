@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_BASE_URL: 'https://miraclelistbackend-produktion.azurewebsites.net',
+  API_BASE_URL: 'https://miraclelistbackend.azurewebsites.net',
 };

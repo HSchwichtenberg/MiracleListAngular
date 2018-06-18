@@ -54,6 +54,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Mehrsprachigkeit
 import {TranslateModule} from '@ngx-translate/core';
 
+// Service Worker
+import { ServiceWorkerModule } from '@angular/service-worker'
+
 // // Sonstiges
 // import { PlaygroundComponent } from './playground/playground.component';
 
@@ -118,8 +121,9 @@ imports: [ // Angular-Module
   BrowserModule, FormsModule,
   ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
   ,HttpClientModule // ab 0.6.5 für Angular 5
-  ,TranslateModule.forRoot() // ab 0.6.6 für Übersetzung
-  // GridModule
+  ,TranslateModule.forRoot(), // ab 0.6.6 für Übersetzung
+  // GridModule,
+  environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
 ],
 providers: [ // Services / Dependency Injection
  AppLoadService,
