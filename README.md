@@ -82,7 +82,7 @@ Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
 
 # Angular-CLI
 
-Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.
+Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLI v1.7.0 aktualisiert.
 
 Es folgt die Original-Readme-Datei von Angular-CLI
 
