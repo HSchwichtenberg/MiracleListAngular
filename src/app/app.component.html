@@ -12,6 +12,7 @@
                 <span class="badge badge-info" title="{{dueTaskSetCount}} fällige Aufgaben">{{dueTaskSetCount}}</span>
             </li>
 
+            <!-- Liste der Kategorien des Benutzers -->
             <li *ngFor="let c of categorySet" (click)="selectCategory(c)" title="Kategorie #{{c.categoryID }}, erzeugt am {{ c.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="category && c.categoryID == category?.categoryID ? '#E0EEFA' : 'white'"
                 [contextMenu]="categoryMenu" [contextMenuSubject]="c">
                 <span class="badge badge-info" title="{{c.taskSet.length != 1 ?c.taskSet.length + ' Aufgaben' : '1 Aufgabe'}}">{{c.taskSet.length}}</span>{{ c.name }}</li>
@@ -19,7 +20,7 @@
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="search...">
         </ol>
     </div>
-    
+
     <!-- ### Spalte 2: Aufgabenliste-->
     <div *ngIf="taskSet" class="WLPanel" [ngClass]="{'col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6': task}" style="padding-left:5px;padding-right: 2px;">
         <!-- ---------- Überschrift Spalte 2-->

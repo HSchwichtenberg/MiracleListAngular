@@ -2,7 +2,7 @@
 
 const w = <any>window;
 if (!w.$) {
-    console.log("jQuery fix...!")
+  //  console.log("jQuery fix...!")
     if (typeof module === 'object') {
         w.module = module;
         module = undefined;
@@ -17,4 +17,3 @@ if (!w.$) {
     }
     console.log("jQuery fix END")
 }
-

@@ -148,10 +148,8 @@ function electronMain() {
  // }
   // let savepath = dialog.showSaveDialog(options);
 
-
  // =================== Globaler Shortcut
  // TODO: https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
-
 
  // Emitted when the window is closed.
  win.on('closed', () => {
@@ -160,7 +158,6 @@ function electronMain() {
   // when you should delete the corresponding element.
   win = null;
  });
-
 
   // Ladeeffekte unsichtbar machen, indem wir erst jetzt das Fenster anzeigen
   win.on('ready-to-show', () =>
