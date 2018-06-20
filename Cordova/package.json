@@ -1,5 +1,5 @@
 {
-    "name": "io.cordova.miraclelist",
+    "name": "net.miraclelist",
     "version": "0.7.0.0-Beta1",
     "displayName": "MiracleListCordova",
     "cordova": {

@@ -66,9 +66,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
  console.log(res);
  // => 'hello world'
 });
-
   }
-
 
   ngOnInit() {
     console.log("======= StartComponent:ngOnInit");
@@ -99,7 +97,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
       console.log("!!!! Registriere mehrere electron-Event-Handler...");
       electron.ipcRenderer.on("about", (event: string, data: any) => {
         this.zone.run(() => {
-          // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe https://github.com/angular/zone.js/issues/537
+          // Ohne zone.run() geht Angular-Change-Tracking nicht mehr korrekt! siehe https://github.com/angular/zone.js/issues/537
           console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
           this.about();
         });
@@ -119,6 +117,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
     }
   }
 
+  // ============= Electron-IPC-Events senden
   async export() {
    console.log("EXPORT", this.isElectron, this.isCordovaApp);
      if (!(this.isElectron || this.isCordovaApp)) return;
