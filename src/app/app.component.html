@@ -4,7 +4,7 @@
         <!-- ---------- Überschrift Spalte 1-->
         <h4>{{categorySet.length+1}} <span>Categories</span></h4>
         <!-- ---------- neue Kategorie eingeben-->
-        <input type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="new Category...">
+        <input id="NewCategory" type="text" class="form-control" name="newCategoryName" [(ngModel)]="newCategoryName" (change)="createCategory()" placeholder="new Category...">
 
         <!-- ---------- Kategorieliste ausgeben-->
         <ol class="list-group scroll" [style.height]="this.listHeight">
@@ -19,14 +19,15 @@
             <input type="text" class="form-control" name="search" [(ngModel)]="searchText" [style.background-color]="displayMode == 2 ? '#E0EEFA' : 'white'" (change)="search()" placeholder="search...">
         </ol>
     </div>
+    
     <!-- ### Spalte 2: Aufgabenliste-->
     <div *ngIf="taskSet" class="WLPanel" [ngClass]="{'col-xs-8 col-sm-8 col-md-9 col-lg-10': !task, 'hidden-xs col-sm-6 col-md-5 col-lg-6': task}" style="padding-left:5px;padding-right: 2px;">
         <!-- ---------- Überschrift Spalte 2-->
-        <h4>{{taskSet.length}} <span>Tasks in</span> {{category.name}}</h4>
+        <h4 id="TaskHeadline">{{taskSet.length}} <span>Tasks in</span> {{category.name}}</h4>
         <!-- ---------- neue Aufgaben eingeben-->
-        <input type="text" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="new Task...">
+        <input type="text" id="NewTask" class="form-control" name="newTaskTitle" [(ngModel)]="newTaskTitle" (change)="createTask()" placeholder="new Task...">
         <!-- ---------- Aufgabenliste ausgeben-->
-        <ol class="list-group scroll" dnd-sortable-container [sortableData]="taskSet" [style.height]="this.listHeight">
+        <ol id="TaskSet" class="list-group scroll" dnd-sortable-container [sortableData]="taskSet" [style.height]="this.listHeight">
             <!-- ---------- eine Aufgabe im Block ausgeben mit Kontextmenü und Sortierbarkeit -->
             <li *ngFor="let t of this.taskSet let i = index" dnd-sortable [sortableIndex]="i" (drop)="reorder(t, i)" (click)="showTaskDetail(t)" title="Aufgabe #{{t.taskID }}, erzeugt am {{ t.created | amDateFormat: 'LLL'}}" class="list-group-item" [style.background-color]="t.taskID == task?.taskID ? '#E0EEFA' : 'white'"
                 [contextMenu]="taskMenu" [contextMenuSubject]="t">

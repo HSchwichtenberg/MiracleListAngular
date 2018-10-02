@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
+const electron_settings_1 = require("electron-settings");
 const username = require("username");
 const fs = require("fs");
 const moment = require("moment");
@@ -14,17 +15,20 @@ let win;
 let tray;
 function electronMain() {
     writeLog("!!! Electron/Main:createWindow");
-    const settings = require('electron-settings');
-    let erster = settings.get('miraclelist.ersteVerwendung');
-    if (!erster)
-        erster = new Date();
-    settings.set('miraclelist.ersteVerwendung', erster);
-    let anzahl = settings.get('miraclelist.anzahlVerwendungen');
-    if (!anzahl)
-        anzahl = 1;
-    else
-        anzahl++;
-    settings.set('miraclelist.anzahlVerwendungen', anzahl);
+    let erster;
+    let anzahl;
+    if (electron_settings_1.settings) {
+        erster = electron_settings_1.settings.get('miraclelist.ersteVerwendung');
+        if (!erster)
+            erster = new Date();
+        electron_settings_1.settings.set('miraclelist.ersteVerwendung', erster);
+        anzahl = electron_settings_1.settings.get('miraclelist.anzahlVerwendungen');
+        if (!anzahl)
+            anzahl = 1;
+        else
+            anzahl++;
+        electron_settings_1.settings.set('miraclelist.anzahlVerwendungen', anzahl);
+    }
     const { width, height } = electron_1.screen.getPrimaryDisplay().workAreaSize;
     const env = {
         Zeit: new Date(),
@@ -103,17 +107,17 @@ function electronMain() {
     writeLog("Electron/Main:Event Handler erstellen...");
     electron_1.ipcMain.on('export', (event, arg) => {
         console.log("!!!export-event", event, arg);
-        writeLog("export-event!");
+        writeLog("Export Event!");
         let file = path.join(electron_1.app.getPath("documents"), 'miraclelist_export.json');
         let text = JSON.stringify(arg);
-        console.log("Export-Datei", file);
-        writeLog("export-Datei: " + file);
+        writeLog("Export to file: " + file);
         fs.appendFile(file, text, (err) => {
             if (err)
                 throw err;
         });
         console.log("Export: OK!", file);
-        event.sender.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+        win.webContents.send('export-reply', 'Aufgaben exportiert in Datei ' + file);
+        console.log("Message send!");
     });
     win.on('closed', () => {
         win = null;
@@ -154,7 +158,10 @@ process.on('uncaughtException', function (err) {
     }
 });
 function writeLog(logtext, obj) {
-    console.log(logtext, obj);
+    if (obj)
+        console.log(logtext, obj);
+    else
+        console.log(logtext);
     if (!logfile)
         return;
     let logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";

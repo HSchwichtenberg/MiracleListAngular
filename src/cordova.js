@@ -1,1 +1,1 @@
-// nur ein Platzhalter für den Fall, dass für Cordova kompiliert wird!
+window.isCordovaApp = false;

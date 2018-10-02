@@ -16,8 +16,12 @@ import 'core-js/es6/set';
 import 'core-js/es6/reflect';
 
 import 'core-js/es7/reflect';
-import 'zone.js/dist/zone';
+
 
 // Animations
 // Needed for: All but Chrome and Firefox, Not supported in IE9
 import 'web-animations-js';
+
+// https://github.com/angular/angular/issues/15586
+// https://github.com/angular/angular/issues/15586#issuecomment-292339628
+import 'zone.js/dist/zone';

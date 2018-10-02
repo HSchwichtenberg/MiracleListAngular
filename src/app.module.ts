@@ -1,15 +1,15 @@
 import { StatusComponent } from './Status/Status.component';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NgZone } from '@angular/core';
+import { NgModule, NgZone, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http'; // ab 0.6.5 für angular 5
 import { AppComponent } from './app/app.component';
 
 // Proxy
-import { MiracleListProxy } from './Services/MiracleListProxy';
-import { MiracleListProxyV2 } from './Services/MiracleListProxyV2';
+import { MiracleListProxy, API_BASE_URL  } from './Services/MiracleListProxy';
+import { MiracleListProxyV2, API_BASE_URL as API_BASE_URLv2 } from './Services/MiracleListProxyV2';
 // MomentJS
 import * as moment from 'moment';
 import 'moment/locale/en-gb';
@@ -20,7 +20,7 @@ import {MomentModule} from 'angular2-moment/moment.module';
 import {LineBreakPipe} from "./Util/LineBreakPipe"
 import {ImportancePipe} from "./Util/ImportancePipe"
 // Kontextmenü (Angular-Modul)
-//alt: import { ContextMenuModule } from './Util/angular2-contextmenu/angular2-contextmenu';
+// alt: import { ContextMenuModule } from './Util/angular2-contextmenu/angular2-contextmenu';
 // neu: ab 0.6.5 für angular 5 (https://github.com/isaacplmann/ngx-contextmenu)
 import { ContextMenuModule } from 'ngx-contextmenu'
 
@@ -28,11 +28,11 @@ import { ContextMenuModule } from 'ngx-contextmenu'
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 // eigene Komponenten
-import { TaskEditComponent } from './TaskEdit/TaskEdit.Component'
-import { TaskViewComponent } from './TaskView/TaskView.Component'
-import { SubTaskListComponent } from './SubTaskList/SubTaskList.Component'
-import { LoginComponent } from './Login/Login.Component'
-import { StartComponent } from './Start/Start.Component'
+import { TaskEditComponent } from './TaskEdit/TaskEdit.component'
+import { TaskViewComponent } from './TaskView/TaskView.component'
+import { SubTaskListComponent } from './SubTaskList/SubTaskList.component'
+import { LoginComponent } from './Login/Login.component'
+import { StartComponent } from './Start/Start.component'
 
 // Routing
 import { Router } from '@angular/router'
@@ -45,7 +45,7 @@ import { CommunicationService } from './Services/CommunicationService'
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule, Modal, bootstrap4Mode } from 'ngx-modialog/plugins/bootstrap';
 
-//Drag&Drop
+// Drag&Drop
 import {DndModule} from 'ng2-dnd';
 
 // Animationen (ab Angular 4.0)
@@ -55,7 +55,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 
 // // Sonstiges
-//import { PlaygroundComponent } from './playground/playground.component';
+// import { PlaygroundComponent } from './playground/playground.component';
 
 // // KendoUI Grid
 // import { GridModule } from '@progress/kendo-angular-grid';
@@ -78,7 +78,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import { LOCALE_ID } from '@angular/core';
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpClientInterceptor } from './Services/HttpClientInterceptor';
-import { HttpInterceptor } from "Services/HttpInterceptor";
+import { HttpInterceptor } from "./Services/HttpInterceptor";
+import { environment } from './environments/environment';
+import { AppLoadService } from "./Services/AppLoadService";
 
 // Entfernt ab 0.6.5 für Angular 5
 // export function HttpInterceptorFactory(communicationService : CommunicationService, xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router)
@@ -87,50 +89,75 @@ import { HttpInterceptor } from "Services/HttpInterceptor";
 // }
 
 export function CommunicationServiceFactory(router: Router, zone: NgZone)
-{ return new CommunicationService(router, zone); }
+{
+return new CommunicationService(router, zone);
+}
 
+// Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
+export function init_app(appLoadService: AppLoadService) {
+ return () => appLoadService.initializeApp();
+}
+// Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
+export function get_settings(appLoadService: AppLoadService) {
+ return () => appLoadService.getSettings();
+}
+// holte URL aus statischem Mitglieder, dass von AppLoadService gesetzt wurde
+export  function getURL()
+{
+ console.log("getURL: " + AppLoadService.URL);
+ return AppLoadService.URL;
+}
 
 @NgModule({
-  declarations: [ // Komponenten und Pipes
-    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent
-   // PlaygroundComponent
-    //, TaskTableComponent
-  ],
-  imports: [ // Angular-Module
-    BrowserModule, FormsModule,
-    ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
-    ,HttpClientModule // ab 0.6.5 für Angular 5
-    ,TranslateModule.forRoot() // ab 0.6.6 für Übersetzung
-    //GridModule
-  ],
-  providers: [ // Services / Dependency Injection
-   MiracleListProxy, MiracleListProxyV2,
-   HttpClientModule,
-   { provide: LOCALE_ID, useValue: 'de-DE' },
-   { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpClientInterceptor,
-      multi: true
-    },
-   {
-    provide: CommunicationService,
-    useFactory: CommunicationServiceFactory,
-    deps: [Router, NgZone]
-   },
-    // { bis 0.6.5 für Angular < 5
-    //  provide: Http,
-    //  useFactory: HttpInterceptorFactory,
-    //  deps: [CommunicationService, XHRBackend, RequestOptions]
-    // },
-    //i18n
-    { provide: LOCALE_ID, useValue: 'en' }
-  ],
+ declarations: [ // Komponenten und Pipes
+  AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent
+ // PlaygroundComponent
+  // , TaskTableComponent
+],
+imports: [ // Angular-Module
+  BrowserModule, FormsModule,
+  ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
+  ,HttpClientModule // ab 0.6.5 für Angular 5
+  ,TranslateModule.forRoot() // ab 0.6.6 für Übersetzung
+  // GridModule
+],
+providers: [ // Services / Dependency Injection
+ AppLoadService,
+// { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }, // für das Laden der Konfigurationsdatei
+// { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
+{ provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+{ provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+//   { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
+//  { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
+ MiracleListProxy, MiracleListProxyV2, HttpClientModule,
+ { provide: LOCALE_ID, useValue: 'de-DE' },
+ { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpClientInterceptor,
+    multi: true
+  },
+ {
+  provide: CommunicationService,
+  useFactory: CommunicationServiceFactory,
+  deps: [Router, NgZone, HttpClient]
+ },
+  // { bis 0.6.5 für Angular < 5
+  //  provide: Http,
+  //  useFactory: HttpInterceptorFactory,
+  //  deps: [CommunicationService, XHRBackend, RequestOptions]
+  // },
+  // i18n
+  { provide: LOCALE_ID, useValue: 'en' }
+],
+exports: [LoginComponent],
 
-   bootstrap: [StartComponent] // Startkomponente
+ bootstrap: [StartComponent] // Startkomponente
 
 
 })
 export class AppModule {
+
+public static baseUrl = "";
 
 /**
  *
@@ -143,5 +170,4 @@ constructor() {
  moment.locale("de-de");
 
 }
-
 }

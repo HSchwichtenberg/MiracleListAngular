@@ -1,6 +1,6 @@
 {
     "name": "io.cordova.miraclelist",
-    "version": "0.6.6-Beta2",
+    "version": "0.6.5-Beta1",
     "displayName": "MiracleListCordova",
     "cordova": {
         "platforms": [
@@ -21,7 +21,7 @@
         "cordova-browser": "^5.0.3",
         "cordova-common": "2.2.1",
         "cordova-ios": "^4.4.0",
-        "cordova-plugin-device": "^1.1.7",
+        "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-dialogs": "^1.3.4",
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-whitelist": "1",

@@ -64,7 +64,7 @@ export class StartComponent implements OnInit {
 translate.use('de');
 translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
  console.log(res);
- //=> 'hello world'
+ // => 'hello world'
 });
 
   }
@@ -120,7 +120,8 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
   }
 
   async export() {
-    if (!(this.isElectron || this.isCordovaApp)) return;
+   console.log("EXPORT", this.isElectron, this.isCordovaApp);
+     if (!(this.isElectron || this.isCordovaApp)) return;
     // Daten für den Export vom Server einlesen
     let categorySet = await this.miracleListProxy
       .categorySet(this.communicationService.token)
@@ -129,10 +130,13 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
 
     if (this.isElectron) {
      // ========= Export für Electron -> Nachricht an Main Process
+     console.log("Send EXPORT message to Electron main", categorySet);
       electron.ipcRenderer.send("export", categorySet);
+      console.log("EXPORT message to Electron main sent", categorySet);
     }
     if (this.isCordovaApp)
     {  // ========= Export für Cordova mit Plug-In "File"
+    console.log("Cordova EXPORT");
     let inhalt : string = JSON.stringify(categorySet);
     try {
      const filename = "miraclelistexport.txt";

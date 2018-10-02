@@ -17,6 +17,11 @@ export class HttpClientInterceptor implements HttpInterceptor {
   constructor(public communicationService: CommunicationService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
+   // console.log("HTTP from ", request.url);
+   request = request.clone({
+    // url: request.url.replace("miraclelistbackend",this.communicationService.GetURL())
+    });
+    
    if (this.communicationService.token)
     {
      console.log("********* HttpInterceptor: Token injiziert: " + this.communicationService.token);

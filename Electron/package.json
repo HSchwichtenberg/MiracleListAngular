@@ -1,22 +1,23 @@
 {
     "name": "miraclelistelectron",
-    "version": "0.6.5-Beta1",
+    "version": "0.6.6-Beta2",
     "main": "main.js",
     "dependencies": {
-        "electron-settings": "^3.1.4",
-        "moment": "^2.17.1",
+        "moment": "^2.22.2",
         "username": "^2.3.0"
     },
     "devDependencies": {
         "@types/node": "^6.0.64",
         "@types/username": "^1.0.28",
-        "electron": "1.7.11",
+        "electron": "1.8.7",
+        "electron-settings": "3.1.4",
         "electron-webpack": "1.11.0",
         "electron-webpack-ts": "^1.2.0",
         "electron-builder": "^19.42.1",
         "electron-winstaller": "^2.6.3"
     },
     "scripts": {
+        "restore": "npm install --no-bin-links",
         "///": "---------------------------- Skripte für Electron zum Entwickeln w = laufen auf windows m = laufen auf mac",
         "w-copy-electron": "xcopy src\\* ..\\temp_electron /s /e /y && copy  package.json ..\\temp_electron",
         "m-copy-electron": "\"node_modules/.bin/copy\" \"/electron/*\" \"temp_electron\"",

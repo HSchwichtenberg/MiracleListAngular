@@ -1,13 +1,14 @@
 // HttpInterceptor für Http zum Injizieren des Authentifizierungstokens durch Ableiten von der Http-Klasse
 // für die MiracleListProxy-Klasse, die NSwagGenerator erzeugt
 // Diese Klasse HttpInterceptor wird dann in app.module.ts per DI anstelle von Http verwendet
-// läuft ab Angular 2.0 
+// läuft ab Angular 2.0
 // https://scotch.io/@kashyapmukkamala/using-http-interceptor-with-angular2
 
 import { CommunicationService } from './CommunicationService';
 import { Injectable } from "@angular/core";
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Rx";
+import { createWiresService } from 'selenium-webdriver/firefox';
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -43,6 +44,8 @@ export class HttpInterceptor extends Http {
 
  // keine Funktion aktuell. Könnte aber die Url verändern :-)
  private updateUrl(req: string) {
+ // console.log("HTTP from ", req);
+  // req = req.replace("miraclelistbackend",this.communicationService.GetURL())
   return req;
  }
 
