@@ -128,11 +128,11 @@ export  function getURL()
    AppLoadService,
   // { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }, // für das Laden der Konfigurationsdatei
   { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
-  { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-  { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+  // { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
+  // { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
 
- //   { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
-  //  { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
+  { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
+  { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
    MiracleListProxy, MiracleListProxyV2, HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
