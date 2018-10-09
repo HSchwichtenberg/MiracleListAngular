@@ -2,7 +2,7 @@
 <img align="right" src="/src/assets/MiracleListLogo.jpg">
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.6.5-Beta4 vom 09.10.2018</div>
+            <div>Version: 0.6.6-Beta1 vom 09.10.2018</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -30,6 +30,7 @@
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
                 <li>0.6.4: Dateisystemexport in Cordova-App</li>
                 <li>0.6.5: Umstellung auf Angular 5.2.2</li>
+                 <li>0.6.6: Anzeige Release Date</li>
 </ul>
 
 --------------------------------------------------------
@@ -78,7 +79,7 @@ Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
 
 # Angular-CLI
 
-Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.3.0 aktualisiert.
+Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.5.0 aktualisiert.
 
 Es folgt die Original-Readme-Datei von Angular-CLI
 
@@ -111,3 +112,7 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+##   Produktionsbuild und Hosting
+ng build --prod
+http-server ./dist
