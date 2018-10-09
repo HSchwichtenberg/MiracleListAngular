@@ -1,3 +1,4 @@
 {
-    "API_BASE_URL": "https://miraclelistbackend.azurewebsites.net"
+    "API_BASE_URL": "https://miraclelistbackend.azurewebsites.net",
+    "RelaseDateTime:": "none"
 }
