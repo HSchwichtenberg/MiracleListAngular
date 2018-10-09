@@ -100,13 +100,20 @@ export function init_app(appLoadService: AppLoadService) {
 }
 // Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
 export function get_settings(appLoadService: AppLoadService) {
- return () => appLoadService.getSettings();
+ return (async () =>  await appLoadService.getSettings() );
 }
 // holte URL aus statischem Mitglieder, dass von AppLoadService gesetzt wurde
 export  function getURL()
 {
- console.log("getURL: " + AppLoadService.URL);
- return AppLoadService.URL;
+ console.log("getURL...");
+ if (AppLoadService.Settings)
+ {
+ const url : string = AppLoadService.Settings["API_BASE_URL"];
+ console.log("getURL: " + url);
+ return url;
+ }
+ else
+ { return ""; }
 }
 
 @NgModule({

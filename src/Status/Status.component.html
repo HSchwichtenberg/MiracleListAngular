@@ -1,4 +1,4 @@
-<div style="margin-top: 3px;" i18n>Sample Application v{{communicationService.GetPackage().version}} / {{communicationService.GetPackage().date}}</div>
+<div style="margin-top: 3px;" i18n>Sample Application v{{communicationService.GetPackage().version}} / {{communicationService.GetPackage().date}} {{released}}</div>
 <div i18n>Author: Dr. Holger Schwichtenberg, <a href="http://www.it-visions.de">www.IT-Visions.de</a></div>
 <div> <span *ngIf="isLoggedIn" id="LoggedInUser" i18n>Current User: {{this.communicationService.username}}</span> </div>
 

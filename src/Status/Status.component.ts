@@ -4,6 +4,7 @@ import { MiracleListProxy } from './../Services/MiracleListProxy';
 import { CommunicationService } from './../Services/CommunicationService';
 import { Component, OnInit, ViewContainerRef, HostListener, Inject } from '@angular/core';
 import * as moment from "moment";
+import { AppLoadService } from 'Services/AppLoadService';
 
 @Component({
 	selector: 'Status',
@@ -17,11 +18,18 @@ export class StatusComponent implements OnInit {
  serverStatus: string = "...lädt...";
  currentTime: string;
  serverStatusCount: number = 0;
+ public released = "";
 
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  @Inject(API_BASE_URL) public baseUrl) {
   this.serverStatus = "Verbindungsaufbau zu " + this.baseUrl + "...";
   this.calcSizeInfo(window.screen.width);
   this.getServerStatus();
+console.log("Released", AppLoadService.Settings, AppLoadService.Settings["ReleaseDate"]);
+  if (AppLoadService.Settings["ReleaseDate"])
+  {
+  this.released = " / Released: "+ AppLoadService.Settings["ReleaseDate"];
+  }
+
  }
  ngOnInit() { }
 

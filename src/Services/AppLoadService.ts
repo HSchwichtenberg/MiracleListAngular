@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class AppLoadService {
 
- public static URL : string = "";
+ public static Settings :any;
   constructor(private httpClient: HttpClient) { }
 
   initializeApp(): Promise<any> {
@@ -23,20 +23,18 @@ export class AppLoadService {
   }
 
   getSettings(): Promise<any> {
-    console.log(`getSettings:: before http.get call`);
-    var name = "API_BASE_URL";
-    AppLoadService.URL =environment[name];
-    console.log(`GetConfig: ${name} aus Environment=${AppLoadService.URL}`);
-    const promise = this.httpClient.get('assets/URL.json')
+   const filename = 'assets/appsettings.json';
+
+    console.log(`getSettings: loading ${filename}...`);
+
+   // AppLoadService.URL =environment[name];
+   // console.log(`GetConfig: ${name} aus Environment=${AppLoadService.URL}`);
+    const promise = this.httpClient.get('assets/appsettings.json')
       .toPromise()
       .then(settings => {
-        console.log(`Settings from API: `, settings);
-
-        AppLoadService.URL = settings[name];
-        console.log(`GetConfig: ${name} aus Config=${AppLoadService.URL}`);
-
-        console.log(`APP_SETTINGS: `, settings);
-
+       console.log(`getSettings: loaded`, settings);
+       // copy to static member!
+        AppLoadService.Settings = JSON.parse(JSON.stringify(settings));
         return settings;
       }).catch(function(e) {  return null });
       // .finally(
