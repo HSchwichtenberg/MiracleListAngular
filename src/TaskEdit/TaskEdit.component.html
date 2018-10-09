@@ -36,9 +36,12 @@
                 <span class="col-xs-6" style="padding-left: 2px; ">
                 <div class="form-group">
                     <label for="taskDue" i18n>Due</label>
-                    <datetime id="taskDue" name="taskDue " [(ngModel)]="task.due"
-                    [datepicker]="{autoclose: true, format: 'dd.MM.yyyy'}" [timepicker]="false" >
-                    </datetime>
+                    <!-- <datetime id="taskDue" name="taskDue " [(ngModel)]="task.due"
+                    [datepicker]="{autoclose: true, format: 'dd.MM.yyyy'}" [timepicker]="false" >  </datetime>-->
+
+                    <input name="taskDue" [(ngModel)]="task.due" [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1"  placeholder="dd.MM.yyyy">
+<owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+
                 </div>
             </span>
             </div>

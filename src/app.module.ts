@@ -12,7 +12,7 @@ import { MiracleListProxy, API_BASE_URL  } from './Services/MiracleListProxy';
 import { MiracleListProxyV2, API_BASE_URL as API_BASE_URLv2 } from './Services/MiracleListProxyV2';
 // MomentJS
 import * as moment from 'moment';
-import 'moment/locale/en-gb';
+import 'moment/locale/de'; //en-gb
 
 import {MomentModule} from 'angular2-moment/moment.module';
 
@@ -24,8 +24,9 @@ import {ImportancePipe} from "./Util/ImportancePipe"
 // neu: ab 0.6.5 für angular 5 (https://github.com/isaacplmann/ngx-contextmenu)
 import { ContextMenuModule } from 'ngx-contextmenu'
 
-// Datetime-Direktive
-import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+// https://www.npmjs.com/package/ng-pick-datetime
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 
 // eigene Komponenten
 import { TaskEditComponent } from './TaskEdit/TaskEdit.component'
@@ -45,7 +46,7 @@ import { CommunicationService } from './Services/CommunicationService'
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule, Modal, bootstrap4Mode } from 'ngx-modialog/plugins/bootstrap';
 
-//Drag&Drop
+// Drag&Drop
 import {DndModule} from 'ng2-dnd';
 
 // Animationen (ab Angular 4.0)
@@ -55,7 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 
 // // Sonstiges
-//import { PlaygroundComponent } from './playground/playground.component';
+// import { PlaygroundComponent } from './playground/playground.component';
 
 // // KendoUI Grid
 // import { GridModule } from '@progress/kendo-angular-grid';
@@ -89,8 +90,8 @@ import { AppLoadService } from 'Services/AppLoadService';
 // }
 
 export function CommunicationServiceFactory(router: Router, zone: NgZone)
-{ 
-return new CommunicationService(router, zone); 
+{
+return new CommunicationService(router, zone);
 }
 
 // Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
@@ -110,24 +111,26 @@ export  function getURL()
 
 @NgModule({
   declarations: [ // Komponenten und Pipes
-    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent
+    AppComponent, ImportancePipe, LineBreakPipe, TaskEditComponent, TaskViewComponent, SubTaskListComponent, LoginComponent, StartComponent, StatusComponent,
    // PlaygroundComponent
     //, TaskTableComponent
   ],
   imports: [ // Angular-Module
     BrowserModule, FormsModule,
-    ContextMenuModule.forRoot(), MomentModule, NKDatetimeModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot()
-    ,HttpClientModule // ab 0.6.5 für Angular 5
-    ,TranslateModule.forRoot() // ab 0.6.6 für Übersetzung
+    ContextMenuModule.forRoot(), MomentModule, RoutingModule, ModalModule.forRoot(), BootstrapModalModule, BrowserAnimationsModule,     DndModule.forRoot(),
+    HttpClientModule, // ab 0.6.5 für Angular 5
+    TranslateModule.forRoot(), // ab 0.6.6 für Übersetzung
     //GridModule
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [ // Services / Dependency Injection
    AppLoadService,
   // { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }, // für das Laden der Konfigurationsdatei
-  // { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
+  { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
   { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
   { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-    
+
  //   { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
   //  { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
    MiracleListProxy, MiracleListProxyV2, HttpClientModule,
@@ -148,8 +151,10 @@ export  function getURL()
     //  deps: [CommunicationService, XHRBackend, RequestOptions]
     // },
     //i18n
-    { provide: LOCALE_ID, useValue: 'en' }
+    { provide: LOCALE_ID, useValue: 'de' }, // en ,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}, // https://danielykpan.github.io/date-time-picker/
   ],
+
   exports: [LoginComponent],
 
    bootstrap: [StartComponent] // Startkomponente

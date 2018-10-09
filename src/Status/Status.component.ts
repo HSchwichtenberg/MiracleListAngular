@@ -19,7 +19,7 @@ export class StatusComponent implements OnInit {
  serverStatusCount: number = 0;
 
  constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  @Inject(API_BASE_URL) public baseUrl) {
-
+  this.serverStatus = "Verbindungsaufbau zu " + this.baseUrl + "...";
   this.calcSizeInfo(window.screen.width);
   this.getServerStatus();
  }

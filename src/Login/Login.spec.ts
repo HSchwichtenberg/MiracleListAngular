@@ -50,7 +50,7 @@ describe('LoginComponent Test', () => {
   { path: '', component: LoginComponent },
   {
    path: 'app', component: AppComponent
-  
+
   }];
 
  let comp: LoginComponent;
@@ -121,7 +121,7 @@ describe('LoginComponent Test', () => {
   comp.password = "test";
   comp.login();
   fixture.detectChanges();
-  content("errorMsg", "OK");
+  content("errorMsg", "");
   tick();
   location = TestBed.get(Location);
   expect(location.path()).toBe('/app');

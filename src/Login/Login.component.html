@@ -27,8 +27,9 @@
                 </div>
             </div>
 
-            <span id="errorMsg" class="text-danger">{{errorMsg}}</span>
+
             <button (click)="login()" [disabled]="!loginForm.form.valid" class="btn btn-primary" type="submit" id="Anmelden" name="Anmelden">Anmelden</button>
+            <span id="errorMsg" class="text-danger">{{errorMsg}}</span>
         </form>
 
 
