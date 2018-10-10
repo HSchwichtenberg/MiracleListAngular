@@ -15,7 +15,7 @@
             <h5>Eingesetzte Techniken:</h5>
             <ul>
                 <li>Backend: .NET Core, C#, ASP.NET Core WebAPI, Entity Framework Core, SQL Azure, Azure Web App, Swagger, Application Insights</li>
-                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, ngx-contextmenu, ngx-modal, ngx-translate</li>
+                <li>Frontend: HTML, CSS, TypeScript, Angular, Bootstrap, MomentJS, angular2-moment, ngx-contextmenu, ngx-modialog, ngx-translate, ng-pick-datetime, ng2-dnd</li>
             </ul></h5>
              <h5>Versionsgeschichte:</h5>
             <ul>
