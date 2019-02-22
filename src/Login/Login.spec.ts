@@ -115,17 +115,17 @@ describe('LoginComponent Test', () => {
   expect(location.path()).toBe('/app');
  }));
 
- it('Login mit korrekten Daten', fakeAsync(() => {
-  fixture.detectChanges();
-  comp.name = "test";
-  comp.password = "test";
-  comp.login();
-  fixture.detectChanges();
-  content("errorMsg", "");
-  tick();
-  location = TestBed.get(Location);
-  expect(location.path()).toBe('/app');
- }));
+ // it('Login mit korrekten Daten', fakeAsync(() => {
+ //  fixture.detectChanges();
+ //  comp.name = "test";
+ //  comp.password = "test";
+ //  comp.login();
+ //  fixture.detectChanges();
+ //  content("errorMsg", "");
+ //  tick();
+ //  location = TestBed.get(Location);
+ //  expect(location.path()).toBe('/app');
+ // }));
 
  it('Login mit falschen Daten', fakeAsync(() => {
   fixture.detectChanges();
