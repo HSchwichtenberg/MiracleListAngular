@@ -293,8 +293,11 @@ ReadExportFile()
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
-                <li>0.6.4: Dateisystemexport in Cordova-App</li>
-                  </ul>
+
+                  <li>0.6.4: Dateisystemexport in Cordova-App</li>
+                  <li>0.6.5: Umstellung auf Angular 5.2.2</li>
+                   <li>0.6.6: Anzeige Release Date</li>
+                   <li>0.6.7: Update auf Electron 6.0.7</li></ul>
             <h5>Systeminfo:</h5>
             <ul>
                 <li>Angemelderter Benutzer: ${
@@ -309,8 +312,8 @@ ReadExportFile()
                      <li>Bildschirmauflösung: ${window.innerWidth}x${
           window.innerHeight
         }</li>
-                <li>Electron-Version: ${this.communicationService.getElectronEnvString()}</li>
-                <li>Cordova-Version: ${this.communicationService.getCordovaEnvString()}</li>
+                <li>MiracleList Electron: ${this.communicationService.getElectronEnvString()}</li>
+                <li>MiracleList Cordova: ${this.communicationService.getCordovaEnvString()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())
                   ._abbr +
                   " / Browser: " +

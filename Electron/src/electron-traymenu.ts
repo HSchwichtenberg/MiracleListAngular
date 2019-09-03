@@ -16,7 +16,7 @@ public static CreateMenu(win: Electron.BrowserWindow, env: any) {
       buttons: ['Ok'],
       message: 'Autor: Dr. Holger Schwichtenberg, www.IT-Visions.de\nDetails siehe Anwendungsmenü!\nSysteminformationen: ' + JSON.stringify(env, null, 4) + ''
      };
-     dialog.showMessageBox(options, function () { });
+     dialog.showMessageBoxSync(options);
     }
    },
    {

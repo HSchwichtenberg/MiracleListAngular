@@ -1,7 +1,7 @@
 {
     "name": "miracle-list-client",
-    "version": "0.6.6-Beta1",
-    "date": "09.10.2018",
+    "version": "0.6.7-Beta1",
+    "date": "03.09.2019",
     "license": "MIT",
     "angular-cli": {},
     "main": "electron-main.js",

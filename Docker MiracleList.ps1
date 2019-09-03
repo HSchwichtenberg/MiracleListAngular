@@ -22,10 +22,10 @@ explorer http://localhost:8111
 docker stop $Containername
 
 # Image erstellen
-docker commit $Containername $ImageName 
+docker commit $Containername $ImageName
 docker tag $ImageName $ImageNameLatest
 
 # Veröffentlichen
 docker login
-docker push $ImageName 
-docker push $ImageNameLatest 
+docker push $ImageName
+docker push $ImageNameLatest

@@ -1,29 +1,35 @@
-﻿"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const electron_1 = require("electron");
-const os = require('os');
-const path = require('path');
-const fs = require('fs');
-class MiracleListAppMenu {
-    static CreateMenu(win, env) {
-        const menuTemplate = [{
+"use strict";
+exports.__esModule = true;
+var electron_1 = require("electron");
+var os = require('os');
+var path = require('path');
+var fs = require('fs');
+/**
+ * Hilfsklasse, die Menübaum für Hauptmenü erstellt
+ */
+var MiracleListAppMenu = /** @class */ (function () {
+    function MiracleListAppMenu() {
+    }
+    // Menü erstellen
+    MiracleListAppMenu.CreateMenu = function (win, env) {
+        var menuTemplate = [{
                 label: 'App',
                 submenu: [{
                         label: 'Über diese Anwendung',
                         accelerator: 'CmdOrCtrl+I',
-                        click: () => {
+                        click: function () {
                             win.webContents.send('about', { env: env });
                         }
                     },
                     {
                         label: 'Systeminfo',
                         accelerator: 'CmdOrCtrl+S',
-                        click: () => {
-                            let options = {
+                        click: function () {
+                            var options = {
                                 title: "Systeminfo",
                                 type: 'info',
                                 buttons: ['OK'],
-                                message: JSON.stringify(env, null, 1),
+                                message: JSON.stringify(env, null, 1)
                             };
                             electron_1.dialog.showMessageBox(win, options);
                         }
@@ -31,15 +37,15 @@ class MiracleListAppMenu {
                     {
                         label: 'Website miraclelist.de',
                         accelerator: 'CmdOrCtrl+W',
-                        click: () => {
+                        click: function () {
                             electron_1.shell.openExternal('http://www.miraclelist.de');
                         }
                     },
                     {
                         label: 'Drucken',
                         accelerator: 'CmdOrCtrl+D',
-                        click: () => {
-                            const pdfPath = path.join(os.tmpdir(), 'print.pdf');
+                        click: function () {
+                            var pdfPath = path.join(os.tmpdir(), 'print.pdf');
                             win.webContents.printToPDF({}, function (error, data) {
                                 if (error)
                                     throw error;
@@ -54,19 +60,19 @@ class MiracleListAppMenu {
                     },
                     {
                         label: 'Fehler (zum Test)',
-                        click: () => {
+                        click: function () {
                             throw new Error('Dies ist nur ein Testfehler');
                         }
                     },
                     {
                         label: 'Abmelden',
-                        click: () => {
+                        click: function () {
                             win.webContents.send('logout', { msg: '' });
                         }
                     },
                     {
                         label: 'Beenden',
-                        click: () => {
+                        click: function () {
                             electron_1.app.quit();
                         }
                     }
@@ -96,15 +102,37 @@ class MiracleListAppMenu {
                         label: 'Einfügen',
                         accelerator: 'CmdOrCtrl+V',
                         role: 'paste'
-                    }, {
-                        label: 'Alles auswählen',
-                        accelerator: 'CmdOrCtrl+A',
-                        role: 'selectall'
-                    }]
-            },
+                    }
+                    // Problem mit electron 6.0.x
+                    // , {
+                    //  label: 'Alles auswählen',
+                    //  accelerator: 'CmdOrCtrl+A',
+                    //  role: 'selectall'
+                    // }
+                ]
+            } // Ende Edit Menü
+            ,
             {
                 label: 'View',
                 submenu: [
+                    // {
+                    // label: 'Reload',
+                    // accelerator: 'CmdOrCtrl+R',
+                    // click: function(item, focusedWindow) {
+                    //     if (focusedWindow) {
+                    //         // on reload, start fresh and close any old
+                    //         // open secondary windows
+                    //         if (focusedWindow.id === 1) {
+                    //             BrowserWindow.getAllWindows().forEach(function(win) {
+                    //                 if (win.id > 1) {
+                    //                     win.close()
+                    //                 }
+                    //             })
+                    //         }
+                    //         focusedWindow.reload()
+                    //     }
+                    // }
+                    // },
                     {
                         label: 'Zwischem Vollbildmodus und normalen Modus wechseln. ',
                         accelerator: (function () {
@@ -156,10 +184,10 @@ class MiracleListAppMenu {
                         }
                     },
                 ]
-            }
+            } // Ende View Menü
         ];
         return menuTemplate;
-    }
-}
+    };
+    return MiracleListAppMenu;
+}());
 exports.MiracleListAppMenu = MiracleListAppMenu;
-//# sourceMappingURL=electron-appmenu.js.map

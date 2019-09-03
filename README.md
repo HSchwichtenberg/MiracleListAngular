@@ -31,6 +31,7 @@
                 <li>0.6.4: Dateisystemexport in Cordova-App</li>
                 <li>0.6.5: Umstellung auf Angular 5.2.2</li>
                  <li>0.6.6: Anzeige Release Date</li>
+                 <li>0.6.7: Update Electron 6.0.7</li>
 </ul>
 
 --------------------------------------------------------
