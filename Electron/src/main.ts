@@ -1,6 +1,7 @@
+
+import * as settings from 'electron-settings';
 // Electron-Komponenten
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen, nativeImage } from "electron";
-import { settings } from "electron-settings";
 
 // NodeJS-Komponenten
 import * as username from "username";
@@ -21,6 +22,7 @@ const logfile: string = 'miraclelist_log.txt';
 let win: Electron.BrowserWindow;
 let tray: Electron.Tray;
 
+// called in ready()-event
 function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
@@ -29,10 +31,11 @@ function electronMain() {
  let anzahl = 0;
  if (settings != null)
  {
- erster = settings.get('miraclelist.ersteVerwendung');
+ erster = new Date(settings.get('miraclelist.ersteVerwendung').toString());
+
  if (!erster)  erster  = new Date();
- settings.set('miraclelist.ersteVerwendung', erster);
- anzahl = settings.get('miraclelist.anzahlVerwendungen');
+ settings.set('miraclelist.ersteVerwendung', erster.toString());
+ anzahl = settings.get('miraclelist.anzahlVerwendungen') as number;
  if (!anzahl)  anzahl  = 1;
  else anzahl++;
  settings.set('miraclelist.anzahlVerwendungen', anzahl);

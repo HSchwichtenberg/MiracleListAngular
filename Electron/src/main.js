@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
+var settings = require("electron-settings");
 // Electron-Komponenten
 var electron_1 = require("electron");
-var electron_settings_1 = require("electron-settings");
 // NodeJS-Komponenten
 var username = require("username");
 var fs = require("fs");
@@ -18,22 +18,23 @@ var logfile = 'miraclelist_log.txt';
 // Das Fenster- und das Tray-Objekt müssen global sein!
 var win;
 var tray;
+// called in ready()-event
 function electronMain() {
     writeLog("!!! Electron/Main:createWindow");
     // =================== Einstellungen auslesen und speichern
     var erster = new Date();
     var anzahl = 0;
-    if (electron_settings_1.settings != null) {
-        erster = electron_settings_1.settings.get('miraclelist.ersteVerwendung');
+    if (settings != null) {
+        erster = new Date(settings.get('miraclelist.ersteVerwendung').toString());
         if (!erster)
             erster = new Date();
-        electron_settings_1.settings.set('miraclelist.ersteVerwendung', erster);
-        anzahl = electron_settings_1.settings.get('miraclelist.anzahlVerwendungen');
+        settings.set('miraclelist.ersteVerwendung', erster.toString());
+        anzahl = settings.get('miraclelist.anzahlVerwendungen');
         if (!anzahl)
             anzahl = 1;
         else
             anzahl++;
-        electron_settings_1.settings.set('miraclelist.anzahlVerwendungen', anzahl);
+        settings.set('miraclelist.anzahlVerwendungen', anzahl);
     }
     else {
         console.log("!!!! Settings not available!");

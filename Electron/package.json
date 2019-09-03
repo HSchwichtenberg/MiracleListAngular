@@ -4,15 +4,17 @@
     "date": "03.09.2019",
     "main": "main.js",
     "dependencies": {
+        "electron-settings": "^3.2.0",
         "moment": "^2.24.0",
         "username": "^5.1.0"
     },
     "devDependencies": {
         "@types/node": "^12.7.3",
         "@types/username": "^3.0.0",
+        "@types/electron-settings": "^3.1.1",
         "electron": "6.0.7",
         "electron-builder": "^21.2.0",
-        "electron-settings": "^3.2.0",
+
         "electron-webpack": "2.7.4",
         "electron-webpack-ts": "^3.2.0",
         "electron-winstaller": "^4.0.0"
