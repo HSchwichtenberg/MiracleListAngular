@@ -2,7 +2,7 @@
 <img align="right" src="/src/assets/MiracleListLogo.jpg">
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
-            <div>Version: 0.6.6-Beta1 vom 09.10.2018</div>
+            <div>Version: 0.6.7-Beta1 vom 03.09.2019</div>
             <h5>Webadressen:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
@@ -80,7 +80,7 @@ Optional: Plug-In ergänzen: `cordova plugin add cordova-plugin-device`
 
 # Angular-CLI
 
-Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.5.0 aktualisiert.
+Dieses Projekt wurde mit [angular-cli](https://github.com/angular/angular-cli) erzeugt mit Version 1.0.0-beta.24. Es wurde später auf Angular-CLi v1.5.x aktualisiert.
 
 Es folgt die Original-Readme-Datei von Angular-CLI
 
