@@ -17,10 +17,10 @@ export class CommunicationService {
   console.log("==== CommunicationService");
 
   if (isDevMode)
-{
- this.username = "test";
- this.token = "test";
-}
+  {
+   this.username = "test";
+   this.token = "test";
+  }
  }
 
  // Client-Navigation per Router
@@ -57,12 +57,12 @@ export class CommunicationService {
  isElectron() : boolean
  {
   try{
-   return  electron !== undefined;
- }
- catch(ex)
- {
- return false;
- }
+     return  electron !== undefined;
+     }
+     catch(ex)
+     {
+     return false;
+     }
  }
 
 getElectronEnvString(): string {

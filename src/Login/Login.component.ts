@@ -45,7 +45,7 @@ if (!this.name || !this.password)
 }
 
 this.errorMsg = "";
-var li = new LoginInfo();
+let li = new LoginInfo();
 li.clientID = this.communicationService.clientID;
 li.username = this.name;
 li.password = this.password;
