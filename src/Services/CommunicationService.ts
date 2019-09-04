@@ -11,8 +11,7 @@ export class CommunicationService {
   public username: string = "test";
   public token: string = "test";
   public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
- 
-  
+
  constructor(private router: Router, private zone: NgZone )
  {
   console.log("==== CommunicationService");
@@ -23,8 +22,6 @@ export class CommunicationService {
  this.token = "test";
 }
  }
-
-
 
  // Client-Navigation per Router
  public navigate(url: string) {
@@ -44,7 +41,6 @@ export class CommunicationService {
  EmitTaskDetailCloseEvent(t: Task) {
   this.TaskDetailCloseEvent.emit(t);
  }
-
 
  GetPackage() : any
  {
@@ -85,8 +81,8 @@ getElectronEnvString(): string {
    if (!this.isCordova()) return "n/a";
    let cordova = window.cordova;
    let device = window.device;
-   return (cordova.version + " auf " + device.platform + " " 
-   + device.version + " (" + device.manufacturer + " " 
+   return (cordova.version + " auf " + device.platform + " "
+   + device.version + " (" + device.manufacturer + " "
    + device.model + ")");
  }
 }

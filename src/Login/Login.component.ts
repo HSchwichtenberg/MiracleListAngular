@@ -34,8 +34,9 @@ export class LoginComponent implements OnInit {
  public showDownloads: boolean;
 
  login() {
-  console.log("LOGIN", this.name, this.password);
 
+  // Kennwort nicht loggen!!!
+  console.log("LOGIN", this.name);
 
 if (!this.name || !this.password)
  {
