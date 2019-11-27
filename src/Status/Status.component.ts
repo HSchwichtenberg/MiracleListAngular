@@ -24,7 +24,7 @@ export class StatusComponent implements OnInit {
   this.serverStatus = "Verbindungsaufbau zu " + this.baseUrl + "...";
   this.calcSizeInfo(window.screen.width);
   this.getServerStatus();
-console.log("Released", AppLoadService.Settings, AppLoadService.Settings["ReleaseDate"]);
+console.log("ReleaseDate=", AppLoadService.Settings["ReleaseDate"]);
   if (AppLoadService.Settings["ReleaseDate"])
   {
   this.released = " / Released: "+ AppLoadService.Settings["ReleaseDate"];
@@ -53,13 +53,13 @@ console.log("Released", AppLoadService.Settings, AppLoadService.Settings["Releas
    this.miracleListProxyV2.about().subscribe(x=>
     {
      this.serverAvailable = true;
-     this.serverStatusDetails = this.baseUrl + ": " + x;
+     this.serverStatusDetails = this.baseUrl + " [" + this.communicationService.clientID + "]: " + x;
      this.serverStatus =  "Server OK!";
-    }, x=> { this.serverStatus = "Server " + this.baseUrl + ": NICHT verfügbar!"; this.serverStatusDetails = this.baseUrl + ": " + x;
+    }, x=> { this.serverStatus = "Server " + this.baseUrl + ": NICHT verfügbar!"; this.serverStatusDetails =  this.baseUrl + " [" + this.communicationService.clientID + "]: " + x;
     this.serverAvailable = false;
     intervall = 5000; });
 
-console.log("Serverstatus #" + this.serverStatusCount +":", this.baseUrl + ": " + this.serverStatusDetails);
+console.log("Serverstatus #" + this.serverStatusCount +":", this.baseUrl + "/" + this.communicationService.clientID + ": " + this.serverStatusDetails);
      // alle x Sekunden aktualisieren
  // setTimeout(() => {
  //  this.getServerStatus();

@@ -18,6 +18,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
+import { Router } from '@angular/router';
 declare var Notification: any;
 
 @Component({
@@ -32,8 +33,9 @@ export class StartComponent implements OnInit {
     public modal: Modal,
     private titleService: Title,
     private zone: NgZone,
-    private title: Title
-    ,private translate: TranslateService
+    private title: Title,
+    private router: Router,
+    private translate: TranslateService
   ) {
     console.log(
       "StartComponent:ctor",
@@ -66,9 +68,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
  console.log(res);
  //=> 'hello world'
 });
-
   }
-
 
   ngOnInit() {
     console.log("======= StartComponent:ngOnInit");
@@ -226,7 +226,8 @@ ReadExportFile()
     if (!this.communicationService.isElectron()) {
       // geht so nicht in Electron
       console.log("GOTO mainpage");
-      window.location.reload();
+      // window.location.reload();
+      this.router.navigateByUrl('/');
     } else {
       // TODO: fehlt noch siehe https://github.com/electron/electron/blob/master/docs/api/app.md
     }

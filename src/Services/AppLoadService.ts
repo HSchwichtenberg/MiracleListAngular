@@ -7,7 +7,8 @@ import { environment } from '../environments/environment';
 export class AppLoadService {
 
  public static Settings :any;
-  constructor(private httpClient: HttpClient) { }
+
+ constructor(private httpClient: HttpClient) { }
 
   initializeApp(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -22,14 +23,14 @@ export class AppLoadService {
         });
   }
 
-  getSettings(): Promise<any> {
+  async getSettings(): Promise<any> {
    const filename = 'assets/appsettings.json';
 
     console.log(`getSettings: loading ${filename}...`);
 
    // AppLoadService.URL =environment[name];
    // console.log(`GetConfig: ${name} aus Environment=${AppLoadService.URL}`);
-    const promise = this.httpClient.get('assets/appsettings.json')
+    const promise = await this.httpClient.get('assets/appsettings.json')
       .toPromise()
       .then(settings => {
        console.log(`getSettings: loaded`, settings);

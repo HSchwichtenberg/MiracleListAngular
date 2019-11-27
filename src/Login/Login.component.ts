@@ -1,22 +1,25 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { CommunicationService } from '../Services/CommunicationService'
+import { Component, OnInit, NgZone, Inject, InjectionToken, Optional } from '@angular/core';
+import { CommunicationService } from '../Services/CommunicationService';
 import { Router } from '@angular/router';
 import { MiracleListProxy, LoginInfo } from '../Services/MiracleListProxy';
 import { Title }  from '@angular/platform-browser';
 
 import { isDevMode } from '@angular/core';
+export const CLIENT_ID = new InjectionToken<string>('CLIENT_ID');
 
 @Component({
  selector: 'Login',
  templateUrl: './Login.component.html'
 })
-
 export class LoginComponent implements OnInit {
 
- constructor(private miracleListProxy : MiracleListProxy, public communicationService: CommunicationService, private titleService: Title, private zone: NgZone)
- {
+ public clientID: string
 
-  //  console.log("======= LoginComponent:constructor");
+ constructor(private miracleListProxy : MiracleListProxy, public communicationService: CommunicationService, private titleService: Title, private zone: NgZone, @Optional() @Inject(CLIENT_ID) cLIENT_ID?: string)
+ {
+this.clientID = cLIENT_ID;
+this.communicationService.clientID = cLIENT_ID;
+ console.log("======= LoginComponent:constructor. ClientID=" + cLIENT_ID);
 }
 
   ngOnInit(){

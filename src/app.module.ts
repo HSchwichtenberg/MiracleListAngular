@@ -32,7 +32,7 @@ import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { TaskEditComponent } from './TaskEdit/TaskEdit.component'
 import { TaskViewComponent } from './TaskView/TaskView.component'
 import { SubTaskListComponent } from './SubTaskList/SubTaskList.component'
-import { LoginComponent } from './Login/Login.component'
+import { LoginComponent, CLIENT_ID } from './Login/Login.component'
 import { StartComponent } from './Start/Start.component'
 
 // Routing
@@ -95,15 +95,15 @@ return new CommunicationService(router, zone);
 }
 
 // Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
-export function init_app(appLoadService: AppLoadService) {
- return () => appLoadService.initializeApp();
-}
+// export function init_app(appLoadService: AppLoadService) {
+//  return () => appLoadService.initializeApp();
+// }
 // Verwendet für Laden der Konfigurationsdatei beim Start der Anwendung
 export function get_settings(appLoadService: AppLoadService) {
  return (async () =>  await appLoadService.getSettings() );
 }
 // holte URL aus statischem Mitglieder, dass von AppLoadService gesetzt wurde
-export  function getURL()
+export function getURL()
 {
  console.log("getURL...");
  if (AppLoadService.Settings)
@@ -111,6 +111,20 @@ export  function getURL()
  const url : string = AppLoadService.Settings["API_BASE_URL"];
  console.log("getURL: " + url);
  return url;
+ }
+ else
+ { return ""; }
+}
+
+export function getClientID()
+{
+ console.log("getClientID...", AppLoadService.Settings);
+
+ if (AppLoadService.Settings)
+ {
+ const id : string = AppLoadService.Settings["ClientID"];
+ console.log("getClientID: " + id);
+ return id;
  }
  else
  { return ""; }
@@ -137,10 +151,13 @@ export  function getURL()
   { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true },// für das Laden der Konfigurationsdatei
   // { provide: API_BASE_URL, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
   // { provide: API_BASE_URLv2, useValue: environment.API_BASE_URL}, // Wert für Token aus Einstellung holen
-
+  { provide: CLIENT_ID, useFactory: getClientID}, // Wert für Token aus Konfiguration holen
   { provide: API_BASE_URL, useFactory: getURL}, // Wert für Token aus Konfiguration holen
-  { provide: API_BASE_URLv2, useFactory:  getURL}, // Wert für Token aus Konfiguration holen
-   MiracleListProxy, MiracleListProxyV2, HttpClientModule,
+  { provide: API_BASE_URLv2, useFactory: getURL}, // Wert für Token aus Konfiguration holen
+
+   MiracleListProxy,
+   MiracleListProxyV2,
+   HttpClientModule,
    { provide: LOCALE_ID, useValue: 'de-DE' },
    { // HttpInterceptor für HttpClient. wird ab 0.6.5 für Angular 5 benötigt, da MiracleListProxy HttpClient-Dienst nun verwendet
       provide: HTTP_INTERCEPTORS,

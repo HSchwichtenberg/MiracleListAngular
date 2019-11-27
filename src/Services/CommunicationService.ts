@@ -1,5 +1,5 @@
 import { Task } from './MiracleListProxy';
-import { Injectable, EventEmitter, NgZone, isDevMode, Injector } from '@angular/core';
+import { Injectable, EventEmitter, NgZone, isDevMode, Injector, InjectionToken, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment.prod';
@@ -8,18 +8,20 @@ import { environment } from 'environments/environment.prod';
 export class CommunicationService {
 
   // Daten der Benutzeranmeldung
-  public username: string = "test";
-  public token: string = "test";
-  public clientID: string = "11111111-1111-1111-1111-111111111111"; //TODO:"Ihre erhaltene ClientID, siehe http://miraclelistbackend.azurewebsites.net/";
+  public username: string = "";
+  public token: string = "";
+  public clientID: string = ""; // wird gesetzt von LoginComponent!
 
- constructor(private router: Router, private zone: NgZone )
+ constructor(private router: Router, private zone: NgZone)
  {
-  console.log("==== CommunicationService");
+  console.log("==== CommunicationService ", router, zone);
 
+  console.log("ClientID: ", this.clientID);
   if (isDevMode)
   {
-   this.username = "test";
-   this.token = "test";
+   console.log("-----> DEVMODE!");
+   // this.username = "test";
+   // this.token = "test";
   }
  }
 
