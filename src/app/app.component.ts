@@ -233,6 +233,7 @@ setlistHeigth()
     // Dialog-Ergebnis (Promise) auswerten
     dialog.result.then((d) => d.result)
       .then((ok) => {
+       console.log("Task löschen...", t.taskID);
         this.miracleListProxyV2.deleteTask(t.taskID).subscribe(
           x => {
             console.log("Task GELÖSCHT", t.taskID);
@@ -260,8 +261,8 @@ setlistHeigth()
 
     // Dialog-Ergebnis (Promise) auswerten
     dialog.result.then((d) => d.result)
-      .then((d) => d.result)
-      .then((ok) => {
+       .then((ok) => {
+       console.log("Kategorie löschen...",id);
         this.miracleListProxyV2.deleteCategory( id).subscribe(
           x => {
             console.log("Kategorie GELÖSCHT", id)
@@ -274,7 +275,7 @@ setlistHeigth()
             this.communicationService.navigate(`/app`); // Ansicht aufrufen
           });
       },
-      (cancel) => { // nichts tun });
+      (cancel) => {  console.log("Kategorie löschen CANCEL",id);
       });
   }
 
