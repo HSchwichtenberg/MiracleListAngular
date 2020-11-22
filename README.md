@@ -11,8 +11,12 @@
                 <li>Web-Frontend C#/Blazor WebAssembl: <a href="http://miraclelist-bw.azurewebsites.net/">http://miraclelist-bw.azurewebsites.net/</a></li>
                 <li>Windows-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar</a></li>
                 <li>MacOS-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar</a></li>
-                <li>Linux-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar</a></li>
-                <li>Quellcode TypeScript/Angular Frontend: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>
+                <li>Linux-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar</a></li></ul>
+   <h5>Quellcode:</h5>
+            <ul>
+                <li>Backend .NET Core: <a href="https://github.com/HSchwichtenberg/MiracleListBackend">https://github.com/HSchwichtenberg/MiracleListBackend</a></li>
+                <li>Frontend TypeScript/Angular: <a href="https://github.com/HSchwichtenberg/MiracleListClient">https://github.com/HSchwichtenberg/MiracleListClient</a></li>
+                <li>Frontend C#/Blazor: <a href="http://leanpub.com/blazor50">http://leanpub.com/blazor50 (in den Downloads zu diesem Buch)</a></li>
             </ul>
             <h5>Eingesetzte Techniken:</h5>
             <ul>
