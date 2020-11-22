@@ -3,7 +3,7 @@
  <h4>Dies ist eine Beispielanwendung für eine Cross-Platform-Anwendung auf Basis einer Single-Page-Webapplication (SPA). MiracleList dient der Aufgabenverwaltung.</h4>
             <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a></div>
             <div>Version: 0.6.7-Beta1 vom 03.09.2019</div>
-            <h5>Webadressen:</h5>
+            <h5>Live-Systeme in der Cloud:</h5>
             <ul>
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
                 <li>Web-Frontend TypeScript/Angular: <a href="http://www.miraclelist.net">http://www.miraclelist.net</a></li>
