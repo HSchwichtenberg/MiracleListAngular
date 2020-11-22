@@ -8,7 +8,7 @@
                 <li>Backend: <a href="https://miraclelistbackend.azurewebsites.net">https://miraclelistbackend.azurewebsites.net</a></li>
                 <li>Web-Frontend TypeScript/Angular: <a href="http://www.miraclelist.net">http://www.miraclelist.net</a></li>
                 <li>Web-Frontend C#/Blazor Server: <a href="http://miraclelist-bs.azurewebsites.net">http://miraclelist-bs.azurewebsites.net</a></li>
-                <li>Web-Frontend C#/Blazor WebAssembl: <a href="http://miraclelist-bw.azurewebsites.net">http://miraclelist-bw.azurewebsites.net</a></li>
+                <li>Web-Frontend C#/Blazor WebAssembly: <a href="http://miraclelist-bw.azurewebsites.net">http://miraclelist-bw.azurewebsites.net</a></li>
                 <li>Windows-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-win32-x64.rar</a></li>
                 <li>MacOS-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-darwin-x64.rar</a></li>
                 <li>Linux-Client TypeScript/Angular/Electron: <a href="https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar">https://Miraclelist.azurewebsites.net/download/MiracleListElectron-linux-x64.rar</a></li></ul>
