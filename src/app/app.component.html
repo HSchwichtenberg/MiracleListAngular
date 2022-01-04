@@ -33,7 +33,8 @@
                 <input type="checkbox" [(ngModel)]="t.done" (change)="changeDone(t)" name="done{{t.taskID}}" id="done{{t.taskID}}" class="form-control MLcheckbox"> <b>{{ t.title }} </b>
                 <span class="badge badge-important" title="Wichtigkeit: {{t.importance | importance}}">{{t.importance | importance}}</span><br>
                 <div>{{getUndoneSubTaskSet(t).length}} due Subtasks</div>
-                <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}">due {{t.due | amTimeAgo}}</div>
+                <div *ngIf="t.due" [ngClass]="{'text-danger': t.due<today, 'text-warning': t.due==today, 'text-success':t.due>today}" 
+                 title="{{t.due}}">due {{t.due | amTimeAgo}}</div>
             </li>
         </ol>
     </div>
