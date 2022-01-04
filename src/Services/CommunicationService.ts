@@ -1,13 +1,28 @@
 import { Task } from './MiracleListProxy';
-import { Injectable, EventEmitter, NgZone } from '@angular/core';
+import { Injectable, EventEmitter, NgZone, isDevMode, Injector, InjectionToken, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment.prod';
 
 @Injectable()
 export class CommunicationService {
 
- constructor(private router: Router, private zone: NgZone, )
+  // Daten der Benutzeranmeldung
+  public username: string = "";
+  public token: string = "";
+  public clientID: string = ""; // wird gesetzt von LoginComponent!
+
+ constructor(private router: Router, private zone: NgZone)
  {
-  console.log("==== CommunicationService");
+  console.log("==== CommunicationService ", router, zone);
+
+  console.log("ClientID: ", this.clientID);
+  if (isDevMode)
+  {
+   console.log("-----> DEVMODE!");
+   // this.username = "test";
+   // this.token = "test";
+  }
  }
 
  // Client-Navigation per Router
@@ -29,10 +44,6 @@ export class CommunicationService {
   this.TaskDetailCloseEvent.emit(t);
  }
 
- // Daten der Benutzeranmeldung
- public username: string = "test";
- public token: string = "test";
-
  GetPackage() : any
  {
   // Versionsnummer auslesen
@@ -48,12 +59,12 @@ export class CommunicationService {
  isElectron() : boolean
  {
   try{
-   return  electron !== undefined;
- }
- catch(ex)
- {
- return false;
- }
+     return  electron !== undefined;
+     }
+     catch(ex)
+     {
+     return false;
+     }
  }
 
 getElectronEnvString(): string {
@@ -72,8 +83,8 @@ getElectronEnvString(): string {
    if (!this.isCordova()) return "n/a";
    let cordova = window.cordova;
    let device = window.device;
-   return (cordova.version + " auf " + device.platform + " " 
-   + device.version + " (" + device.manufacturer + " " 
+   return (cordova.version + " auf " + device.platform + " "
+   + device.version + " (" + device.manufacturer + " "
    + device.model + ")");
  }
 }

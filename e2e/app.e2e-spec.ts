@@ -1,4 +1,4 @@
-import { AppModule } from '../src/app.module';
+//import { AppModule } from '../src/app.module';
 import { MiracleListClientPage } from './app.po';
 import { browser, element, by } from 'protractor';
 

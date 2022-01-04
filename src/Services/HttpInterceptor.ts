@@ -8,6 +8,7 @@ import { CommunicationService } from './CommunicationService';
 import { Injectable } from "@angular/core";
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Rx";
+import { createWiresService } from 'selenium-webdriver/firefox';
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -43,6 +44,8 @@ export class HttpInterceptor extends Http {
 
  // keine Funktion aktuell. Könnte aber die Url verändern :-)
  private updateUrl(req: string) {
+ // console.log("HTTP from ", req);
+  // req = req.replace("miraclelistbackend",this.communicationService.GetURL())
   return req;
  }
 

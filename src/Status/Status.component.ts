@@ -1,9 +1,10 @@
 
-import { MiracleListProxyV2 } from './../Services/MiracleListProxyV2';
+import { MiracleListProxyV2, API_BASE_URL } from './../Services/MiracleListProxyV2';
 import { MiracleListProxy } from './../Services/MiracleListProxy';
 import { CommunicationService } from './../Services/CommunicationService';
-import { Component, OnInit, ViewContainerRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, HostListener, Inject } from '@angular/core';
 import * as moment from "moment";
+import { AppLoadService } from 'Services/AppLoadService';
 
 @Component({
 	selector: 'Status',
@@ -17,11 +18,18 @@ export class StatusComponent implements OnInit {
  serverStatus: string = "...lädt...";
  currentTime: string;
  serverStatusCount: number = 0;
+ public released = "";
 
- constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService) {
-
+ constructor(private miracleListProxy: MiracleListProxy, private miracleListProxyV2: MiracleListProxyV2, public communicationService: CommunicationService,  @Inject(API_BASE_URL) public baseUrl) {
+  this.serverStatus = "Verbindungsaufbau zu " + this.baseUrl + "...";
   this.calcSizeInfo(window.screen.width);
   this.getServerStatus();
+console.log("ReleaseDate=", AppLoadService.Settings["ReleaseDate"]);
+  if (AppLoadService.Settings["ReleaseDate"])
+  {
+  this.released = " / Released: "+ AppLoadService.Settings["ReleaseDate"];
+  }
+
  }
  ngOnInit() { }
 
@@ -45,13 +53,13 @@ export class StatusComponent implements OnInit {
    this.miracleListProxyV2.about().subscribe(x=>
     {
      this.serverAvailable = true;
-     this.serverStatusDetails = x;
+     this.serverStatusDetails = this.baseUrl + " [" + this.communicationService.clientID + "]: " + x;
      this.serverStatus =  "Server OK!";
-    }, x=> { this.serverStatus = "Server NICHT verfügbar!"; this.serverStatusDetails = x;
+    }, x=> { this.serverStatus = "Server " + this.baseUrl + ": NICHT verfügbar!"; this.serverStatusDetails =  this.baseUrl + " [" + this.communicationService.clientID + "]: " + x;
     this.serverAvailable = false;
     intervall = 5000; });
 
-console.log("Serverstatus #" + this.serverStatusCount +":",this.serverStatusDetails);
+console.log("Serverstatus #" + this.serverStatusCount +":", this.baseUrl + "/" + this.communicationService.clientID + ": " + this.serverStatusDetails);
      // alle x Sekunden aktualisieren
  // setTimeout(() => {
  //  this.getServerStatus();

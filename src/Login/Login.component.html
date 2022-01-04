@@ -5,7 +5,7 @@
     <div class="panel-body">
 
         <div>Dies ist eine Beispielanwendung für eine Single-Page-Webapplication (SPA) und hybride Cross-Platform-App zur Aufgabenverwaltung.</div>
-        <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a>, 2017</div>
+        <div>Autor: Dr. Holger Schwichtenberg, <a href="http://www.IT-Visions.de">www.IT-Visions.de</a>, 2017-2019</div>
         <div>Zur Benutzeranmeldung geben Sie die Kombination aus Ihrer E-Mail-Adresse und einem beliebigen Kennwort ein. Wenn es für diese E-Mail-Adresse noch kein Benutzerkonto gibt, wird automatisch ein neues Benutzerkonto angelegt mit einigen Beispielaufgaben.
 
         </div>
@@ -22,13 +22,14 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     <label for="password">Kennwort</label>
-                    <input name="password" [(ngModel)]="password" id="password" placeholder="Ihr Kennwort" required type="password" class="form-control">
+                    <input name="password" [(ngModel)]="password" id="password" placeholder="Ihr Kennwort" required type="password" value="" class="form-control">
 
                 </div>
             </div>
 
-            <span class="text-danger">{{errorMsg}}</span>
+
             <button (click)="login()" [disabled]="!loginForm.form.valid" class="btn btn-primary" type="submit" id="Anmelden" name="Anmelden">Anmelden</button>
+            <span id="errorMsg" class="text-danger">{{errorMsg}}</span>
         </form>
 
 

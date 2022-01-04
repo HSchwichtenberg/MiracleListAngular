@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com  https://miraclelistbackend.azurewebsites.net ws://localhost:* 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com  https://miraclelistbackend.azurewebsites.net https://miraclelistbackend-staging.azurewebsites.net https://miraclelistbackend-produktion.azurewebsites.net https://web-mlbackend-staging.azurewebsites.net/ https://web-mlbackend-production-prodstaging.azurewebsites.net/ https://web-mlbackend-production.azurewebsites.net/ http://localhost:* ws://localhost:* 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <title>MiracleListClient</title>
     <base href="/">
     <style>
+        background: rgba(255, 221, 134, 1) !important;
         .angular2-contextmenu li {
             display: list-item;
         }
@@ -33,6 +34,7 @@
             <img style="display: block; margin-left: auto;margin-right: auto" src="./assets/MiracleListLogo.jpg">
 
         </start>
+    </div>
 </body>
 
 <script type="text/javascript" src="cordova.js" onload="javascript:window.isCordovaApp = true;"></script>

@@ -1,6 +1,7 @@
+
+import * as settings from 'electron-settings';
 // Electron-Komponenten
 import { app, BrowserWindow, Menu, dialog, ipcMain, Tray, screen, nativeImage } from "electron";
-import { settings } from "electron-settings";
 
 // NodeJS-Komponenten
 import * as username from "username";
@@ -21,24 +22,34 @@ const logfile: string = 'miraclelist_log.txt';
 let win: Electron.BrowserWindow;
 let tray: Electron.Tray;
 
+// called in ready()-event
 function electronMain() {
  writeLog("!!! Electron/Main:createWindow");
 
  // =================== Einstellungen auslesen und speichern
+ let erster = new Date();
+ let anzahl = 0;
+ if (settings != null)
+ {
+ erster = new Date(settings.get('miraclelist.ersteVerwendung').toString());
 
- let erster = settings.get('miraclelist.ersteVerwendung');
  if (!erster)  erster  = new Date();
- settings.set('miraclelist.ersteVerwendung', erster);
- let anzahl = settings.get('miraclelist.anzahlVerwendungen');
+ settings.set('miraclelist.ersteVerwendung', erster.toString());
+ anzahl = settings.get('miraclelist.anzahlVerwendungen') as number;
  if (!anzahl)  anzahl  = 1;
  else anzahl++;
  settings.set('miraclelist.anzahlVerwendungen', anzahl);
-
+ }
+ else
+ {
+  console.log("!!!! Settings not available!");
+ }
  // =================== Systeminformationen auslesen und in dynamischem Objekt speichern
  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
  const env = {
   Zeit: new Date(),
   OS: process.platform,
+  OSVersion: process.getSystemVersion(),
   Sprache: app.getLocale(),
   Speicher: (process.getSystemMemoryInfo().total/1024).toFixed() + "MB",
   AppMetrics: app.getAppMetrics(), // früher: getAppMemoryInfo
@@ -89,8 +100,9 @@ function electronMain() {
     message: 'This process has crashed.',
     buttons: ['Reload', 'Close']
   }
-  dialog.showMessageBox(options, function (index) {
-    if (index === 0) win.reload()
+dialog.showMessageBox(win, options).then(
+  function (index) {
+    if (index.response === 0) win.reload()
     else win.close()
   })
 });
@@ -106,7 +118,7 @@ function electronMain() {
  }));
 
  // =================== Anwendungsmenü erstellen
- writeLog("Electron/Main:Anwendungsmenü erstellen...");
+ writeLog("Electron/Main:Anwendungsmen erstellen...");
  let menuTemplate = MiracleListAppMenu.CreateMenu(win, env);
  const menu = Menu.buildFromTemplate(menuTemplate);
  Menu.setApplicationMenu(menu);
@@ -125,7 +137,7 @@ function electronMain() {
 
   // =================== Reaktion auf Events vom Renderer
   writeLog("Electron/Main:Event Handler erstellen...");
-  ipcMain.on('export', (event: string, arg: any) => {
+  ipcMain.on('export', (event: Electron.IpcMainEvent, arg: any) => {
    console.log("!!!export-event", event, arg);
    writeLog("export-event!");
    let file = path.join(app.getPath("documents"), 'miraclelist_export.json');
@@ -207,7 +219,7 @@ process.on('uncaughtException',
    detail: 'Soll die Anwendung fortgesetzt werden?'
   };
   let w = BrowserWindow.getFocusedWindow();
-  let e = dialog.showMessageBox(w, options);
+  let e = dialog.showMessageBoxSync(w, options);
   console.log(e);
   if (e===1) { app.exit(); //process.crash();
   }
@@ -215,7 +227,8 @@ process.on('uncaughtException',
  )
 
 function writeLog(logtext: string, obj?: any) {
- console.log(logtext, obj);
+ if (obj) console.log(logtext, obj);
+ else console.log(logtext);
  if (!logfile) return;
  let logtext2 = moment().format("DD.MM.YYYY HH:mm:ss") + ": " + logtext + "\r\n";
  if (obj) logtext += JSON.stringify(obj, null, 1);

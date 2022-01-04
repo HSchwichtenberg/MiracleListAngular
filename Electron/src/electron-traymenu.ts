@@ -14,9 +14,9 @@ public static CreateMenu(win: Electron.BrowserWindow, env: any) {
       type: 'info',
       title: 'Cross-Plattform-Desktop-Variante der Beispielanwendung MiracleList',
       buttons: ['Ok'],
-      message: '(C) Dr. Holger Schwichtenberg, www.IT-Visions.de\nDetails siehe Anwendungsmenü!\nSysteminformationen: ' + JSON.stringify(env, null, 4) + ''
+      message: 'Autor: Dr. Holger Schwichtenberg, www.IT-Visions.de\nDetails siehe Anwendungsmenü!\nSysteminformationen: ' + JSON.stringify(env, null, 4) + ''
      };
-     dialog.showMessageBox(options, function () { });
+     dialog.showMessageBoxSync(options);
     }
    },
    {

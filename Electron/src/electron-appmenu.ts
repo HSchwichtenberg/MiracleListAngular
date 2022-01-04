@@ -97,11 +97,14 @@ export class MiracleListAppMenu {
      label: 'Einfügen',
      accelerator: 'CmdOrCtrl+V',
      role: 'paste'
-    }, {
-     label: 'Alles auswählen',
-     accelerator: 'CmdOrCtrl+A',
-     role: 'selectall'
-    }]
+    }
+    // Problem mit electron 6.0.x
+    // , {
+    //  label: 'Alles auswählen',
+    //  accelerator: 'CmdOrCtrl+A',
+    //  role: 'selectall'
+    // }
+   ]
    } // Ende Edit Menü
    ,
    {

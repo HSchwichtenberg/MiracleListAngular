@@ -18,6 +18,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 // Importe für Electron
 // sind hier nicht, sondern in typings.d.ts denn: import { remote, ipcRenderer }  from "electron"; geht nicht: FEHLER: fs.existsSync is not a function vgl. http://stackoverflow.com/questions/41785295/fs-module-fails-when-integrating-electron-into-angular-project
+import { Router } from '@angular/router';
 declare var Notification: any;
 
 @Component({
@@ -32,8 +33,9 @@ export class StartComponent implements OnInit {
     public modal: Modal,
     private titleService: Title,
     private zone: NgZone,
-    private title: Title
-    ,private translate: TranslateService
+    private title: Title,
+    private router: Router,
+    private translate: TranslateService
   ) {
     console.log(
       "StartComponent:ctor",
@@ -66,9 +68,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
  console.log(res);
  //=> 'hello world'
 });
-
   }
-
 
   ngOnInit() {
     console.log("======= StartComponent:ngOnInit");
@@ -99,7 +99,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
       console.log("!!!! Registriere mehrere electron-Event-Handler...");
       electron.ipcRenderer.on("about", (event: string, data: any) => {
         this.zone.run(() => {
-          // Ohne zone.run() geht Angular-Change-Tracking nicht mehr! siehe https://github.com/angular/zone.js/issues/537
+          // Ohne zone.run() geht Angular-Change-Tracking nicht mehr korrekt! siehe https://github.com/angular/zone.js/issues/537
           console.log("!!! Nachricht von MAIN-Prozess geht ein", event, data);
           this.about();
         });
@@ -118,7 +118,7 @@ translate.get('HELLO', {value: 'world'}).subscribe((res: string) => {
       });
     }
   }
-
+  // ============= Electron-IPC-Events senden
   async export() {
     if (!(this.isElectron || this.isCordovaApp)) return;
     // Daten für den Export vom Server einlesen
@@ -256,7 +256,8 @@ ReadExportFile()
     if (!this.communicationService.isElectron()) {
       // geht so nicht in Electron
       console.log("GOTO mainpage");
-      window.location.reload();
+      // window.location.reload();
+      this.router.navigateByUrl('/');
     } else {
       // TODO: fehlt noch siehe https://github.com/electron/electron/blob/master/docs/api/app.md
     }
@@ -323,8 +324,11 @@ ReadExportFile()
                 <li>0.6.1: Verbesserte Navigation auf kleinen Displays</li>
                 <li>0.6.2: Umstellung auf API v2 mit HttpInjector</li>
                 <li>0.6.3: Ständige Aktualisierung des Server-Status, zusätzliche Menüpunkt in Electron-App</li>
-                <li>0.6.4: Dateisystemexport in Cordova-App</li>
-                  </ul>
+
+                  <li>0.6.4: Dateisystemexport in Cordova-App</li>
+                  <li>0.6.5: Umstellung auf Angular 5.2.2</li>
+                   <li>0.6.6: Anzeige Release Date</li>
+                   <li>0.6.7: Umstellung auf  Electron 6.0.7</li></ul>
             <h5>Systeminfo:</h5>
             <ul>
                 <li>Angemelderter Benutzer: ${
@@ -339,8 +343,8 @@ ReadExportFile()
                      <li>Bildschirmauflösung: ${window.innerWidth}x${
           window.innerHeight
         }</li>
-                <li>Electron-Version: ${this.communicationService.getElectronEnvString()}</li>
-                <li>Cordova-Version: ${this.communicationService.getCordovaEnvString()}</li>
+                <li>MiracleList Electron: ${this.communicationService.getElectronEnvString()}</li>
+                <li>MiracleList Cordova: ${this.communicationService.getCordovaEnvString()}</li>
                 <li>Spracheinstellungen: Anwendung: ${(<any>moment().localeData())
                   ._abbr +
                   " / Browser: " +
