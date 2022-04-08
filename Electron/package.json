@@ -5,7 +5,7 @@
     "main": "main.js",
     "dependencies": {
         "electron-settings": "^3.2.0",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "username": "^5.1.0"
     },
     "devDependencies": {
