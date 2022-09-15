@@ -47,7 +47,7 @@
         "@ngx-translate/core": "^9.1.1",
         "angular-date-value-accessor": "0.0.1",
         "angular2-moment": "^1.1.0",
-        "bootstrap": "^3.3.7",
+        "bootstrap": "^3.4.1",
         "bootstrap-timepicker": "^0.5.2",
         "cldr-data": "^30.0.4",
         "core-js": "^2.4.1",
