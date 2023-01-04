@@ -15,7 +15,7 @@
         "electron": "6.0.7",
         "electron-builder": "^21.2.0",
 
-        "electron-webpack": "2.7.4",
+        "electron-webpack": "2.8.2",
         "electron-webpack-ts": "^3.2.0",
         "electron-winstaller": "^4.0.0"
     },
